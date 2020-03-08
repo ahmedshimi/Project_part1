@@ -1,5 +1,8 @@
 package drawit;
 
+
+//deal with illegal arguments contractually.
+
 public class PointArrays extends Object{
 
 	/**

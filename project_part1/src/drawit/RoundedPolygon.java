@@ -1,5 +1,7 @@
 package drawit;
 
+//deal with illegal arguments defensively.
+
 public class RoundedPolygon {
 
 	private String drawingCommands;
