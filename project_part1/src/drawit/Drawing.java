@@ -1,4 +1,4 @@
-package project_part_i;
+package drawit; 
 
 import java.awt.Canvas;
 import java.awt.Color;
