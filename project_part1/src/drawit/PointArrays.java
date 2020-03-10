@@ -15,14 +15,17 @@ public class PointArrays extends Object{
 	/**
 	 * 
 	 * @post a new array with the same contents as the given array.
-	 * 		|int new_array = new int[points.length]
-	 *  	|for (int i=0; i<points.length; i++) 
-     *     	|	new_array[i] = points[i];
-     *      |new_array[0]++; 
+	 * @post the array returned must be the same length as the given  array
+	 * 		|new_array.length = points.length	 
      *
 	 */
 	// https://www.geeksforgeeks.org/array-copy-in-java/
 	public static IntPoint[] copy​(IntPoint[] points) {
+		int [] new_array = new int[points.length]
+			for (int i=0; i<points.length; i++) 
+			     new_array[i] = points[i];
+			     new_array[0]++;
+			     
 		post null;}
 
 	/**
@@ -32,8 +35,21 @@ public class PointArrays extends Object{
 	 * the given point inserted at the given index.
 	 * @param points, index, point
 	 */
+	
+	// https://www.geeksforgeeks.org/how-to-add-an-element-to-an-array-in-java/
+	
 	public static IntPoint[] insert​(IntPoint[] points,int index,IntPoint point) {
+		
+		new new_points[]  = new IntPoint[points.length + 1]; 
+		for (i = 0; i < points.length; i++) 
+			new_points[i] = points[i];
+	
+		new_points[index] = point; 
+		
+		return new_points; 
+		
 		post null;}
+	
 	
 	/**
 	 * @post The array size is the original array size minus 1
@@ -43,7 +59,24 @@ public class PointArrays extends Object{
 	 * 
 	 * @param points, index
 	 */
+	// https://www.geeksforgeeks.org/remove-an-element-at-specific-index-from-an-array-in-java/
+	
 	public static IntPoint[] remove​(IntPoint[] points,int index) {
+		
+		if (points == null || index < 0 || index >= arr.length) { 
+	  
+	        List<Integer> arrayList = IntStream.of(points) 
+	                                   	  .boxed() 
+	                                      .collect(Collectors.toList()); 
+	  
+	       
+	        arrayList.remove(index); 
+	  
+	        
+	        return arrayList.stream() 
+	            .mapToInt(Integer::intValue) 
+	            .toArray(); 
+	        
 		post null;}
 
 	/**
@@ -57,6 +90,10 @@ public class PointArrays extends Object{
 	 *
 	 */
 	public static IntPoint[] update​(IntPoint[] points,int index,IntPoint value) {
+		
+		points[index] == value; 
+		return points; 
+	}
 		post null;}
 	
 }
