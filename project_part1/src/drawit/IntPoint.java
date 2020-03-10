@@ -21,8 +21,8 @@ public final class IntPoint extends Object {
 	}
 	
 	/**
-	 * @post result.getX() == this.getX() 
-	 * result.getY() == this.getY()
+	 * @post|result.getX() == this.getX() 
+	 * 		|result.getY() == this.getY()
 	 * @return a DoublePoint object that represents the same 2D point represented by this IntPoint object.
 	 */
 	public DoublePoint asDoublePoint(){
@@ -30,7 +30,10 @@ public final class IntPoint extends Object {
 		return result;}
 	
 	/**
+	 * @throws IllegalArgumentException if the argument provided is not a IntPoint
+	 * 	| 
 	 * @return  true if this point has the same coordinates as the given point;
+	 * 
 	 * returns false otherwise.
 	 */
 	public boolean equals​(IntPoint other){
@@ -41,8 +44,9 @@ public final class IntPoint extends Object {
 	}	
 	
 	/**
+	 * @throws IllegalArgumentException if the argument provided is not a IntPoint
 	 * @post result.getX() == this.getX() + other.getX() 
-	 * result.getY() == this.getY() + other.getY()
+	 * 		|result.getY() == this.getY() + other.getY()
 	 * @return an IntPoint object representing the point obtained by displacing this point by the given vector.
 	 */
 	public IntPoint plus​(IntVector vector) {
@@ -51,8 +55,10 @@ public final class IntPoint extends Object {
 		}
 	
 	/**
-	 * @post result.getX() == this.getX() - other.getX() 
-	 * result.getY() == this.getY() - other.getY()
+	 * @throws IllegalArgumentException if the argument provided is not a IntPoint
+	 * @post The resulting IntVector is the original vector minus the input other
+	 * 		|result.getX() == this.getX() - other.getX() 
+	 * 		|result.getY() == this.getY() - other.getY()
 	 * @return an IntVector object representing the displacement from other to this.
 	 */
 	public IntVector minus​(IntPoint other) {
@@ -62,7 +68,8 @@ public final class IntPoint extends Object {
 	// Call this point a. First check if ba is collinear with bc. If not, return false. 
 	// Then check that the dot product of ba and bc is between zero and the dot product of bc and bc.
 	/**
-	 * 	@return true if this point is on open line segment bc. An open line segment does not include its endpoints.
+	 * @throws IllegalArgumentException if both the arguments a and b provided is not both IntPoints
+	 * @return true if this point is on open line segment bc. An open line segment does not include its endpoints.
 	 */
 	public boolean isOnLineSegment​(IntPoint b,IntPoint c) {
 		if(b.minus​(this).isCollinearWith​(b.minus​(c)))
@@ -72,6 +79,7 @@ public final class IntPoint extends Object {
 	
 	
 	/**
+	 * @throws IllegalArgumentException if the arguments provided is not all IntPoints
 	 * @pre The line segments have at most one point in common.
 	 * @return true if the open line segment ab intersects the open line segment cd.
 	 */
@@ -84,6 +92,7 @@ public final class IntPoint extends Object {
 	
 	
 	/**
+	 * 
 	 * @return this point's X coordinate.
 	 */
 	public int getX() {
