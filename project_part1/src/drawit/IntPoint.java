@@ -30,8 +30,8 @@ public final class IntPoint extends Object {
 		return result;}
 	
 	/**
-	 * @throws IllegalArgumentException if the argument provided is not a IntPoint
-	 * 	| 
+	 * @pre Argument {@code other} is not {@code null}.
+     *    	|other != null
 	 * @return  true if this point has the same coordinates as the given point;
 	 * 
 	 * returns false otherwise.
@@ -44,7 +44,8 @@ public final class IntPoint extends Object {
 	}	
 	
 	/**
-	 * @throws IllegalArgumentException if the argument provided is not a IntPoint
+	 * @pre Argument {@code vector} is not {@code null}.
+     *    	|vector != null
 	 * @post result.getX() == this.getX() + other.getX() 
 	 * 		|result.getY() == this.getY() + other.getY()
 	 * @return an IntPoint object representing the point obtained by displacing this point by the given vector.
@@ -55,7 +56,8 @@ public final class IntPoint extends Object {
 		}
 	
 	/**
-	 * @throws IllegalArgumentException if the argument provided is not a IntPoint
+	 * @pre Argument {@code other} is not {@code null}.
+     *    	|other != null
 	 * @post The resulting IntVector is the original vector minus the input other
 	 * 		|result.getX() == this.getX() - other.getX() 
 	 * 		|result.getY() == this.getY() - other.getY()
@@ -68,7 +70,8 @@ public final class IntPoint extends Object {
 	// Call this point a. First check if ba is collinear with bc. If not, return false. 
 	// Then check that the dot product of ba and bc is between zero and the dot product of bc and bc.
 	/**
-	 * @throws IllegalArgumentException if both the arguments a and b provided is not both IntPoints
+	 * @pre Argument {@code b, c} is not {@code null}.
+     *    | b != null && c != null
 	 * @return true if this point is on open line segment bc. An open line segment does not include its endpoints.
 	 */
 	public boolean isOnLineSegment​(IntPoint b,IntPoint c) {
@@ -79,7 +82,7 @@ public final class IntPoint extends Object {
 	
 	
 	/**
-	 * @throws IllegalArgumentException if the arguments provided is not all IntPoints
+	 * 
 	 * @pre The line segments have at most one point in common.
 	 * @return true if the open line segment ab intersects the open line segment cd.
 	 */
@@ -89,7 +92,6 @@ public final class IntPoint extends Object {
 				return true;
 		return false;
 	}
-	
 	
 	/**
 	 * 

@@ -13,7 +13,7 @@ public class PointArrays extends Object{
 		post null;}
 
 	/**
-	 * @throws IllegalArgumentException if the argument provided is not a IntVector [] array
+	 * 
 	 * @post a new array with the same contents as the given array.
 	 * 		|int new_array = new int[points.length]
 	 *  	|for (int i=0; i<points.length; i++) 
