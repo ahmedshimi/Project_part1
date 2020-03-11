@@ -14,6 +14,10 @@ public final class IntVector {
 	private int x;
 	private int y;
 
+	/**
+	 *Initializes this vector with the given coordinates.
+	 */
+	
 	public IntVector(int x, int y){
 		this.x = x;
 		this.y = y;

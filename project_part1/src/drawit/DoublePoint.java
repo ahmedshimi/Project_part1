@@ -11,6 +11,9 @@ public final class DoublePoint extends Object{
 	private double x;
 	private double y;
 	
+	/**
+	 *Initializes this point with the given coordinates.
+	 */
 	public DoublePoint(double x, double y) {
 		this.x = x;
 		this.y = y;

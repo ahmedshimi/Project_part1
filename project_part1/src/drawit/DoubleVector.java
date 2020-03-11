@@ -14,6 +14,9 @@ public final class DoubleVector extends Object{
 	@SuppressWarnings("unused")
 	private double size;
 	
+	/**
+	 *Initializes this vector with the given coordinates.
+	 */
 	public DoubleVector(double x, double y) {
 		this.x = x;
 		this.y = y;
@@ -24,7 +27,6 @@ public final class DoubleVector extends Object{
 	 * The angle from positive X to positive Y is Math.PI / 2; 
 	 * the angle from positive X to negative Y is -Math.PI / 2.
 	 */
-	// Implementation Hint: See Math.atan2(double, double).
 	public double asAngle() {
 		double angle = Math.atan2(y,x);
 		return angle;
