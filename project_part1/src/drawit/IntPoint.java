@@ -21,7 +21,7 @@ public final class IntPoint extends Object {
 	}
 	
 	/**
-	 * @post|result.getX() == this.getX() 
+	 * @post result.getX() == this.getX() 
 	 * 		|result.getY() == this.getY()
 	 * @return a DoublePoint object that represents the same 2D point represented by this IntPoint object.
 	 */
@@ -47,7 +47,7 @@ public final class IntPoint extends Object {
 	 * @pre Argument {@code vector} is not {@code null}.
      *    	|vector != null
 	 * @post result.getX() == this.getX() + other.getX() 
-	 * 		|result.getY() == this.getY() + other.getY()
+	 * 		result.getY() == this.getY() + other.getY()
 	 * @return an IntPoint object representing the point obtained by displacing this point by the given vector.
 	 */
 	public IntPoint plus​(IntVector vector) {
@@ -59,7 +59,7 @@ public final class IntPoint extends Object {
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
 	 * @post The resulting IntVector is the original vector minus the input other
-	 * 		|result.getX() == this.getX() - other.getX() 
+	 * 		result.getX() == this.getX() - other.getX() 
 	 * 		|result.getY() == this.getY() - other.getY()
 	 * @return an IntVector object representing the displacement from other to this.
 	 */
