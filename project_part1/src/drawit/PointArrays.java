@@ -19,13 +19,18 @@ public class PointArrays extends Object{
 	 */
 	// https://stackoverflow.com/questions/3951547/java-array-finding-duplicates
 	public static String checkDefinesProperPolygon​(IntPoint[] points) {
-		if (points.length < 2) {
-			return "Not proper- Exactly two points"; 
-		}
+		if (points.length < 2)
+			return "Not proper- Exactly two points";
 		for (int j=0; j<points.length; j++)
 			  for (int k=j+1; k <points.length; k++)
-			    if (k!=j && points[k] == points[j])
-			      return "Not proper- Identical vertices"; 
+			    if (k!=j && points[j].equals(points[k]))
+			      return "Not proper- Identical vertices";
+		for(int j=0; j<points.length-2; j++)
+			if(points[j+2].isOnLineSegment​(points[j], points[j+1]))
+				return "Not proper- Vertex on edge";
+		for (int j=0; j<points.length-3; j++)
+			if(IntPoint.lineSegmentsIntersect​(points[j], points[j+1], points[j+2], points[j+3]))
+				return "Not proper- Intersecting edges";
 		return null;
 		}
 
@@ -40,13 +45,12 @@ public class PointArrays extends Object{
 	public static IntPoint[] copy​(IntPoint[] points) {
 		IntPoint[] result = new IntPoint[points.length]; 
 			for (int i=0; i < points.length; i++) {
-			     points[i] = points[i]; }
+			     result[i] = points[i]; }
 			 
 			return result; 
 			     
 		}
 
-	//I modified this, your implementation did not insert the element actually and the last element was null. check this and tell me what you think
 	/**
 	 * @pre The provided index must be within the IntPoints array provided
 	 * 		|0 <= index && index <= points.length
@@ -101,7 +105,6 @@ public class PointArrays extends Object{
     } 
 		
 	
-//I modified this as the documentation says it should return a new array
 	/**
 	 * @post the number of array elements remains unchanged
 	 * 		|result.length == points.length

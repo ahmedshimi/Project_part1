@@ -47,11 +47,14 @@ class IntPointTest {
 		IntPoint myIntPoint12 = new IntPoint(1,1);
 		IntPoint myIntPoint13 = new IntPoint(1,0);
 		IntPoint myIntPoint14 = new IntPoint(-1,0);
+		IntPoint myIntPoint15 = new IntPoint(0,0);
+		IntPoint myIntPoint16 = new IntPoint(5,0);
+		IntPoint myIntPoint17 = new IntPoint(0,-5);
+
 		
 		assertEquals(true,IntPoint.lineSegmentsIntersect​(myIntPoint9, myIntPoint10, myIntPoint13, myIntPoint14));
 		assertEquals(false,IntPoint.lineSegmentsIntersect​(myIntPoint9, myIntPoint10, myIntPoint11, myIntPoint12));
-
-
+		assertEquals(false,IntPoint.lineSegmentsIntersect​(myIntPoint14, myIntPoint16, myIntPoint15, myIntPoint17));
 
 	}
 

@@ -38,11 +38,37 @@ public class RoundedPolygon {
 	 * This method does not take into account this rounded polygon's corner radius; it assumes a corner radius of zero.
 	 * A point is contained by a polygon if it coincides with one of its vertices, or if it is on one of its edges, 
 	 * or if it is in the polygon's interior.
-	 * 		|array.getVertices().contains(point) == true; 
+	 * 
 	 */
 	public boolean contains​(IntPoint point) {
+		for (int j=0; j<getVertices().length; j++)
+			if (point.equals​(getVertices()[j]))
+				return true;
+		for (int j=0; j<getVertices().length - 1; j++)
+			if (point.isOnLineSegment​(getVertices()[j], getVertices()[j+1]))
+				return true;
+	    final int INF = 10000; 
+		IntPoint extreme = new IntPoint(INF, point.getY());
+		int count = 0;
+		for (int j=0; j<getVertices().length; j++)
+			if (getVertices()[j].isOnLineSegment​(point, extreme))
+				count ++;
+	    		final int NINF = -10000; 
+	    		IntPoint extreme2 = new IntPoint(NINF, point.getY());
+	    		for (int j=0; j<getVertices().length - 1; j++) 
+	    					if (!(IntPoint.lineSegmentsIntersect​(point, extreme2, getVertices()[j], getVertices()[j+1])))
+	    						count ++;
+	    		for (int j1=0; j1<getVertices().length; j1++) 
+	    					if (!(getVertices()[j1].isOnLineSegment​(point, extreme)))
+	    							count ++;
+		for (int j=0; j<getVertices().length - 1; j++)
+			if (IntPoint.lineSegmentsIntersect​(point, extreme, getVertices()[j], getVertices()[j+1]))
+				count++;
+		if (count % 2 != 0)
+			return true;
 		
-		return false;}
+		return false;
+		}
 	
 	
 	/**
@@ -66,7 +92,7 @@ public class RoundedPolygon {
 	 * | PointArrays.checkDefinesProperPolygon(newVertices) != null
 	 */
 	public void setVertices(IntPoint[] vertices) {
-		if (PointArrays.checkDefinesProperPolygon​(vertices) != null)
+		if (PointArrays.checkDefinesProperPolygon​(vertices) == null)
 		this.vertices = vertices;
 	}
 
