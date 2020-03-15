@@ -4,7 +4,7 @@ package drawit;
  * Each instance of this class represents a vector with integer X and Y coordinates.
  *
  * @immutable
- * @author Ahmed Shemy & Matthew Watson
+ * @author Ahmed Shemy && Matthew Watson
  */
 
 //deal with illegal arguments contractually.
@@ -55,7 +55,8 @@ public final class IntVector {
 	 */
 	public long dotProduct​(IntVector other) {
 		long result = (long)getX() * other.getX() + (long)getY() * other.getY();
-		return result;}
+		return result;
+		}
 	
 	/**
 	 * @return Returns this vector's X coordinate.

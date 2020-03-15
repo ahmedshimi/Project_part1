@@ -2,6 +2,13 @@ package drawit;
 
 //deal with illegal arguments defensively.
 
+/**
+ * An instance of this class is a mutable abstraction storing a rounded polygon defined by a set of 
+ * 2D points with integer coordinates and a nonnegative corner radius.
+ * 
+ * @author Ahmed Shemy && Matthew Watson
+ *
+ */
 public class RoundedPolygon {
 
 	private String drawingCommands;
@@ -10,11 +17,18 @@ public class RoundedPolygon {
 	
 	public RoundedPolygon() {}
 	
-	public void insert​(int index,IntPoint point) {}
+	public void insert​(int index,IntPoint point) {
+		setVertices(PointArrays.insert​(getVertices(), index, point));
+		
+	}
 			
-	public void remove​(int index) {}
+	public void remove​(int index) {
+		setVertices(PointArrays.remove​(getVertices(), index));
+	}
 	
-	public void update​(int index,IntPoint point) {}
+	public void update​(int index,IntPoint point) {
+		setVertices(PointArrays.update​(getVertices(), index, point));
+	}
 			
 	/**
 	 * @return true iff the given point is contained by the (non-rounded) polygon defined by this rounded polygon's vertices. 
@@ -23,6 +37,7 @@ public class RoundedPolygon {
 	 * or if it is in the polygon's interior.
 	 */
 	public boolean contains​(IntPoint point) {
+		
 		return false;}
 	
 	
@@ -37,7 +52,8 @@ public class RoundedPolygon {
 	 * @return a new array whose elements are the vertices of this rounded polygon.
 	 */
 	public IntPoint[] getVertices() {
-		return vertices;
+		IntPoint[] result = this.vertices.clone();
+		return result;
 	}
 
 	/**
@@ -46,6 +62,7 @@ public class RoundedPolygon {
 	 * | PointArrays.checkDefinesProperPolygon(newVertices) != null
 	 */
 	public void setVertices(IntPoint[] vertices) {
+		if (PointArrays.checkDefinesProperPolygon​(vertices) != null)
 		this.vertices = vertices;
 	}
 
@@ -62,6 +79,7 @@ public class RoundedPolygon {
 	 * | radius < 0
 	 */
 	public void setRadius(int radius) {
+		if (!(radius < 0))
 		this.radius = radius;
 	}
 }

@@ -4,7 +4,7 @@ package drawit;
  * Each instance of this class represents a point with integer X and Y coordinates.
  *
  * @immutable
- * @author Ahmed Shemy & Matthew Watson
+ * @author Ahmed Shemy && Matthew Watson
  */
 // deal with illegal arguments contractually.
 public final class IntPoint extends Object {
@@ -30,6 +30,8 @@ public final class IntPoint extends Object {
 		return result;}
 	
 	/**
+	 * @pre Argument {@code other} is not {@code null}.
+     *    	|other != null
 	 * @return  true if this point has the same coordinates as the given point;
 	 * returns false otherwise.
 	 */
@@ -41,6 +43,8 @@ public final class IntPoint extends Object {
 	}	
 	
 	/**
+	 * @pre Argument {@code vector} is not {@code null}.
+     *    	|vector != null
 	 * @post result.getX() == this.getX() + other.getX() 
 	 * result.getY() == this.getY() + other.getY()
 	 * @return an IntPoint object representing the point obtained by displacing this point by the given vector.
@@ -51,6 +55,8 @@ public final class IntPoint extends Object {
 		}
 	
 	/**
+	 * @pre Argument {@code other} is not {@code null}.
+     *    	|other != null
 	 * @post result.getX() == this.getX() - other.getX() 
 	 * result.getY() == this.getY() - other.getY()
 	 * @return an IntVector object representing the displacement from other to this.
@@ -62,6 +68,8 @@ public final class IntPoint extends Object {
 	// Call this point a. First check if ba is collinear with bc. If not, return false. 
 	// Then check that the dot product of ba and bc is between zero and the dot product of bc and bc.
 	/**
+	 * @pre Argument {@code b, c} is not {@code null}.
+     *    | b != null && c != null
 	 * 	@return true if this point is on open line segment bc. An open line segment does not include its endpoints.
 	 */
 	public boolean isOnLineSegment​(IntPoint b,IntPoint c) {

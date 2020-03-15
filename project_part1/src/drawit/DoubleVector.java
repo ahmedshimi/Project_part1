@@ -4,22 +4,24 @@ package drawit;
  * Each instance of this class represents a vector with double X and Y coordinates.
  *
  * @immutable
- * @author Ahmed Shemy & Matthew Watson
+ * @author Ahmed Shemy && Matthew Watson
  */
 
 public final class DoubleVector extends Object{
 
 	private double x;
 	private double y;
-	@SuppressWarnings("unused")
 	private double size;
 	
 	/**
-	 *Initializes this vector with the given coordinates.
+	 *Initializes this vector with the given coordinates and calculate its size.
+	 *@post This object's size is more than or equal zero.
+	 * 		|getSize() >= 0
 	 */
 	public DoubleVector(double x, double y) {
 		this.x = x;
 		this.y = y;
+		this.size = Math.sqrt(x * x + y * y);
 	}
 	
 	/**
@@ -81,13 +83,9 @@ public final class DoubleVector extends Object{
 	}
 	
 	/**
-	 * @post This object's size is more than or equal zero.
-	 * 		|getSize() >= 0
 	 * @return Returns this vector's size.
 	 */
-	@SuppressWarnings("unused")
 	public double getSize() {
-		double size = Math.sqrt((this.getX() * this.getX() + this.getY() * this.getY()));
 		return size;
 	}
 }

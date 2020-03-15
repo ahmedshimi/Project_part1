@@ -4,7 +4,7 @@ package drawit;
  * Each instance of this class represents a point with double X and Y coordinates.
  *
  * @immutable
- * @author Ahmed Shemy & Matthew Watson
+ * @author Ahmed Shemy && Matthew Watson
  */
 public final class DoublePoint extends Object{
 
