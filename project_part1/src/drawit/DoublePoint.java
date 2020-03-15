@@ -19,6 +19,7 @@ public final class DoublePoint extends Object{
 		this.y = y;
 	}
 	
+	
 	public DoublePoint plus​(DoubleVector other) {
 		double x = this.getX() + other.getX();
 		double y = this.getY() + other.getY();

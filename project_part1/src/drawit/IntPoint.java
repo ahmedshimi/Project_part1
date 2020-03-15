@@ -22,7 +22,7 @@ public final class IntPoint extends Object {
 	
 	/**
 	 * @post result.getX() == this.getX() 
-	 * result.getY() == this.getY()
+	 * 		|result.getY() == this.getY()
 	 * @return a DoublePoint object that represents the same 2D point represented by this IntPoint object.
 	 */
 	public DoublePoint asDoublePoint(){
@@ -33,6 +33,7 @@ public final class IntPoint extends Object {
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
 	 * @return  true if this point has the same coordinates as the given point;
+	 * 
 	 * returns false otherwise.
 	 */
 	public boolean equals​(IntPoint other){
@@ -46,7 +47,7 @@ public final class IntPoint extends Object {
 	 * @pre Argument {@code vector} is not {@code null}.
      *    	|vector != null
 	 * @post result.getX() == this.getX() + other.getX() 
-	 * result.getY() == this.getY() + other.getY()
+	 * 		result.getY() == this.getY() + other.getY()
 	 * @return an IntPoint object representing the point obtained by displacing this point by the given vector.
 	 */
 	public IntPoint plus​(IntVector vector) {
@@ -57,8 +58,14 @@ public final class IntPoint extends Object {
 	/**
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
+<<<<<<< HEAD
 	 * @post result.getX() == this.getX() - other.getX() 
 	 * result.getY() == this.getY() - other.getY()
+=======
+	 * @post The resulting IntVector is the original vector minus the input other
+	 * 		result.getX() == this.getX() - other.getX() 
+	 * 		|result.getY() == this.getY() - other.getY()
+>>>>>>> 88c00c60f059ca1c6281a94ab57bdd0a901d113c
 	 * @return an IntVector object representing the displacement from other to this.
 	 */
 	public IntVector minus​(IntPoint other) {
@@ -70,7 +77,11 @@ public final class IntPoint extends Object {
 	/**
 	 * @pre Argument {@code b, c} is not {@code null}.
      *    | b != null && c != null
+<<<<<<< HEAD
 	 * 	@return true if this point is on open line segment bc. An open line segment does not include its endpoints.
+=======
+	 * @return true if this point is on open line segment bc. An open line segment does not include its endpoints.
+>>>>>>> 88c00c60f059ca1c6281a94ab57bdd0a901d113c
 	 */
 	public boolean isOnLineSegment​(IntPoint b,IntPoint c) {
 		if(b.minus​(this).isCollinearWith​(b.minus​(c)))
@@ -80,6 +91,7 @@ public final class IntPoint extends Object {
 	
 	
 	/**
+	 * 
 	 * @pre The line segments have at most one point in common.
 	 * @return true if the open line segment ab intersects the open line segment cd.
 	 */
@@ -90,8 +102,8 @@ public final class IntPoint extends Object {
 		return false;
 	}
 	
-	
 	/**
+	 * 
 	 * @return this point's X coordinate.
 	 */
 	public int getX() {

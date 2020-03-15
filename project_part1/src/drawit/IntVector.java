@@ -11,6 +11,8 @@ package drawit;
 
 public final class IntVector {
 
+
+	
 	private int x;
 	private int y;
 
@@ -32,6 +34,7 @@ public final class IntVector {
 		return result;}
 	
 	/**
+	 * 
 	 * @post result == (long)getX() * other.getY() - (long)getY() * other.getX()
 	 * @return the cross product of this vector and the given vector.
 	 */
@@ -40,6 +43,7 @@ public final class IntVector {
 		return result;}
 	
 	/**
+	 * 
 	 * @post result == (this.crossProduct(other) == 0)
 	 * @return whether this vector is collinear with the given vector.
 	 */
@@ -50,6 +54,7 @@ public final class IntVector {
 	}
 
 	/**
+	 * 
 	 * @post result == (long)getX() * other.getX() + (long)getY() * other.getY()
 	 * @return the dot product of this vector and the given vector.
 	 */
