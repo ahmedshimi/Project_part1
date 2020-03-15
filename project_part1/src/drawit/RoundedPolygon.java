@@ -47,22 +47,28 @@ public class RoundedPolygon {
 		for (int j=0; j<getVertices().length - 1; j++)
 			if (point.isOnLineSegment​(getVertices()[j], getVertices()[j+1]))
 				return true;
+		if (point.isOnLineSegment​(getVertices()[0], getVertices()[getVertices().length -1]))
+			return true;
 	    final int INF = 10000; 
 		IntPoint extreme = new IntPoint(INF, point.getY());
-		int count = 0;
 		for (int j=0; j<getVertices().length; j++)
-			if (getVertices()[j].isOnLineSegment​(point, extreme))
-				count ++;
-	    		final int NINF = -10000; 
-	    		IntPoint extreme2 = new IntPoint(NINF, point.getY());
-	    		for (int j=0; j<getVertices().length - 1; j++) 
-	    					if (!(IntPoint.lineSegmentsIntersect​(point, extreme2, getVertices()[j], getVertices()[j+1])))
-	    						count ++;
-	    		for (int j1=0; j1<getVertices().length; j1++) 
-	    					if (!(getVertices()[j1].isOnLineSegment​(point, extreme)))
-	    							count ++;
-		for (int j=0; j<getVertices().length - 1; j++)
-			if (IntPoint.lineSegmentsIntersect​(point, extreme, getVertices()[j], getVertices()[j+1]))
+			if (getVertices()[j].isOnLineSegment​(point, extreme)) {
+				final int NINF = -10000;
+				IntPoint extreme2 = new IntPoint(NINF, point.getY());
+				for (int j1=0; j1<getVertices().length - 1; j1++) 
+					if (IntPoint.lineSegmentsIntersect​(point, extreme2, getVertices()[j1], getVertices()[j1+1]))
+						return true;
+				if (IntPoint.lineSegmentsIntersect​(point, extreme2, getVertices()[0], getVertices()[getVertices().length-1]))
+				return true;
+				for (int j1=0; j1<getVertices().length; j1++)
+					if (getVertices()[j1].isOnLineSegment​(point, extreme2))
+							return true;
+			}
+		int count = 0;		
+		for (int j1=0; j1<getVertices().length - 1; j1++)
+			if (IntPoint.lineSegmentsIntersect​(point, extreme, getVertices()[j1], getVertices()[j1+1]))
+				count++;
+		if(IntPoint.lineSegmentsIntersect​(point, extreme, getVertices()[0], getVertices()[getVertices().length-1]))
 				count++;
 		if (count % 2 != 0)
 			return true;
@@ -94,6 +100,8 @@ public class RoundedPolygon {
 	public void setVertices(IntPoint[] vertices) {
 		if (PointArrays.checkDefinesProperPolygon​(vertices) == null)
 		this.vertices = vertices;
+		else
+			throw new IllegalArgumentException();
 	}
 
 	/**

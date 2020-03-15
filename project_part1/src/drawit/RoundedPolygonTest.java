@@ -27,14 +27,38 @@ class RoundedPolygonTest {
 		
 		RP1.setVertices(ver);
 		
-		RP1.remove​(3);
-		System.out.print(RP1.getVertices()[3].getX());
-		
-		RP1.insert​(3, p1);
-		System.out.print(RP1.getVertices()[3].getX());
+		IntPoint p6 = new IntPoint(0,0);
+		IntPoint p7 = new IntPoint(1,3);
+		IntPoint p8 = new IntPoint(0,1);
+		IntPoint p9 = new IntPoint(0,2);
+		IntPoint p10 = new IntPoint(-1,1);
+		IntPoint p11 = new IntPoint(4,1);
+		IntPoint p12 = new IntPoint(-1,0);
+		IntPoint p13 = new IntPoint(-69,3);
+		IntPoint p14 = new IntPoint(1,4);
 
-		RP1.update​(3, p2);
-		System.out.print(RP1.getVertices()[3].getX());
+		IntPoint p15 = new IntPoint(-1,4);
+
+		IntPoint p16 = new IntPoint(-169,4);
+
+		
+		assertEquals(true, RP1.contains​(p6));
+		assertEquals(true, RP1.contains​(p7));
+		assertEquals(true, RP1.contains​(p8));
+		assertEquals(true, RP1.contains​(p9));
+		assertEquals(false, RP1.contains​(p10));
+		assertEquals(false, RP1.contains​(p11));
+		assertEquals(false, RP1.contains​(p12));
+		assertEquals(false, RP1.contains​(p13));
+		assertEquals(true, RP1.contains​(p14));
+		assertEquals(false, RP1.contains​(p15));
+		assertEquals(false, RP1.contains​(p16));
+
+
+
+
+
+		
 
 
 	}
