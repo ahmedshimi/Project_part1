@@ -4,20 +4,23 @@ package drawit;
  * Each instance of this class represents a vector with integer X and Y coordinates.
  *
  * @immutable
+ * 
  * @author Ahmed Shemy && Matthew Watson
  */
 
-//deal with illegal arguments contractually.
-
 public final class IntVector {
-
-
 	
-	private int x;
-	private int y;
+	private final int x;
+	private final int y;
 
 	/**
+	 * @mutates | this
 	 *Initializes this vector with the given coordinates.
+	 *
+	 * @post This object's x equal the given x
+     *    | getX() == x
+     * @post This object's y equal the given y
+     *    | getY() == y
 	 */
 	
 	public IntVector(int x, int y){
@@ -26,7 +29,11 @@ public final class IntVector {
 	}
 	
 	/**
-	 * 
+	 * @creates | result
+	 * @post The result is not {@code null}
+     *    | result != null
+	 * @post The result is a DoubleVector object with x and y coordinates as same as this object's x and y coordinates.
+	 * 		 | result.getX() == this.getX() && result.getY() == this.getY()
 	 * @return a DoubleVector object that represents the same vector represented by this IntVector object.
 	 */
 	public DoubleVector asDoubleVector() {
@@ -34,17 +41,23 @@ public final class IntVector {
 		return result;}
 	
 	/**
-	 * 
-	 * @post result == (long)getX() * other.getY() - (long)getY() * other.getX()
-	 * @return the cross product of this vector and the given vector.
+	 * @inspects other
+	 * @pre Argument {@code other} is not {@code null}.
+     *    	|other != null
+	 * @post The result is the x coordinate of this vector times the y coordinate of the other vector minus 
+	 * 			the y coordinate of this vector times the x coordinate of the other vector.
+     *    			|result == ((long)getX() * other.getY() - (long)getY() * other.getX())
 	 */
 	public long crossProduct​(IntVector other) {
-		long result = (long)getX() * other.getY() - (long)getY() * other.getX();
+		long result = (long)getX() * (long)other.getY() - (long)getY() * (long)other.getX();
 		return result;}
 	
 	/**
-	 * 
-	 * @post result == (this.crossProduct(other) == 0)
+	 * @inspects | other
+	 * @pre Argument {@code other} is not {@code null}.
+     *    	|other != null
+	 * @post The result is {@code true} if this vector has crossProduct equal zero with the other vector; false otherwise.
+	 * 		|result == (this.crossProduct​(other) == 0)
 	 * @return whether this vector is collinear with the given vector.
 	 */
 	public boolean isCollinearWith​(IntVector other) {
@@ -54,12 +67,16 @@ public final class IntVector {
 	}
 
 	/**
-	 * 
-	 * @post result == (long)getX() * other.getX() + (long)getY() * other.getY()
+	 * @inspects | other
+	 * @pre Argument {@code other} is not {@code null}.
+     *    	|other != null
+	 * @post The result is the x coordinate of this vector times the x coordinate of the other vector plus 
+	 * 			the y coordinate of this vector times the y coordinate of the other vector.
+     *    			|result == (long)getX() * other.getX() + (long)getY() * other.getY() 
 	 * @return the dot product of this vector and the given vector.
 	 */
 	public long dotProduct​(IntVector other) {
-		long result = (long)getX() * other.getX() + (long)getY() * other.getY();
+		long result = (long)getX() * (long)other.getX() + (long)getY() * (long)other.getY();
 		return result;
 		}
 	

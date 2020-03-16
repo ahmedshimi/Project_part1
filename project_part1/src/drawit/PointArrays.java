@@ -1,6 +1,5 @@
 package drawit;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -9,15 +8,16 @@ import java.util.Arrays;
  *
  */
 
-//deal with illegal arguments contractually.
-
 public class PointArrays extends Object{
 
 	/**
-	 * @post null if the given array of points defines a proper polygon; 
-	 * otherwise, posts a string describing why it does not.
+	 * @inspects | points
+	 * @pre Argument {@code points} is not {@code null}.
+     *    | points != null
+	 * @post The result is {@code null} if the given array of points defines a proper polygon; 
+	 * otherwise, the result is {@code NotNull} a string describing why it does not.
 	 */
-	// https://stackoverflow.com/questions/3951547/java-array-finding-duplicates
+
 	public static String checkDefinesProperPolygon​(IntPoint[] points) {
 		if (points.length < 2)
 			return "Not proper- Exactly two points";
@@ -35,11 +35,14 @@ public class PointArrays extends Object{
 		}
 
 	/**
-	 * 
-	 * @post a new array with the same contents as the given array.
-	 * @post the array returned must be the same length as the given  array
-	 * 		|result.length == points.length 
-     *
+	 * @creates | result
+	 * @inspects | points
+	 * @pre Argument {@code points} is not {@code null}.
+     *    	|points != null
+	 * @post The result is a new array with the same contents as the given array.
+	 * 		| Arrays.equals(result, points)
+	 * @post The result is an array with the same length as the given array.
+	 * 		|result.length == points.length
 	 */
 
 	public static IntPoint[] copy​(IntPoint[] points) {
@@ -52,14 +55,24 @@ public class PointArrays extends Object{
 		}
 
 	/**
+	 * @creates | result
+	 * @inspects | points
+	 * @pre Argument {@code points} is not {@code null}.
+     *    	|points != null
+     * @pre Argument {@code point} is not {@code null}.
+     *    	|point != null
 	 * @pre The provided index must be within the IntPoints array provided
 	 * 		|0 <= index && index <= points.length
-	 * @post a new array whose elements are the elements of the given array with 
-	 * the given point inserted at the given index.
+	 * @post The result is a new array whose length is the length of the provided array plus 1.
 	 * 		|result.length == points.length + 1
-	 * @post The old array existing elements before the index remain unchanged in the new array.
-	 * @post The old array existing elements at the index and after are all shifted +1 
-	 * in their indexing position in the new array.
+	 * @post The result is a new array with provided array existing elements before the 
+	 * index remain unchanged and in the same indexes.
+	 * 		| Arrays.equals(result, 0, index, points, 0, index)
+	 * @post The result is a new array with provided array existing elements at the index
+	 *  and after remain unchanged but their indexes are all shifted +1.
+	 * 		| Arrays.equals(result, index +1, result.length, points, index, points.length)
+	 * @post The result is an array with {@code point} at the {@code index}
+	 * 		| result[index] == point
 	 * @param points, index, point
 	 */
 		
@@ -80,12 +93,20 @@ public class PointArrays extends Object{
 	
 	
 	/**
+	 * @creates | result
+	 * @inspects | points
+	 * @pre Argument {@code points} is not {@code null}.
+     *    	|points != null
 	 * @pre The provided index must be within the IntPoints array provided
 	 * 		|0 <= index && index <= points.length
-	 * @post a new array whose elements are the elements of the given array with 
-	 * the element at the given index removed.
-	 * @post The array returned should have a length one smaller than the original array 
+	 * @post The result is a new array whose length is the length of the provided array minus 1.
 	 * 	|result.length == points.length - 1
+	 * @post The result is a new array with provided array existing elements before the 
+	 * index remain unchanged and in the same indexes.
+	 * 		| Arrays.equals(result, 0, index, points, 0, index)
+	 * @post The result is a new array with provided array existing elements after the index
+	 * remain unchanged but their indexes are all shifted -1.
+	 * 		| Arrays.equals(result, index , result.length, points, index + 1, points.length)
 	 * @param points, index
 	 */
 	
@@ -106,12 +127,21 @@ public class PointArrays extends Object{
 		
 	
 	/**
+	 * @creates | result
+	 * @inspects | points
+	 * @pre Argument {@code points} is not {@code null}.
+     *    	|points != null
+     * @pre Argument {@code value} is not {@code null}.
+     *    	|value != null
 	 * @post the number of array elements remains unchanged
 	 * 		|result.length == points.length
+	 * @post The result is a new array with provided array existing elements before the 
+	 * index remain unchanged and in the same indexes.
+	 * 		| Arrays.equals(result, 0, index, points, 0, index)
+	 * @post The result is a new array with provided array existing elements after the index
+	 * remain unchanged and in the same indexes.
+	 * | Arrays.equals(result, index + 1, result.length, points, index + 1, points.length)
 	 * @param points, index, value
-	 * @returns a new array whose elements are the elements of the given array with 
-	 * the element at the given index replaced by the given point.
-	 *
 	 */
 	public static IntPoint[] update​(IntPoint[] points,int index,IntPoint value) {
 		IntPoint[] result = new IntPoint[points.length]; 

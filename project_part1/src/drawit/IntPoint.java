@@ -4,25 +4,36 @@ package drawit;
  * Each instance of this class represents a point with integer X and Y coordinates.
  *
  * @immutable
+ *    
  * @author Ahmed Shemy && Matthew Watson
  */
-// deal with illegal arguments contractually.
+
 public final class IntPoint extends Object {
 	
-	private int x;
-	private int y;
+	private final int x;
+	private final int y;
 	
 	/**
+	 * @mutates | this
 	 *Initializes this point with the given coordinates.
+	 *
+	 * @post This object's x equal the given x
+     *    | getX() == x
+     * @post This object's y equal the given y
+     *    | getY() == y
 	 */
+	
 	public IntPoint(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 	
 	/**
-	 * @post result.getX() == this.getX() 
-	 * 		|result.getY() == this.getY()
+	 * @creates | result
+	 * @post The result is not {@code null}
+     *    | result != null
+	 * @post The result is a DoublePoint object with x and y coordinates as same as this object's x and y coordinates.
+	 * 		 | result.getX() == this.getX() && result.getY() == this.getY()
 	 * @return a DoublePoint object that represents the same 2D point represented by this IntPoint object.
 	 */
 	public DoublePoint asDoublePoint(){
@@ -30,10 +41,13 @@ public final class IntPoint extends Object {
 		return result;}
 	
 	/**
+	 * @inspects | other
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
-	 * @return  true if this point has the same coordinates as the given point;
-	 * returns false otherwise.
+	 * @post
+     *      The result is {@code true} if this point has the same coordinates as the given point ; false otherwise.
+     *    | result == (this.getX() == other.getX() && this.getY() == other.getY())
+	 * 
 	 */
 	public boolean equals​(IntPoint other){
 		if (this.getX() == other.getX() && this.getY() == other.getY())
@@ -43,44 +57,64 @@ public final class IntPoint extends Object {
 	}	
 	
 	/**
+	 * @inspects | vector
 	 * @pre Argument {@code vector} is not {@code null}.
      *    	|vector != null
-	 * @post result.getX() == this.getX() + other.getX() 
-	 * 		result.getY() == this.getY() + other.getY()
-	 * @return an IntPoint object representing the point obtained by displacing this point by the given vector.
+	 * @post
+	 * 		The result is an IntPoint object representing the point obtained by displacing this point by the given vector.
+	 * 		| result.getX() == this.getX() + vector.getX() && result.getY() == this.getY() + vector.getY()
+	 * @throws Exception - if the result x or y coordinates will flow over Integer.MAX_VALUE.
+	 * | Long.valueOf(this.getX()) + Long.valueOf(vector.getX()) > Long.valueOf(Integer.MAX_VALUE)
+	 * 	 | Long.valueOf(this.getY()) + Long.valueOf(vector.getY()) > Long.valueOf(Integer.MAX_VALUE)
 	 */
-	public IntPoint plus​(IntVector vector) {
+	public IntPoint plus​(IntVector vector) throws Exception {
+		if (Long.valueOf(this.getX()) + Long.valueOf(vector.getX()) > Long.valueOf(Integer.MAX_VALUE)|| Long.valueOf(this.getY()) + Long.valueOf(vector.getY()) > Long.valueOf(Integer.MAX_VALUE)) {
+				throw new Exception("overflow exception, int too big");
+		}		
 		IntPoint result = new IntPoint(this.getX() + vector.getX(),this.getY() + vector.getY());
 		return result;
 		}
 	
 	/**
+	 * @inspects | other
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
-	 * 	 * @post The resulting IntVector is the original vector minus the input other
-	 * 		result.getX() == this.getX() - other.getX() 
-	 * 		|result.getY() == this.getY() - other.getY()
+	 * @post The resulting IntVector is the original vector minus the input other
+	 * 		|result.getX() == this.getX() - other.getX() && result.getY() == this.getY() - other.getY()
 	 * @return an IntVector object representing the displacement from other to this.
 	 */
 	public IntVector minus​(IntPoint other) {
 		IntVector result = new IntVector(this.getX() - other.getX(),this.getY() - other.getY());
 		return result;}
 	
-	// Call this point a. First check if ba is collinear with bc. If not, return false. 
-	// Then check that the dot product of ba and bc is between zero and the dot product of bc and bc.
 	/**
+	 * @inspects | b
+	 * @inspects | c
 	 * @pre Argument {@code b, c} is not {@code null}.
      *    | b != null && c != null
-	 * 	@return true if this point is on open line segment bc. An open line segment does not include its endpoints.
+     * @post
+     *      The result is {@code true} iff this point is on line segment bc excluding its end points.
+     *      | result == (
+     *      | b.minus​(this).isCollinearWith​(b.minus​(c)) 
+     *      | && b.minus​(this).dotProduct​(b.minus​(c))>= 0 
+     *      | && b.minus​(this).dotProduct​(b.minus​(c)) < b.minus​(c).dotProduct​(b.minus​(c))
+     *      |)
 	 */
+	
 	public boolean isOnLineSegment​(IntPoint b,IntPoint c) {
 		if(b.minus​(this).isCollinearWith​(b.minus​(c)))
 			if(b.minus​(this).dotProduct​(b.minus​(c))>= 0 && b.minus​(this).dotProduct​(b.minus​(c)) < b.minus​(c).dotProduct​(b.minus​(c)))
 				return true;
-		return false;}
+		
+		return false;
+		}
 	
 	
 	/**
+	 * @inspects | a
+	 * @inspects | b
+	 * @inspects | c
+	 * @inspects | d
 	 * @pre The line segments have at most one point in common.
 	 * @return true if the open line segment ab intersects the open line segment cd.
 	 */
@@ -100,7 +134,7 @@ public final class IntPoint extends Object {
 	}
 	
 	/**
-	 * @return Returns this point's Y coordinate.
+	 * @return this point's Y coordinate.
 	 */
 	public int getY() {
 		return y;

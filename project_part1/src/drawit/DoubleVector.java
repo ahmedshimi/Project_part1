@@ -9,9 +9,9 @@ package drawit;
 
 public final class DoubleVector extends Object{
 
-	private double x;
-	private double y;
-	private double size;
+	private final double x;
+	private final double y;
+	private final double size;
 	
 	/**
 	 *Initializes this vector with the given coordinates and calculate its size.

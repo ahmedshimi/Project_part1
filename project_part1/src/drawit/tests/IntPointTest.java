@@ -10,7 +10,7 @@ import drawit.IntVector;
 class IntPointTest {
 
 	@Test
-	void test() {
+	void test() throws Throwable {
 		IntPoint myIntPoint = new IntPoint(-1,1);
 		assertEquals(-1,myIntPoint.getX());
 		assertEquals(1,myIntPoint.getY());

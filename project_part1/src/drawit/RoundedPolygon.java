@@ -1,16 +1,31 @@
 package drawit;
 
+import java.util.Arrays;
+
 //deal with illegal arguments defensively.
 
 /**
  * An instance of this class is a mutable abstraction storing a rounded polygon defined by a set of 
  * 2D points with integer coordinates and a nonnegative corner radius.
- * 
+ * @invar This object's drawingCommands is not null
+ *    | getDrawingCommands() != null
+ * @invar This object's vertices is not null
+ *    | getVertices() != null
+ * @invar This object's radius is not negative
+ * 	  | getRadius() => 0
+ *	
  * @author Ahmed Shemy && Matthew Watson
  *
  */
+
 public class RoundedPolygon {
 
+	/**
+     * @invar | drawingCommands != null
+     * @invar | vertices != null
+     * @invar | radius => 0
+     */
+	
 	private String drawingCommands;
 	
 	private IntPoint[] vertices;
@@ -19,25 +34,42 @@ public class RoundedPolygon {
 	
 	public RoundedPolygon() {}
 	
+	/**
+	 * @inspects | point
+	 * @mutates | this
+	 * 
+	 * @param index
+	 * @param point
+	 */
 	public void insert​(int index,IntPoint point) {
-		setVertices(PointArrays.insert​(getVertices(), index, point));
-		
+		setVertices(PointArrays.insert​(getVertices(), index, point));	
 	}
-			
+	
+	/**
+	 * @mutates | this
+	 * 
+	 * @param index
+	 */
 	public void remove​(int index) {
 		setVertices(PointArrays.remove​(getVertices(), index));
 	}
 	
+	/**
+	 * @inspects | point
+	 * @mutates | this
+	 * 
+	 * @param index
+	 * @param point
+	 */
 	public void update​(int index,IntPoint point) {
 		setVertices(PointArrays.update​(getVertices(), index, point));
 	}
 			
 	/**
+	 * @inspects | point
 	 * 
-	 * @post true if the given point is contained by the (non-rounded) polygon defined by this rounded polygon's vertices. 
-	 * This method does not take into account this rounded polygon's corner radius; it assumes a corner radius of zero.
-	 * A point is contained by a polygon if it coincides with one of its vertices, or if it is on one of its edges, 
-	 * or if it is in the polygon's interior.
+	 * @post The result is true iff the given point is contained by the non-rounded polygon defined
+	 * by this rounded polygon's vertices.
 	 * 
 	 */
 	public boolean contains​(IntPoint point) {
@@ -78,14 +110,21 @@ public class RoundedPolygon {
 	
 	
 	/**
-	 * @post A string representation of a set of drawing commands for drawing this rounded polygon.
+	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
 	public String getDrawingCommands() {
+		if (getVertices().length <3)
+			return "";
+		
 		return drawingCommands;
 	}
 
 	/**
-	 * @post a new array whose elements are the vertices of this rounded polygon.
+	 * Returns a new array whose elements are the vertices of this rounded polygon.
+	 * 
+	 * @creates | result
+	 * @inspects | this
+	 * 
 	 */
 	public IntPoint[] getVertices() {
 		IntPoint[] result = this.vertices.clone();
@@ -94,18 +133,23 @@ public class RoundedPolygon {
 
 	/**
 	 * Sets the vertices of this rounded polygon to be equal to the elements of the given array.
+	 * 
+	 * @throws IllegalArgumentException if argument {@code vertices} is {@code null}.
+     *    | vertices == null
+     * @throws IllegalArgumentException if any of the elements of the given array is {@code null}.
+     *    | Arrays.stream(vertices).anyMatch(e -> e == null)
 	 * @throws IllegalArgumentException - if the given vertices do not define a proper polygon.
-	 * | PointArrays.checkDefinesProperPolygon(newVertices) != null
+	 * | PointArrays.checkDefinesProperPolygon(vertices) != null
 	 */
 	public void setVertices(IntPoint[] vertices) {
-		if (PointArrays.checkDefinesProperPolygon​(vertices) == null)
+		if (vertices != null && !(Arrays.stream(vertices).anyMatch(e -> e == null)) && PointArrays.checkDefinesProperPolygon​(vertices) == null)
 		this.vertices = vertices;
 		else
 			throw new IllegalArgumentException();
 	}
 
 	/**
-	 * @post the radius of the corners of this rounded polygon.
+	 * @return the radius of the corners of this rounded polygon.
 	 */
 	public int getRadius() {
 		return radius;
