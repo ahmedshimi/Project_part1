@@ -113,10 +113,32 @@ public class RoundedPolygon {
 	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
 	public String getDrawingCommands() {
-		if (getVertices().length <3)
-			return "";
-		
-		return drawingCommands;
+		String empty = new String ("");
+		if (getVertices().length < 3) 
+			return empty; 
+
+		ArrayList<String> drawingCommands = new ArrayList<String>(); 
+		 
+		for (int j=1; j < getVertices().length; j++) {
+
+			drawingCommands.add(String.format("line %d %d %d %d"+"%n", getVertices()[j-1].getX(), getVertices()[j-1].getX(), getVertices()[j].getX(), getVertices()[j].getX()));
+			
+			
+			int startAngle = 0;
+			int angleExtent = 0; 
+			
+			if (getVertices()[j-1].getY() > 0) {
+				startAngle =  (int) (Math.PI / 2); 
+			}
+			if (getVertices()[j-1].getY() < 0) {
+				startAngle =  (int) (- Math.PI / 2);
+			}
+				
+			
+			drawingCommands.add(String.format("arc %d %d %d %d"+"%n", getVertices()[j-1].getX(), getVertices()[j-1].getX(), getRadius(), startAngle, angleExtent)); 		
+			
+		}
+		return drawingCommands.toString();
 	}
 
 	/**
