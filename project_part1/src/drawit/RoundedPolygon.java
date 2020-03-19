@@ -124,21 +124,37 @@ public class RoundedPolygon {
 			drawingCommands.add(String.format("line %d %d %d %d"+"%n", getVertices()[j-1].getX(), getVertices()[j-1].getX(), getVertices()[j].getX(), getVertices()[j].getX()));
 			
 			
+			// initialize start and extent angles- do not know how to implement
 			int startAngle = 0;
 			int angleExtent = 0; 
-			
-			IntPoint bsu = new IntPoint ((getVertices()[j-1].getX() + getVertices()[j].getX()/2) + (getVertices()[j+1].getX() + getVertices()[j].getX()/2), (getVertices()[j-1].getY() + getVertices()[j].getY()/2) + (getVertices()[j+1].getY() + getVertices()[j].getY()/2)); 
-			
+						
+			// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
+			IntVector bsu = new IntVector ((getVertices()[j-1].getX() + getVertices()[j].getX()/2) + (getVertices()[j+1].getX() + getVertices()[j].getX()/2), (getVertices()[j-1].getY() + getVertices()[j].getY()/2) + (getVertices()[j+1].getY() + getVertices()[j].getY()/2)); 
+						
+			// find the center of the corner which is b + bsu
 			int centerx = (getVertices()[j].getX() + bsu.getX()); 
 			int centery = (getVertices()[j].getY() + bsu.getY()); 
-			
+
+			// make vector bau to calculate the length cutoff - it is the vector between b and a divided by its length to make it a unit vector
+			// make it a double vector to use getsize method
+			IntVector bau = new IntVector(getVertices()[j].getX() + getVertices()[j-1].getX(), getVertices()[j].getY() + getVertices()[j-1].getY()); 
+			DoubleVector BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
+
+			// calculate unit radius 
+			double unitRadius = BAU.crossProduct​(bsu.asDoubleVector()); 
+
+			// make scale factor to apply - to scale unit radius to equal this,.getradius()
+			double scaleFactor = this.getRadius() / unitRadius; 
+
+
+			// hints from part to draw- i don't understand the angles 
 			if (getVertices()[j-1].getY() > 0) {
 				startAngle =  (int) (Math.PI / 2); 
 			}
 			if (getVertices()[j-1].getY() < 0) {
 				startAngle =  (int) (- Math.PI / 2);
 			}
-				
+
 			
 			drawingCommands.add(String.format("arc %d %d %d %d"+"%n", getVertices()[j-1].getX(), getVertices()[j-1].getX(), getRadius(), startAngle, angleExtent)); 		
 			
