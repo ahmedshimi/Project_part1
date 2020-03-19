@@ -125,8 +125,8 @@ public class RoundedPolygon {
 			
 			
 			// initialize start and extent angles- do not know how to implement
-			int startAngle = 0;
-			int angleExtent = 0; 
+			double startAngle = 0;
+			double angleExtent = 0; 
 						
 			// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
 			IntVector bsu = new IntVector ((getVertices()[j-1].getX() + getVertices()[j].getX()/2) + (getVertices()[j+1].getX() + getVertices()[j].getX()/2), (getVertices()[j-1].getY() + getVertices()[j].getY()/2) + (getVertices()[j+1].getY() + getVertices()[j].getY()/2)); 
@@ -149,10 +149,10 @@ public class RoundedPolygon {
 
 			// hints from part to draw- i don't understand the angles 
 			if (getVertices()[j-1].getY() > 0) {
-				startAngle =  (int) (Math.PI / 2); 
+				startAngle =  (double) (Math.PI / 2); 
 			}
 			if (getVertices()[j-1].getY() < 0) {
-				startAngle =  (int) (- Math.PI / 2);
+				startAngle =  (double) (- Math.PI / 2);
 			}
 
 			
