@@ -96,16 +96,15 @@ public final class IntPoint extends Object {
      *      The result is {@code true} iff this point is on line segment bc excluding its end points.
      *      | result == (
      *      | b.minus​(this).isCollinearWith​(b.minus​(c)) 
-     *      | && b.minus​(this).dotProduct​(b.minus​(c))>= 0 
+     *      | && b.minus​(this).dotProduct​(b.minus​(c))> 0 
      *      | && b.minus​(this).dotProduct​(b.minus​(c)) < b.minus​(c).dotProduct​(b.minus​(c))
      *      |)
 	 */
 	
 	public boolean isOnLineSegment​(IntPoint b,IntPoint c) {
 		if(b.minus​(this).isCollinearWith​(b.minus​(c)))
-			if(b.minus​(this).dotProduct​(b.minus​(c))>= 0 && b.minus​(this).dotProduct​(b.minus​(c)) < b.minus​(c).dotProduct​(b.minus​(c)))
+			if(b.minus​(this).dotProduct​(b.minus​(c))> 0 && b.minus​(this).dotProduct​(b.minus​(c)) < b.minus​(c).dotProduct​(b.minus​(c)))
 				return true;
-		
 		return false;
 		}
 	

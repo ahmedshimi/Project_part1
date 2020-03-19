@@ -38,6 +38,7 @@ class IntPointTest {
 		IntPoint myIntPoint8 = new IntPoint(2,2);
 		
 		assertEquals(true,myIntPoint6.isOnLineSegment​(myIntPoint4, myIntPoint5));
+		assertEquals(false,myIntPoint4.isOnLineSegment​(myIntPoint4, myIntPoint5));
 		assertEquals(false,myIntPoint7.isOnLineSegment​(myIntPoint4, myIntPoint5));
 		assertEquals(false,myIntPoint8.isOnLineSegment​(myIntPoint4, myIntPoint5));
 
