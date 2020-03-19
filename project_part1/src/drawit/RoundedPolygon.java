@@ -127,6 +127,11 @@ public class RoundedPolygon {
 			int startAngle = 0;
 			int angleExtent = 0; 
 			
+			IntPoint bsu = new IntPoint ((getVertices()[j-1].getX() + getVertices()[j].getX()/2) + (getVertices()[j+1].getX() + getVertices()[j].getX()/2), (getVertices()[j-1].getY() + getVertices()[j].getY()/2) + (getVertices()[j+1].getY() + getVertices()[j].getY()/2)); 
+			
+			int centerx = (getVertices()[j].getX() + bsu.getX()); 
+			int centery = (getVertices()[j].getY() + bsu.getY()); 
+			
 			if (getVertices()[j-1].getY() > 0) {
 				startAngle =  (int) (Math.PI / 2); 
 			}
