@@ -118,53 +118,58 @@ public class RoundedPolygon {
 			return empty; 
 
 		ArrayList<String> drawingCommands = new ArrayList<String>(); 
-		 
-		for (int j=1; j < getVertices().length; j++) {
-
-			drawingCommands.add(String.format("line %d %d %d %d"+"%n", getVertices()[j-1].getX(), getVertices()[j-1].getY(), getVertices()[j].getX(), getVertices()[j].getY()));
-		
-		
-			for (int j2=0; j2 < getVertices().length -2; j2++) {
-			//make vector bau to calculate the length cutoff - it is the vector between b and a divided by its length to make it a unit vector
-			// make it a double vector to use getsize method
-			IntVector bau = new IntVector(getVertices()[j2+1].getX() - getVertices()[j2].getX(), getVertices()[j2+1].getY() + getVertices()[j2].getY()); 
-			DoubleVector BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
+	
+		for (int j2 = 0; j2 <= getVertices().length -2 ; j2++) {
 			
-			IntVector bcu = new IntVector(getVertices()[j2+2].getX() - getVertices()[j2+1].getX(), getVertices()[j2+2].getY() + getVertices()[j2+1].getY()); 
-			DoubleVector BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
-			
-			// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
-			DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
-			
-			// find the center of the corner which is b + bsu
-			double centerX = (getVertices()[j2+1].getX() + BSU.getX()); 
-			double centerY = (getVertices()[j2+1].getY() + BSU.getY()); 
-		
-			// calculate unit radius 
-			double unitRadius = BAU.crossProduct​(BSU); 
-			
-			// make scale factor to apply - to scale unit radius to equal this.getRadius()
-			double scaleFactor = getRadius() / unitRadius; 
-			
-			// determine the point along the line BA where the cut-off occurs, and where the tart angle begins
-			DoublePoint arcStartPoint = new DoublePoint ((getVertices()[j2+1].getX() - getVertices()[j2].getX())/scaleFactor, (getVertices()[j2+1].getY() - getVertices()[j2].getY())/scaleFactor); 
-			DoublePoint arcEndPoint = new DoublePoint ((getVertices()[j2+2].getX() - getVertices()[j2+1].getX())/scaleFactor, (getVertices()[j2+1].getY() - getVertices()[j2].getY())/scaleFactor); 
-			
-			// create the angle vector between the corner center and the point of the length cutoff
-			DoubleVector startAngleVector = new DoubleVector(centerX - arcStartPoint.getX(), centerY - arcStartPoint.getY());
-			
-			DoubleVector endAngleVector = new DoubleVector(arcEndPoint.getX() - centerX, arcEndPoint.getY() - centerY);
-			
-			// compute the start angle from the cutoff on line BA to the center of the corner radius
-			double startAngle =  startAngleVector.asAngle(); 
-			
-			// compute the start angle from the cutoff on line BC to the center of the corner radius
-			double angleExtent = endAngleVector.asAngle(); 
+			int next = 0; 
+	
+			if (j2 != getVertices().length - 2)  {
 				
-			// embed the variables into strings to append
-			drawingCommands.add(String.format("arc %s %s %s %s %s"+"%n", Double.toString(centerX), Double.toString(centerY), Double.toString(getRadius()), Double.toString(startAngle), Double.toString(angleExtent))); 		
+				next = j2 + 1; 
+				
+				drawingCommands.add(String.format("line %d %d %d %d"+"%n", getVertices()[j2].getX(), getVertices()[j2].getY(), getVertices()[next].getX(), getVertices()[next].getY()));
+				
+				//make vector bau to calculate the length cutoff - it is the vector between b and a divided by its length to make it a unit vector
+				// make it a double vector to use getsize method
+				IntVector bau = new IntVector(getVertices()[j2].getX() - getVertices()[next].getX(), getVertices()[j2].getY() - getVertices()[next].getY()); 
+				DoubleVector BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
+				
+				
+				IntVector bcu = new IntVector(getVertices()[next].getX() - getVertices()[next-1].getX(), getVertices()[next].getY() - getVertices()[next].getY()); 
+				DoubleVector BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
+				
+				// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
+				DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
+				
+				// find the center of the corner which is b + bsu
+				double centerX = (getVertices()[next].getX() + BSU.getX()); 
+				double centerY = (getVertices()[next].getY() + BSU.getY()); 
+			
+				// calculate unit radius 
+				double unitRadius = BAU.crossProduct​(BSU); 
+				
+				// make scale factor to apply - to scale unit radius to equal this.getRadius()
+				double scaleFactor = getRadius() / unitRadius; 
+				
+				// determine the point along the line BA where the cut-off occurs, and where the tart angle begins
+				DoublePoint arcStartPoint = new DoublePoint ((getVertices()[next].getX() - getVertices()[j2].getX())/scaleFactor, (getVertices()[next].getY() - getVertices()[j2].getY())/scaleFactor); 
+				DoublePoint arcEndPoint = new DoublePoint ((getVertices()[next + 1].getX() - getVertices()[next].getX())/scaleFactor, (getVertices()[next].getY() - getVertices()[j2].getY())/scaleFactor); 
+				
+				// create the angle vector between the corner center and the point of the length cutoff
+				DoubleVector startAngleVector = new DoubleVector(centerX - arcStartPoint.getX(), centerY - arcStartPoint.getY());
+				
+				DoubleVector endAngleVector = new DoubleVector(arcEndPoint.getX() - centerX, arcEndPoint.getY() - centerY);
+				
+				// compute the start angle from the cutoff on line BA to the center of the corner radius
+				double startAngle =  startAngleVector.asAngle(); 
+				
+				// compute the start angle from the cutoff on line BC to the center of the corner radius
+				double angleExtent = endAngleVector.asAngle(); 
+					
+				// embed the variables into strings to append
+				drawingCommands.add(String.format("arc %s %s %s %s %s"+"%n", Double.toString(centerX), Double.toString(centerY), Double.toString(getRadius()), Double.toString(startAngle), Double.toString(angleExtent)));
 			}
-		
+			
 		}
 		
 		return drawingCommands.toString(); 

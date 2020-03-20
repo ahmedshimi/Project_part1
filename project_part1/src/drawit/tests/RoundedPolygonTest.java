@@ -59,9 +59,10 @@ class RoundedPolygonTest {
 		assertEquals(false, RP1.contains​(p16));
 
 		// sample unit test with random numbers- will try his implementation hints after 
-		IntPoint [] commandsTest = new IntPoint[4]; 
-		IntPoint s1 = new IntPoint(1, 3); 
-		IntPoint s2 = new IntPoint(4, 10); 
+		// can't yet close the loop, so the print out is missing the last 2 indices and needs to go back to 0
+		IntPoint [] commandsTest = new IntPoint[6]; 
+		IntPoint s1 = new IntPoint(11, 3); 
+		IntPoint s2 = new IntPoint(2, 12); 
 		IntPoint s3 = new IntPoint(8, 5); 
 		IntPoint s4 = new IntPoint(4, 4); 
 
@@ -69,13 +70,14 @@ class RoundedPolygonTest {
 		commandsTest = PointArrays.update​(commandsTest, 1, s2);
 		commandsTest = PointArrays.update​(commandsTest, 2, s3);
 		commandsTest = PointArrays.update​(commandsTest, 3, s4);
+		commandsTest = PointArrays.update​(commandsTest, 4, p10);
+		commandsTest = PointArrays.update​(commandsTest, 5, p11);
 
 		RoundedPolygon square = new RoundedPolygon();
 
 		square.setVertices(commandsTest); 
 
 		System.out.print(square.getDrawingCommands()); 
-
 
 
 		
