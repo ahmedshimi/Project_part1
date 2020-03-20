@@ -116,50 +116,51 @@ public class RoundedPolygon {
 		String empty = new String ("");
 		if (getVertices().length < 3) 
 			return empty; 
-
+		
 		ArrayList<String> drawingCommands = new ArrayList<String>(); 
 		 
 		for (int j=1; j < getVertices().length; j++) {
 
 			drawingCommands.add(String.format("line %d %d %d %d"+"%n", getVertices()[j-1].getX(), getVertices()[j-1].getX(), getVertices()[j].getX(), getVertices()[j].getX()));
 			
-			
-			// initialize start and extent angles- do not know how to implement
-			double startAngle = 0;
-			double angleExtent = 0; 
-						
 			// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
 			IntVector bsu = new IntVector ((getVertices()[j-1].getX() + getVertices()[j].getX()/2) + (getVertices()[j+1].getX() + getVertices()[j].getX()/2), (getVertices()[j-1].getY() + getVertices()[j].getY()/2) + (getVertices()[j+1].getY() + getVertices()[j].getY()/2)); 
-						
+			
 			// find the center of the corner which is b + bsu
 			int centerx = (getVertices()[j].getX() + bsu.getX()); 
 			int centery = (getVertices()[j].getY() + bsu.getY()); 
-
+			
 			// make vector bau to calculate the length cutoff - it is the vector between b and a divided by its length to make it a unit vector
 			// make it a double vector to use getsize method
 			IntVector bau = new IntVector(getVertices()[j].getX() + getVertices()[j-1].getX(), getVertices()[j].getY() + getVertices()[j-1].getY()); 
 			DoubleVector BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
-
+			
 			// calculate unit radius 
 			double unitRadius = BAU.crossProduct​(bsu.asDoubleVector()); 
-
-			// make scale factor to apply - to scale unit radius to equal this,.getradius()
-			double scaleFactor = this.getRadius() / unitRadius; 
-
-
-			// hints from part to draw- i don't understand the angles 
-			if (getVertices()[j-1].getY() > 0) {
-				startAngle =  (double) (Math.PI / 2); 
-			}
-			if (getVertices()[j-1].getY() < 0) {
-				startAngle =  (double) (- Math.PI / 2);
-			}
-
 			
-			drawingCommands.add(String.format("arc %d %d %d %d"+"%n", getVertices()[j-1].getX(), getVertices()[j-1].getX(), getRadius(), startAngle, angleExtent)); 		
+			// make scale factor to apply - to scale unit radius to equal this.getRadius()
+			double scaleFactor = this.getRadius() / unitRadius; 
+			
+			// determine the point along the line BA where the cuttoff occurs, and where the tart angle begins
+			DoublePoint arcStartPoint = new DoublePoint ((getVertices()[j].getX() - getVertices()[j-1].getX())/scaleFactor, (getVertices()[j].getY() - getVertices()[j-1].getY())/scaleFactor); 
+			DoublePoint arcEndPoint = new DoublePoint ((getVertices()[j+1].getX() - getVertices()[j].getX())/scaleFactor, (getVertices()[j+1].getY() - getVertices()[j].getY())/scaleFactor); 
+			
+			// create the angle vector between the corner center and the point of the length cutoff
+			DoubleVector startAngleVector = new DoubleVector(centerx - arcStartPoint.getX(), centery - arcStartPoint.getY());
+			
+			DoubleVector endAngleVector = new DoubleVector(arcEndPoint.getX() - centerx, arcEndPoint.getY() - centery);
+			
+			// compute the start angle from the cutoff on line BA to the center of the corner radius
+			double startAngle =  startAngleVector.asAngle(); 
+			
+			// compute the start angle from the cutoff on line BC to the center of the corner radius
+			double angleExtent = endAngleVector.asAngle(); 
+				
+			// embed the variables into strings to append
+			drawingCommands.add(String.format("arc %d %d %d %d"+"%n", centerx, centery, getRadius(), startAngle, angleExtent)); 		
 			
 		}
-		return drawingCommands.toString();
+		return drawingCommands.toString(); 
 	}
 
 	/**
