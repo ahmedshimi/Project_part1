@@ -58,7 +58,22 @@ class RoundedPolygonTest {
 		assertEquals(false, RP1.contains​(p15));
 		assertEquals(false, RP1.contains​(p16));
 
-
+		IntPoint [] commandsTest = new IntPoint[4]; 
+		IntPoint s1 = new IntPoint(110, 100); 
+		IntPoint s2 = new IntPoint(200, 110); 
+		IntPoint s3 = new IntPoint(190, 200); 
+		IntPoint s4 = new IntPoint(100, 190); 
+		
+		commandsTest = PointArrays.update​(commandsTest, 0, s1);
+		commandsTest = PointArrays.update​(commandsTest, 1, s2);
+		commandsTest = PointArrays.update​(commandsTest, 2, s3);
+		commandsTest = PointArrays.update​(commandsTest, 3, s4);
+		
+		RoundedPolygon square = new RoundedPolygon();
+		
+		square.setVertices(commandsTest); 
+		
+		System.out.print(square.getDrawingCommands()); 
 
 
 

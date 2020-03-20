@@ -116,34 +116,37 @@ public class RoundedPolygon {
 		String empty = new String ("");
 		if (getVertices().length < 3) 
 			return empty; 
-		
+
 		ArrayList<String> drawingCommands = new ArrayList<String>(); 
 		 
-		for (int j=1; j < getVertices().length; j++) {
+		for (int j=2; j < getVertices().length - 2; j++) {
 
 			drawingCommands.add(String.format("line %d %d %d %d"+"%n", getVertices()[j-1].getX(), getVertices()[j-1].getX(), getVertices()[j].getX(), getVertices()[j].getX()));
 			
-			// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
-			IntVector bsu = new IntVector ((getVertices()[j-1].getX() + getVertices()[j].getX()/2) + (getVertices()[j+1].getX() + getVertices()[j].getX()/2), (getVertices()[j-1].getY() + getVertices()[j].getY()/2) + (getVertices()[j+1].getY() + getVertices()[j].getY()/2)); 
-			
-			// find the center of the corner which is b + bsu
-			int centerx = (getVertices()[j].getX() + bsu.getX()); 
-			int centery = (getVertices()[j].getY() + bsu.getY()); 
-			
 			// make vector bau to calculate the length cutoff - it is the vector between b and a divided by its length to make it a unit vector
 			// make it a double vector to use getsize method
-			IntVector bau = new IntVector(getVertices()[j].getX() + getVertices()[j-1].getX(), getVertices()[j].getY() + getVertices()[j-1].getY()); 
+			IntVector bau = new IntVector(getVertices()[j-1].getX() - getVertices()[j-2].getX(), getVertices()[j-1].getY() + getVertices()[j-2].getY()); 
 			DoubleVector BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
 			
+			IntVector bcu = new IntVector(getVertices()[j-1].getX() - getVertices()[j].getX(), getVertices()[j-1].getY() + getVertices()[j].getY()); 
+			DoubleVector BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
+			
+			// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
+			DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
+			
+			// find the center of the corner which is b + bsu
+			double centerx = (getVertices()[j-1].getX() + BSU.getX()); 
+			double centery = (getVertices()[j-1].getY() + BSU.getY()); 
+		
 			// calculate unit radius 
-			double unitRadius = BAU.crossProduct​(bsu.asDoubleVector()); 
+			double unitRadius = BAU.crossProduct​(BSU); 
 			
 			// make scale factor to apply - to scale unit radius to equal this.getRadius()
 			double scaleFactor = this.getRadius() / unitRadius; 
 			
-			// determine the point along the line BA where the cuttoff occurs, and where the tart angle begins
-			DoublePoint arcStartPoint = new DoublePoint ((getVertices()[j].getX() - getVertices()[j-1].getX())/scaleFactor, (getVertices()[j].getY() - getVertices()[j-1].getY())/scaleFactor); 
-			DoublePoint arcEndPoint = new DoublePoint ((getVertices()[j+1].getX() - getVertices()[j].getX())/scaleFactor, (getVertices()[j+1].getY() - getVertices()[j].getY())/scaleFactor); 
+			// determine the point along the line BA where the cut-off occurs, and where the tart angle begins
+			DoublePoint arcStartPoint = new DoublePoint ((getVertices()[j-1].getX() - getVertices()[j-2].getX())/scaleFactor, (getVertices()[j-1].getY() - getVertices()[j-2].getY())/scaleFactor); 
+			DoublePoint arcEndPoint = new DoublePoint ((getVertices()[j].getX() - getVertices()[j-1].getX())/scaleFactor, (getVertices()[j].getY() - getVertices()[j-1].getY())/scaleFactor); 
 			
 			// create the angle vector between the corner center and the point of the length cutoff
 			DoubleVector startAngleVector = new DoubleVector(centerx - arcStartPoint.getX(), centery - arcStartPoint.getY());
@@ -157,7 +160,7 @@ public class RoundedPolygon {
 			double angleExtent = endAngleVector.asAngle(); 
 				
 			// embed the variables into strings to append
-			drawingCommands.add(String.format("arc %d %d %d %d"+"%n", centerx, centery, getRadius(), startAngle, angleExtent)); 		
+			drawingCommands.add(String.format("arc %d %d %d %d %d"+"%n", centerx, centery, unitRadius, startAngle, angleExtent)); 		
 			
 		}
 		return drawingCommands.toString(); 
