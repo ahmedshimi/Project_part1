@@ -58,10 +58,26 @@ class RoundedPolygonTest {
 		assertEquals(false, RP1.contains​(p15));
 		assertEquals(false, RP1.contains​(p16));
 
-
-
-
-
+		
+		RoundedPolygon RP2 = new RoundedPolygon();
+		
+		IntPoint p101 = new IntPoint(100,100);
+		IntPoint p102 = new IntPoint(200,100);
+		IntPoint p103 = new IntPoint(200,200);
+		IntPoint p104 = new IntPoint(100,200);
+		
+		IntPoint[] ver2 = new IntPoint[4];
+		
+		ver2 = PointArrays.update​(ver2, 0, p101);
+		ver2 = PointArrays.update​(ver2, 1, p102);
+		ver2 = PointArrays.update​(ver2, 2, p103);
+		ver2 = PointArrays.update​(ver2, 3, p104);
+		
+		RP2.setVertices(ver2);
+		
+		RP2.setRadius(10);
+		
+		System.out.print(RP2.getDrawingCommands());
 		
 
 

@@ -2,8 +2,6 @@ package drawit;
 
 import java.util.Arrays;
 
-//deal with illegal arguments defensively.
-
 /**
  * An instance of this class is a mutable abstraction storing a rounded polygon defined by a set of 
  * 2D points with integer coordinates and a nonnegative corner radius.
@@ -113,9 +111,82 @@ public class RoundedPolygon {
 	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
 	public String getDrawingCommands() {
+		String drawingCommands = "";
 		if (getVertices().length <3)
-			return "";
+			return drawingCommands;
 		
+		for (int j=0; j<getVertices().length - 1; j++) {
+			if (getVertices()[j].getX() == getVertices()[j+1].getX()) {
+				
+				if(getVertices()[j].getY() > getVertices()[j+1].getY()) {
+					IntPoint v1 = new IntPoint(getVertices()[j].getX(),getVertices()[j].getY()-getRadius());
+					IntPoint v2 = new IntPoint(getVertices()[j+1].getX(),getVertices()[j+1].getY()+getRadius());
+					IntPoint v3 = new IntPoint(getVertices()[j+1].getX()+getRadius(), getVertices()[j+1].getY());
+					drawingCommands = drawingCommands + "line " + v1.getX() +" "+ v1.getY() +" "+ v2.getX() +" "+ v2.getY() + "\r\n";
+					IntPoint c = new IntPoint((getVertices()[j+1].getX()+getRadius()),(getVertices()[j+1].getY()+getRadius()));
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ v2.minus​(c).asDoubleVector().asAngle() +" "+ (v2.minus​(c).asDoubleVector().asAngle()-v3.minus​(c).asDoubleVector().asAngle()+ Math.PI) +"\r\n";
+				}else {
+					IntPoint v1 = new IntPoint(getVertices()[j].getX(),getVertices()[j].getY()+getRadius());
+					IntPoint v2 = new IntPoint(getVertices()[j+1].getX(),getVertices()[j+1].getY()-getRadius());
+					IntPoint v3 = new IntPoint(getVertices()[j+1].getX()-getRadius(), getVertices()[j+1].getY());
+					drawingCommands = drawingCommands + "line " + v1.getX() +" "+ v1.getY() +" "+ v2.getX() +" "+ v2.getY() + "\r\n";
+					IntPoint c = new IntPoint((getVertices()[j+1].getX()-getRadius()),(getVertices()[j+1].getY()-getRadius()));
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ v2.minus​(c).asDoubleVector().asAngle() +" "+ (v2.minus​(c).asDoubleVector().asAngle()-v3.minus​(c).asDoubleVector().asAngle()+ Math.PI) +"\r\n";
+				}
+			}
+			if (getVertices()[j].getY() == getVertices()[j+1].getY()) {
+				if(getVertices()[j].getX() > getVertices()[j+1].getX()) {
+					IntPoint v1 = new IntPoint(getVertices()[j].getX()-getRadius(),getVertices()[j].getY());
+					IntPoint v2 = new IntPoint(getVertices()[j+1].getX()+getRadius(),getVertices()[j+1].getY());
+					IntPoint v3 = new IntPoint(getVertices()[j+1].getX(), getVertices()[j+1].getY() -getRadius());
+					drawingCommands = drawingCommands + "line " + v1.getX() +" "+ v1.getY() +" "+ v2.getX() +" "+ v2.getY() + "\r\n";
+					IntPoint c = new IntPoint((getVertices()[j+1].getX()+getRadius()),(getVertices()[j+1].getY()-getRadius()));
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ v2.minus​(c).asDoubleVector().asAngle() +" "+ (v2.minus​(c).asDoubleVector().asAngle()-v3.minus​(c).asDoubleVector().asAngle()+ Math.PI) +"\r\n";
+
+				}else {
+					IntPoint v1 = new IntPoint(getVertices()[j].getX()+getRadius(),getVertices()[j].getY());
+					IntPoint v2 = new IntPoint(getVertices()[j+1].getX()-getRadius(),getVertices()[j+1].getY());
+					IntPoint v3 = new IntPoint(getVertices()[j+1].getX(), getVertices()[j+1].getY() +getRadius());
+					drawingCommands = drawingCommands + "line " + v1.getX() +" "+ v1.getY() +" "+ v2.getX() +" "+ v2.getY() + "\r\n";
+					IntPoint c = new IntPoint((getVertices()[j+1].getX()-getRadius()),(getVertices()[j+1].getY()+getRadius()));
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ v2.minus​(c).asDoubleVector().asAngle() +" "+ (v2.minus​(c).asDoubleVector().asAngle()-v3.minus​(c).asDoubleVector().asAngle() + Math.PI) +"\r\n";
+				}
+			}
+		}
+		if (getVertices()[0].getX() == getVertices()[getVertices().length -1].getX()) {
+			
+			if(getVertices()[getVertices().length -1].getY() > getVertices()[0].getY()) {
+				IntPoint v1 = new IntPoint(getVertices()[getVertices().length -1].getX(),getVertices()[getVertices().length -1].getY()-getRadius());
+				IntPoint v2 = new IntPoint(getVertices()[0].getX(),getVertices()[0].getY()+getRadius());
+				IntPoint v3 = new IntPoint(getVertices()[0].getX()+getRadius(), getVertices()[0].getY());
+				drawingCommands = drawingCommands + "line " + v1.getX() +" "+ v1.getY() +" "+ v2.getX() +" "+ v2.getY() + "\r\n";
+				IntPoint c = new IntPoint((getVertices()[0].getX()+getRadius()),(getVertices()[0].getY()+getRadius()));
+				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ v2.minus​(c).asDoubleVector().asAngle() +" "+ (v2.minus​(c).asDoubleVector().asAngle()-v3.minus​(c).asDoubleVector().asAngle() - Math.PI) +"\r\n";
+			}else {
+				IntPoint v1 = new IntPoint(getVertices()[getVertices().length -1].getX(),getVertices()[getVertices().length -1].getY()+getRadius());
+				IntPoint v2 = new IntPoint(getVertices()[0].getX(),getVertices()[0].getY()-getRadius());
+				IntPoint v3 = new IntPoint(getVertices()[0].getX()-getRadius(), getVertices()[0].getY());
+				drawingCommands = drawingCommands + "line " + v1.getX() +" "+ v1.getY() +" "+ v2.getX() +" "+ v2.getY() + "\r\n";
+				IntPoint c = new IntPoint((getVertices()[0].getX()-getRadius()),(getVertices()[0].getY()-getRadius()));
+				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ v2.minus​(c).asDoubleVector().asAngle() +" "+ (v2.minus​(c).asDoubleVector().asAngle()-v3.minus​(c).asDoubleVector().asAngle() - Math.PI) +"\r\n";			}
+		}
+		
+		if (getVertices()[0].getY() == getVertices()[getVertices().length -1].getY()) {
+			if(getVertices()[getVertices().length -1].getX() > getVertices()[0].getX()) {
+				IntPoint v1 = new IntPoint(getVertices()[getVertices().length -1].getX()-getRadius(),getVertices()[getVertices().length -1].getY());
+				IntPoint v2 = new IntPoint(getVertices()[0].getX()+getRadius(),getVertices()[0].getY());
+				IntPoint v3 = new IntPoint(getVertices()[0].getX(), getVertices()[0].getY() -getRadius());
+				drawingCommands = drawingCommands + "line " + v1.getX() +" "+ v1.getY() +" "+ v2.getX() +" "+ v2.getY() + "\r\n";
+				IntPoint c = new IntPoint((getVertices()[0].getX()+getRadius()),(getVertices()[0].getY()-getRadius()));
+				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ v2.minus​(c).asDoubleVector().asAngle() +" "+ (v2.minus​(c).asDoubleVector().asAngle()-v3.minus​(c).asDoubleVector().asAngle() - Math.PI) +"\r\n";
+			}else {
+				IntPoint v1 = new IntPoint(getVertices()[getVertices().length -1].getX()+getRadius(),getVertices()[getVertices().length -1].getY());
+				IntPoint v2 = new IntPoint(getVertices()[0].getX()-getRadius(),getVertices()[0].getY());
+				IntPoint v3 = new IntPoint(getVertices()[0].getX(), getVertices()[0].getY()+getRadius());
+				drawingCommands = drawingCommands + "line " + v1.getX() +" "+ v1.getY() +" "+ v2.getX() +" "+ v2.getY() + "\r\n";
+				IntPoint c = new IntPoint((getVertices()[0].getX()-getRadius()),(getVertices()[0].getY()+getRadius()));
+				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ v2.minus​(c).asDoubleVector().asAngle() +" "+ (v2.minus​(c).asDoubleVector().asAngle()-v3.minus​(c).asDoubleVector().asAngle() - Math.PI) +"\r\n";			}
+		}
 		return drawingCommands;
 	}
 
