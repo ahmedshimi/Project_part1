@@ -78,9 +78,6 @@ class RoundedPolygonTest {
 		RP2.setRadius(10);
 		
 		System.out.print(RP2.getDrawingCommands());
-		
-
-
 	}
 
 }
