@@ -39,7 +39,8 @@ public class RoundedPolygon {
 	 * @param index
 	 * @param point
 	 */
-	public void insert​(int index,IntPoint point) {
+	
+	public void insert(int index, IntPoint point) {
 		setVertices(PointArrays.insert​(getVertices(), index, point));	
 	}
 	
