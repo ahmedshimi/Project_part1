@@ -117,12 +117,65 @@ public class RoundedPolygon {
 			return empty; 
 
 		String drawingCommands = ""; 
+		
+		int radiustoAddv1y = 0;
+		int radiustoAddv1x = 0;
+		int radiustoAddv3x = 0; 
+		int radiustoAddv2y = 0; 
+		int radiustoAddv2x = 0; 
+		int radiustoAddcx = 0; 
+		int radiustoAddcy = 0; 
+		int radiustoAddv3y = 0; 
 	
+		for (int j1 = 0; j1 < getVertices().length -1 ; j1++) {
+			
+			
+			// in this loop, we can set the radius of the different variables based on the vertex value and the next vertex
+			// only applied this so far to the lines
+			// values are not correct- need to see if we can use this method
+			// each radiustoAdd has the variable name, and if we add it to x or y
+			
+			if (getVertices()[j1].getX() == getVertices()[j1+1].getX() || getVertices()[j1].getY() > getVertices()[j1+1].getY()) {
+				radiustoAddv1y = -getRadius(); 
+				radiustoAddv3x = getRadius(); 
+				radiustoAddv2y = getRadius(); 
+				radiustoAddcx = getRadius(); 
+				radiustoAddcy = getRadius();
+				
+			} else {
+				radiustoAddv1y = getRadius(); 
+				radiustoAddv2y = - getRadius(); 
+				radiustoAddv3x = - getRadius(); 
+				radiustoAddcx = - getRadius(); 
+				radiustoAddcy = - getRadius();	
+				
+			}
+			
+			if (getVertices()[j1].getY() == getVertices()[j1+1].getY() || getVertices()[j1].getX() > getVertices()[j1+1].getX()) {
+				radiustoAddv1x = getRadius(); 
+				radiustoAddv2x = getRadius(); 
+				radiustoAddv3y = - getRadius(); 
+				radiustoAddcx = getRadius();
+				radiustoAddcy = - getRadius();
+				
+			} else {
+				radiustoAddv1x = getRadius();
+				radiustoAddv2y = - getRadius(); 
+				radiustoAddv3y = getRadius();
+				radiustoAddcx = - getRadius();
+				radiustoAddcy = getRadius();
+				
+				
+			}
+			
+			
+		}
 		for (int j2 = 0; j2 < getVertices().length ; j2++) {
 			
 			int next = 0;
 			DoubleVector BCU;
 			DoubleVector BAU;
+			
 	
 			if (j2 < getVertices().length - 2)  {
 				
@@ -132,7 +185,6 @@ public class RoundedPolygon {
 				// make it a double vector to use getsize method
 				IntVector bau = getVertices()[next].minus​(getVertices()[j2]);
 				BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
-				
 				
 				IntVector bcu = getVertices()[next].minus​(getVertices()[next+1]);
 				BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
@@ -161,10 +213,10 @@ public class RoundedPolygon {
 				double angleExtent = v2.minus​(c).asAngle()-v3.minus​(c).asAngle()+ Math.PI; 
 					
 				// embed the variables into strings to append
-				drawingCommands = drawingCommands + "line " + getVertices()[j2].getX() +" "+ getVertices()[j2].getY() +" "+ getVertices()[next].getX() +" "+ getVertices()[next].getY() + "\r\n";				
+				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + radiustoAddv1x)  +" "+ (getVertices()[j2].getY() + radiustoAddv1y) +" "+ (getVertices()[next].getX() + radiustoAddv2x) +" "+ (getVertices()[next].getY() + radiustoAddv2y) + "\r\n";				
 				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";			
 				
-			}else if (j2 == getVertices().length - 2){
+			} else if (j2 == getVertices().length - 2){
 				next = j2 + 1; 
 
 				IntVector bau = getVertices()[next].minus​(getVertices()[j2]);
@@ -196,8 +248,9 @@ public class RoundedPolygon {
 				double angleExtent = v2.minus​(c).asAngle()-v3.minus​(c).asAngle()+ Math.PI; 
 					
 				// embed the variables into strings to append
-				drawingCommands = drawingCommands + "line " + getVertices()[j2].getX() +" "+ getVertices()[j2].getY() +" "+ getVertices()[next].getX() +" "+ getVertices()[next].getY() + "\r\n";				
+				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() +radiustoAddv1x)  +" "+ (getVertices()[j2].getY() + radiustoAddv1y) +" "+ (getVertices()[next].getX() + radiustoAddv2x) +" "+ (getVertices()[next].getY() + radiustoAddv2y) + "\r\n";							
 				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";
+				
 			}else {
 				IntVector bau = getVertices()[next].minus​(getVertices()[j2]);
 				BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
@@ -228,13 +281,14 @@ public class RoundedPolygon {
 				double angleExtent = v2.minus​(c).asAngle()-v3.minus​(c).asAngle()+ Math.PI; 
 					
 				// embed the variables into strings to append
-				drawingCommands = drawingCommands + "line " + getVertices()[j2].getX() +" "+ getVertices()[j2].getY() +" "+ getVertices()[next].getX() +" "+ getVertices()[next].getY() + "\r\n";				
+				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() +radiustoAddv1x)  +" "+ (getVertices()[j2].getY() + radiustoAddv1y) +" "+ (getVertices()[next].getX() + radiustoAddv2x) +" "+ (getVertices()[next].getY() + radiustoAddv2y) + "\r\n";				
 				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";	
 			}
 			}
 		
 		return drawingCommands.toString(); 
 	}
+	
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
 	 * 
