@@ -25,11 +25,11 @@ class IntPointTest {
 		assertEquals(false, myIntPoint.equals​(myIntPoint3));
 
 		IntVector myIntVector = new IntVector(5,5);
-		assertEquals(4,myIntPoint.plus​(myIntVector).getX());
-		assertEquals(6,myIntPoint.plus​(myIntVector).getY());
+		assertEquals(4,myIntPoint.plus(myIntVector).getX());
+		assertEquals(6,myIntPoint.plus(myIntVector).getY());
 		
-		assertEquals(0,myIntPoint.minus​(myIntPoint2).getX());
-		assertEquals(0,myIntPoint.minus​(myIntPoint2).getY());
+		assertEquals(0,myIntPoint.minus(myIntPoint2).getX());
+		assertEquals(0,myIntPoint.minus(myIntPoint2).getY());
 
 		IntPoint myIntPoint4 = new IntPoint(0,1);
 		IntPoint myIntPoint5 = new IntPoint(0,3);

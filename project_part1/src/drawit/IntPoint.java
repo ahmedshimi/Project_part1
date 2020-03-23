@@ -65,9 +65,10 @@ public final class IntPoint extends Object {
 	 * 		| result.getX() == this.getX() + vector.getX() && result.getY() == this.getY() + vector.getY()
 	 * @throws Exception - if the result x or y coordinates will flow over Integer.MAX_VALUE.
 	 * | Long.valueOf(this.getX()) + Long.valueOf(vector.getX()) > Long.valueOf(Integer.MAX_VALUE)
-	 * 	 | Long.valueOf(this.getY()) + Long.valueOf(vector.getY()) > Long.valueOf(Integer.MAX_VALUE)
+	 * 	 Long.valueOf(this.getY()) + Long.valueOf(vector.getY()) > Long.valueOf(Integer.MAX_VALUE)
 	 */
-	public IntPoint plus​(IntVector vector) throws Exception {
+	public IntPoint plus(IntVector vector) throws Exception {
+	
 		if (Long.valueOf(this.getX()) + Long.valueOf(vector.getX()) > Long.valueOf(Integer.MAX_VALUE)|| Long.valueOf(this.getY()) + Long.valueOf(vector.getY()) > Long.valueOf(Integer.MAX_VALUE)) {
 				throw new Exception("overflow exception, int too big");
 		}		
@@ -83,7 +84,8 @@ public final class IntPoint extends Object {
 	 * 		|result.getX() == this.getX() - other.getX() && result.getY() == this.getY() - other.getY()
 	 * @return an IntVector object representing the displacement from other to this.
 	 */
-	public IntVector minus​(IntPoint other) {
+	
+	public IntVector minus (IntPoint other) {
 		IntVector result = new IntVector(this.getX() - other.getX(),this.getY() - other.getY());
 		return result;}
 	
@@ -95,15 +97,15 @@ public final class IntPoint extends Object {
      * @post
      *      The result is {@code true} iff this point is on line segment bc excluding its end points.
      *      | result == (
-     *      | b.minus​(this).isCollinearWith​(b.minus​(c)) 
-     *      | && b.minus​(this).dotProduct​(b.minus​(c))> 0 
-     *      | && b.minus​(this).dotProduct​(b.minus​(c)) < b.minus​(c).dotProduct​(b.minus​(c))
+     *      | b.minus(this).isCollinearWith​(b.minus(c)) 
+     *      | && b.minus(this).dotProduct​(b.minus(c))> 0 
+     *      | && b.minus(this).dotProduct​(b.minus(c)) < b.minus(c).dotProduct​(b.minus(c))
      *      |)
 	 */
 	
 	public boolean isOnLineSegment​(IntPoint b,IntPoint c) {
-		if(b.minus​(this).isCollinearWith​(b.minus​(c)))
-			if(b.minus​(this).dotProduct​(b.minus​(c))> 0 && b.minus​(this).dotProduct​(b.minus​(c)) < b.minus​(c).dotProduct​(b.minus​(c)))
+		if(b.minus(this).isCollinearWith​(b.minus(c)))
+			if(b.minus(this).dotProduct​(b.minus(c))> 0 && b.minus(this).dotProduct​(b.minus(c)) < b.minus(c).dotProduct​(b.minus(c)))
 				return true;
 		return false;
 		}
@@ -118,8 +120,8 @@ public final class IntPoint extends Object {
 	 * @return true if the open line segment ab intersects the open line segment cd.
 	 */
 	public static boolean lineSegmentsIntersect​(IntPoint a,IntPoint b,IntPoint c,IntPoint d) {
-		if(Math.signum(a.minus​(c).crossProduct​(a.minus​(b))) * Math.signum(a.minus​(d).crossProduct​(a.minus​(b))) < 0)
-			if(Math.signum(c.minus​(a).crossProduct​(c.minus​(d))) * Math.signum(c.minus​(b).crossProduct​(c.minus​(d))) < 0)
+		if(Math.signum(a.minus(c).crossProduct​(a.minus(b))) * Math.signum(a.minus(d).crossProduct​(a.minus(b))) < 0)
+			if(Math.signum(c.minus(a).crossProduct​(c.minus(d))) * Math.signum(c.minus(b).crossProduct​(c.minus(d))) < 0)
 				return true;
 		return false;
 	}

@@ -1,6 +1,5 @@
 package drawit;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -11,7 +10,7 @@ import java.util.Arrays;
  * @invar This object's vertices is not null
  *    | getVertices() != null
  * @invar This object's radius is not negative
- * 	  | getRadius() => 0
+ * 	  | getRadius() >= 0
  *	
  * @author Ahmed Shemy && Matthew Watson
  *
@@ -22,7 +21,7 @@ public class RoundedPolygon {
 	/**
      * @invar | drawingCommands != null
      * @invar | vertices != null
-     * @invar | radius => 0
+     * @invar | radius >= 0
      */
 	
 	private String drawingCommands;
@@ -67,11 +66,11 @@ public class RoundedPolygon {
 	/**
 	 * @inspects | point
 	 * 
-	 * @post The result is true iff the given point is contained by the non-rounded polygon defined
+	 * @post The result is true if the given point is contained by the non-rounded polygon defined
 	 * by this rounded polygon's vertices.
 	 * 
 	 */
-	public boolean contains​(IntPoint point) {
+	public boolean contains(IntPoint point) {
 		for (int j=0; j<getVertices().length; j++)
 			if (point.equals​(getVertices()[j]))
 				return true;
@@ -131,16 +130,16 @@ public class RoundedPolygon {
 								
 				//make vector bau to calculate the length cutoff - it is the vector between b and a divided by its length to make it a unit vector
 				// make it a double vector to use getsize method
-				IntVector bau = getVertices()[next].minus​(getVertices()[j2]);
+				IntVector bau = getVertices()[next].minus(getVertices()[j2]);
 				BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
 				
-				IntVector bcu = getVertices()[next].minus​(getVertices()[next+1]);
+				IntVector bcu = getVertices()[next].minus(getVertices()[next+1]);
 				BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
 				// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
 				DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
 				
 				// calculate unit radius 
-				double unitRadius = BAU.crossProduct​(BSU); 
+				double unitRadius = BAU.crossProduct(BSU); 
 				
 				// make scale factor to apply - to scale unit radius to equal this.getRadius()
 				double scaleFactor = getRadius() / unitRadius; 
@@ -150,15 +149,15 @@ public class RoundedPolygon {
 				double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
 			
 				DoublePoint c = new DoublePoint(centerX, centerY);
-				double cutOff = bau.asDoubleVector().dotProduct​(BSU);
+				bau.asDoubleVector().dotProduct(BSU);
 				// compute the start angle from the cutoff on line BA to the center of the corner radius
 				DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
 				DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
 
-				double startAngle =  v2.minus​(c).asAngle();
+				double startAngle =  v2.minus(c).asAngle();
 				
 				// compute the start angle from the cutoff on line BC to the center of the corner radius
-				double angleExtent = v2.minus​(c).asAngle()-v3.minus​(c).asAngle()+ Math.PI; 
+				double angleExtent = v2.minus(c).asAngle()-v3.minus(c).asAngle()+ Math.PI; 
 					
 				// embed the variables into strings to append
 				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
@@ -167,16 +166,16 @@ public class RoundedPolygon {
 			} else if (j2 == getVertices().length - 2){
 				next = j2 + 1; 
 
-				IntVector bau = getVertices()[next].minus​(getVertices()[j2]);
+				IntVector bau = getVertices()[next].minus(getVertices()[j2]);
 				BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
 				
-				IntVector bcu = getVertices()[next].minus​(getVertices()[0]);
+				IntVector bcu = getVertices()[next].minus(getVertices()[0]);
 				BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
 				// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
 				DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
 				
 				// calculate unit radius 
-				double unitRadius = BAU.crossProduct​(BSU); 
+				double unitRadius = BAU.crossProduct(BSU); 
 				
 				// make scale factor to apply - to scale unit radius to equal this.getRadius()
 				double scaleFactor = getRadius() / unitRadius; 
@@ -185,31 +184,31 @@ public class RoundedPolygon {
 				double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
 				double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
 				DoublePoint c = new DoublePoint(centerX, centerY);
-				double cutOff = bau.asDoubleVector().dotProduct​(BSU);
+				bau.asDoubleVector().dotProduct(BSU);
 				// compute the start angle from the cutoff on line BA to the center of the corner radius
 				DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
 				DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
 
-				double startAngle =  v2.minus​(c).asAngle();
+				double startAngle =  v2.minus(c).asAngle();
 				
 				// compute the start angle from the cutoff on line BC to the center of the corner radius
-				double angleExtent = v2.minus​(c).asAngle()-v3.minus​(c).asAngle()+ Math.PI; 
+				double angleExtent = v2.minus(c).asAngle()-v3.minus(c).asAngle()+ Math.PI; 
 					
 				// embed the variables into strings to append
 				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
 				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";
 				
 			}else {
-				IntVector bau = getVertices()[next].minus​(getVertices()[j2]);
+				IntVector bau = getVertices()[next].minus(getVertices()[j2]);
 				BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
 				
-				IntVector bcu = getVertices()[next].minus​(getVertices()[next+1]);
+				IntVector bcu = getVertices()[next].minus(getVertices()[next+1]);
 				BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
 				// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
 				DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
 				
 				// calculate unit radius 
-				double unitRadius = BAU.crossProduct​(BSU); 
+				double unitRadius = BAU.crossProduct(BSU); 
 				
 				// make scale factor to apply - to scale unit radius to equal this.getRadius()
 				double scaleFactor = getRadius() / unitRadius; 
@@ -218,15 +217,15 @@ public class RoundedPolygon {
 				double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
 				double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
 				DoublePoint c = new DoublePoint(centerX, centerY);
-				double cutOff = bau.asDoubleVector().dotProduct​(BSU);
+				bau.asDoubleVector().dotProduct(BSU);
 				// compute the start angle from the cutoff on line BA to the center of the corner radius
 				DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
 				DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
 
-				double startAngle =  v2.minus​(c).asAngle();
+				double startAngle =  v2.minus(c).asAngle();
 				
 				// compute the start angle from the cutoff on line BC to the center of the corner radius
-				double angleExtent = v2.minus​(c).asAngle()-v3.minus​(c).asAngle()+ Math.PI; 
+				double angleExtent = v2.minus(c).asAngle()-v3.minus(c).asAngle()+ Math.PI; 
 					
 				// embed the variables into strings to append
 				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
@@ -257,8 +256,6 @@ public class RoundedPolygon {
      *    | vertices == null
      * @throws IllegalArgumentException if any of the elements of the given array is {@code null}.
      *    | Arrays.stream(vertices).anyMatch(e -> e == null)
-	 * @throws IllegalArgumentException - if the given vertices do not define a proper polygon.
-	 * | PointArrays.checkDefinesProperPolygon(vertices) != null
 	 */
 	public void setVertices(IntPoint[] vertices) {
 		if (vertices != null && !(Arrays.stream(vertices).anyMatch(e -> e == null)) && PointArrays.checkDefinesProperPolygon​(vertices) == null)

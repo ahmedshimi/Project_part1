@@ -20,14 +20,15 @@ public final class DoublePoint extends Object{
 	}
 	
 	
-	public DoublePoint plus​(DoubleVector other) {
+	
+	public DoublePoint plus(DoubleVector other) {
 		double x = this.getX() + other.getX();
 		double y = this.getY() + other.getY();
 		DoublePoint result = new DoublePoint(x,y);
 		return result;
 		}
 	
-	public DoubleVector minus​(DoublePoint other) {
+	public DoubleVector minus(DoublePoint other) {
 		double x = this.getX() - other.getX();
 		double y = this.getY() - other.getY();
 		DoubleVector result = new DoubleVector(x,y);

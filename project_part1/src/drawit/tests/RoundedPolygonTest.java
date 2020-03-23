@@ -46,17 +46,17 @@ class RoundedPolygonTest {
 		IntPoint p16 = new IntPoint(-169,4);
 
 		
-		assertEquals(true, RP1.contains​(p6));
-		assertEquals(true, RP1.contains​(p7));
-		assertEquals(true, RP1.contains​(p8));
-		assertEquals(true, RP1.contains​(p9));
-		assertEquals(false, RP1.contains​(p10));
-		assertEquals(false, RP1.contains​(p11));
-		assertEquals(false, RP1.contains​(p12));
-		assertEquals(false, RP1.contains​(p13));
-		assertEquals(true, RP1.contains​(p14));
-		assertEquals(false, RP1.contains​(p15));
-		assertEquals(false, RP1.contains​(p16));
+		assertEquals(true, RP1.contains(p6));
+		assertEquals(true, RP1.contains(p7));
+		assertEquals(true, RP1.contains(p8));
+		assertEquals(true, RP1.contains(p9));
+		assertEquals(false, RP1.contains(p10));
+		assertEquals(false, RP1.contains(p11));
+		assertEquals(false, RP1.contains(p12));
+		assertEquals(false, RP1.contains(p13));
+		assertEquals(true, RP1.contains(p14));
+		assertEquals(false, RP1.contains(p15));
+		assertEquals(false, RP1.contains(p16));
 
 		
 		RoundedPolygon RP2 = new RoundedPolygon();
@@ -75,7 +75,7 @@ class RoundedPolygonTest {
 		
 		RP2.setVertices(ver2);
 		
-		RP2.setRadius(10);
+		RP2.setRadius(6);
 		
 		System.out.print(RP2.getDrawingCommands());
 	}

@@ -25,11 +25,11 @@ class DoubleVectorTest {
 		assertEquals(Math.PI / 2,myDoubleVector2.asAngle());
 		assertEquals(- Math.PI / 2,myDoubleVector3.asAngle());
 		
-		assertEquals(-4, myDoubleVector1.crossProduct​(myDoubleVector4));
-		assertEquals(2, myDoubleVector1.dotProduct​(myDoubleVector4));
+		assertEquals(-4, myDoubleVector1.crossProduct(myDoubleVector4));
+		assertEquals(2, myDoubleVector1.dotProduct(myDoubleVector4));
 		
-		assertEquals(4, myDoubleVector4.scale​(2).getX());
-		assertEquals(-8, myDoubleVector4.scale​(2).getY());
+		assertEquals(4, myDoubleVector4.scale(2).getX());
+		assertEquals(-8, myDoubleVector4.scale(2).getY());
 
 		assertEquals(5, myDoubleVector5.getSize());
 

@@ -39,7 +39,8 @@ public final class DoubleVector extends Object{
 	 * @param other
 	 * @return the cross product of this vector and the given vector.
 	 */
-	public double crossProduct​(DoubleVector other) {
+	
+	public double crossProduct(DoubleVector other) {
 		double result = this.getX() * other.getY() - this.getY() * other.getX();
 		return result;
 	}
@@ -49,7 +50,8 @@ public final class DoubleVector extends Object{
 	 * @param other
 	 * @return the dot product of this vector and the given vector.
 	 */
-	public double dotProduct​(DoubleVector other) {
+	
+	public double dotProduct(DoubleVector other) {
 		double result = this.getX() * other.getX() + this.getY() * other.getY();
 		return result;
 		}
@@ -64,7 +66,8 @@ public final class DoubleVector extends Object{
 	 * @return a DoubleVector object whose coordinates are obtained by multiplying 
 	 * this vector's coordinates by the given scale factor.
 	 */
-	public DoubleVector scale​(double d) {
+	
+	public DoubleVector scale(double d) {
 		DoubleVector result = new DoubleVector(this.getX() * d,this.getY() * d);
 		return result;
 	}
