@@ -88,4 +88,5 @@ public final class DoubleVector extends Object{
 	public double getSize() {
 		return size;
 	}
+
 }
