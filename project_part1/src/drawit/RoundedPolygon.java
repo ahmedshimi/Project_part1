@@ -49,9 +49,11 @@ public class RoundedPolygon {
 	 * 
 	 * @param index
 	 */
-	public void remove​(int index) {
+	
+	public void remove(int index) {
 		setVertices(PointArrays.remove​(getVertices(), index));
 	}
+	
 	
 	/**
 	 * @inspects | point
