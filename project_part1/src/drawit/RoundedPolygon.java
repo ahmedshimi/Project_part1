@@ -135,12 +135,13 @@ public class RoundedPolygon {
 			// values are not correct- need to see if we can use this method
 			// each radiustoAdd has the variable name, and if we add it to x or y
 			
-			if (getVertices()[j1].getX() == getVertices()[j1+1].getX() || getVertices()[j1].getY() > getVertices()[j1+1].getY()) {
-				radiustoAddv1y = -getRadius(); 
-				radiustoAddv3x = getRadius(); 
-				radiustoAddv2y = getRadius(); 
-				radiustoAddcx = getRadius(); 
-				radiustoAddcy = getRadius();
+			if (getVertices()[j1].getX() == getVertices()[j1+1].getX()) {
+				if (getVertices()[j1].getY() > getVertices()[j1+1].getY()) {
+					radiustoAddv1y = -getRadius(); 
+					radiustoAddv3x = getRadius(); 
+					radiustoAddv2y = getRadius(); 
+					radiustoAddcx = getRadius(); 
+					radiustoAddcy = getRadius();
 				
 			} else {
 				radiustoAddv1y = getRadius(); 
@@ -150,8 +151,10 @@ public class RoundedPolygon {
 				radiustoAddcy = - getRadius();	
 				
 			}
+			}
 			
-			if (getVertices()[j1].getY() == getVertices()[j1+1].getY() || getVertices()[j1].getX() > getVertices()[j1+1].getX()) {
+			if (getVertices()[j1].getY() == getVertices()[j1+1].getY()) {
+				if (getVertices()[j1].getX() > getVertices()[j1+1].getX()) {
 				radiustoAddv1x = getRadius(); 
 				radiustoAddv2x = getRadius(); 
 				radiustoAddv3y = - getRadius(); 
@@ -165,11 +168,12 @@ public class RoundedPolygon {
 				radiustoAddcx = - getRadius();
 				radiustoAddcy = getRadius();
 				
-				
+	
 			}
 			
-			
 		}
+		}
+		
 		for (int j2 = 0; j2 < getVertices().length ; j2++) {
 			
 			int next = 0;
@@ -288,6 +292,7 @@ public class RoundedPolygon {
 		
 		return drawingCommands.toString(); 
 	}
+
 	
 	/**
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
