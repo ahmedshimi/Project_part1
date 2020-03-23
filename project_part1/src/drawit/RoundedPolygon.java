@@ -118,62 +118,6 @@ public class RoundedPolygon {
 
 		String drawingCommands = ""; 
 		
-		int radiustoAddv1y = 0;
-		int radiustoAddv1x = 0;
-		int radiustoAddv3x = 0; 
-		int radiustoAddv2y = 0; 
-		int radiustoAddv2x = 0; 
-		int radiustoAddcx = 0; 
-		int radiustoAddcy = 0; 
-		int radiustoAddv3y = 0; 
-	
-		for (int j1 = 0; j1 < getVertices().length -1 ; j1++) {
-			
-			
-			// in this loop, we can set the radius of the different variables based on the vertex value and the next vertex
-			// only applied this so far to the lines
-			// values are not correct- need to see if we can use this method
-			// each radiustoAdd has the variable name, and if we add it to x or y
-			
-			if (getVertices()[j1].getX() == getVertices()[j1+1].getX()) {
-				if (getVertices()[j1].getY() > getVertices()[j1+1].getY()) {
-					radiustoAddv1y = -getRadius(); 
-					radiustoAddv3x = getRadius(); 
-					radiustoAddv2y = getRadius(); 
-					radiustoAddcx = getRadius(); 
-					radiustoAddcy = getRadius();
-				
-			} else {
-				radiustoAddv1y = getRadius(); 
-				radiustoAddv2y = - getRadius(); 
-				radiustoAddv3x = - getRadius(); 
-				radiustoAddcx = - getRadius(); 
-				radiustoAddcy = - getRadius();	
-				
-			}
-			}
-			
-			if (getVertices()[j1].getY() == getVertices()[j1+1].getY()) {
-				if (getVertices()[j1].getX() > getVertices()[j1+1].getX()) {
-				radiustoAddv1x = getRadius(); 
-				radiustoAddv2x = getRadius(); 
-				radiustoAddv3y = - getRadius(); 
-				radiustoAddcx = getRadius();
-				radiustoAddcy = - getRadius();
-				
-			} else {
-				radiustoAddv1x = getRadius();
-				radiustoAddv2y = - getRadius(); 
-				radiustoAddv3y = getRadius();
-				radiustoAddcx = - getRadius();
-				radiustoAddcy = getRadius();
-				
-	
-			}
-			
-		}
-		}
-		
 		for (int j2 = 0; j2 < getVertices().length ; j2++) {
 			
 			int next = 0;
@@ -208,8 +152,8 @@ public class RoundedPolygon {
 				DoublePoint c = new DoublePoint(centerX, centerY);
 				double cutOff = bau.asDoubleVector().dotProduct​(BSU);
 				// compute the start angle from the cutoff on line BA to the center of the corner radius
-				DoublePoint v2 = new DoublePoint(getVertices()[next].getX() + cutOff * scaleFactor, getVertices()[next].getY() + cutOff * scaleFactor);
-				DoublePoint v3 = new DoublePoint(getVertices()[next].getX() + cutOff * scaleFactor, getVertices()[next].getY() + cutOff * scaleFactor);
+				DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
+				DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
 
 				double startAngle =  v2.minus​(c).asAngle();
 				
@@ -217,7 +161,7 @@ public class RoundedPolygon {
 				double angleExtent = v2.minus​(c).asAngle()-v3.minus​(c).asAngle()+ Math.PI; 
 					
 				// embed the variables into strings to append
-				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + radiustoAddv1x)  +" "+ (getVertices()[j2].getY() + radiustoAddv1y) +" "+ (getVertices()[next].getX() + radiustoAddv2x) +" "+ (getVertices()[next].getY() + radiustoAddv2y) + "\r\n";				
+				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
 				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";			
 				
 			} else if (j2 == getVertices().length - 2){
@@ -243,8 +187,8 @@ public class RoundedPolygon {
 				DoublePoint c = new DoublePoint(centerX, centerY);
 				double cutOff = bau.asDoubleVector().dotProduct​(BSU);
 				// compute the start angle from the cutoff on line BA to the center of the corner radius
-				DoublePoint v2 = new DoublePoint(getVertices()[next].getX() + cutOff * scaleFactor, getVertices()[next].getY() + cutOff * scaleFactor);
-				DoublePoint v3 = new DoublePoint(getVertices()[next].getX() + cutOff * scaleFactor, getVertices()[next].getY() + cutOff * scaleFactor);
+				DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
+				DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
 
 				double startAngle =  v2.minus​(c).asAngle();
 				
@@ -252,7 +196,7 @@ public class RoundedPolygon {
 				double angleExtent = v2.minus​(c).asAngle()-v3.minus​(c).asAngle()+ Math.PI; 
 					
 				// embed the variables into strings to append
-				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() +radiustoAddv1x)  +" "+ (getVertices()[j2].getY() + radiustoAddv1y) +" "+ (getVertices()[next].getX() + radiustoAddv2x) +" "+ (getVertices()[next].getY() + radiustoAddv2y) + "\r\n";							
+				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
 				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";
 				
 			}else {
@@ -276,8 +220,8 @@ public class RoundedPolygon {
 				DoublePoint c = new DoublePoint(centerX, centerY);
 				double cutOff = bau.asDoubleVector().dotProduct​(BSU);
 				// compute the start angle from the cutoff on line BA to the center of the corner radius
-				DoublePoint v2 = new DoublePoint(getVertices()[next].getX() + cutOff * scaleFactor, getVertices()[next].getY() + cutOff * scaleFactor);
-				DoublePoint v3 = new DoublePoint(getVertices()[next].getX() + cutOff * scaleFactor, getVertices()[next].getY() + cutOff * scaleFactor);
+				DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
+				DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
 
 				double startAngle =  v2.minus​(c).asAngle();
 				
@@ -285,7 +229,7 @@ public class RoundedPolygon {
 				double angleExtent = v2.minus​(c).asAngle()-v3.minus​(c).asAngle()+ Math.PI; 
 					
 				// embed the variables into strings to append
-				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() +radiustoAddv1x)  +" "+ (getVertices()[j2].getY() + radiustoAddv1y) +" "+ (getVertices()[next].getX() + radiustoAddv2x) +" "+ (getVertices()[next].getY() + radiustoAddv2y) + "\r\n";				
+				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
 				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";	
 			}
 			}
