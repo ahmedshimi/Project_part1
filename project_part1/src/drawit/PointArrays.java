@@ -71,7 +71,7 @@ public class PointArrays extends Object{
      * @pre Argument {@code point} is not {@code null}.
      *    	|point != null
 	 * @pre The provided index must be within the IntPoints array provided
-	 * 		|0 <= index && index <= points.length
+	 * 		|0 <= index && index < points.length
 	 * @post The result is a new array whose length is the length of the provided array plus 1.
 	 * 		|result.length == points.length + 1
 	 * @post The result is a new array with provided array existing elements before the 

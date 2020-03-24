@@ -63,14 +63,14 @@ public final class IntPoint extends Object {
 	 * @post
 	 * 		The result is an IntPoint object representing the point obtained by displacing this point by the given vector.
 	 * 		| result.getX() == this.getX() + vector.getX() && result.getY() == this.getY() + vector.getY()
-	 * @throws Exception - if the result x or y coordinates will flow over Integer.MAX_VALUE.
+	 * @throws ArithmeticException - if the result x or y coordinates will flow over Integer.MAX_VALUE.
 	 * | Long.valueOf(this.getX()) + Long.valueOf(vector.getX()) > Long.valueOf(Integer.MAX_VALUE)
 	 * 	 Long.valueOf(this.getY()) + Long.valueOf(vector.getY()) > Long.valueOf(Integer.MAX_VALUE)
 	 */
-	public IntPoint plus(IntVector vector) throws Exception {
+	public IntPoint plus(IntVector vector) throws ArithmeticException {
 	
 		if (Long.valueOf(this.getX()) + Long.valueOf(vector.getX()) > Long.valueOf(Integer.MAX_VALUE)|| Long.valueOf(this.getY()) + Long.valueOf(vector.getY()) > Long.valueOf(Integer.MAX_VALUE)) {
-				throw new Exception("overflow exception, int too big");
+				throw new ArithmeticException("overflow exception, int too big");
 		}		
 		IntPoint result = new IntPoint(this.getX() + vector.getX(),this.getY() + vector.getY());
 		return result;

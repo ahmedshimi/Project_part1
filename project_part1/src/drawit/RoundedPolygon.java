@@ -36,21 +36,34 @@ public class RoundedPolygon {
 	 * @inspects | point
 	 * @mutates | this
 	 * 
+	 * @throws IllegalArgumentException if {@code point} is null.
+     *    | point == null
+     *    
+     * @throws IllegalArgumentException if {@code index} is not within the vertices array length.
+     *    | 0 > index || index > getVertices().length
 	 * @param index
 	 * @param point
 	 */
 	
 	public void insert(int index, IntPoint point) {
+		if (point == null)
+			throw new IllegalArgumentException("Point to be inserted is null.");
+		if (0 > index || index > getVertices().length)
+			throw new IllegalArgumentException("This index doesnot exist.");
 		setVertices(PointArrays.insert​(getVertices(), index, point));	
 	}
 	
 	/**
 	 * @mutates | this
 	 * 
+	 * @throws IllegalArgumentException if {@code index} is not within the vertices array length.
+     *    | 0 > index || index >= getVertices().length
 	 * @param index
 	 */
 	
 	public void remove(int index) {
+		if (0 > index || index >= getVertices().length)
+			throw new IllegalArgumentException("This index doesnot exist.");
 		setVertices(PointArrays.remove​(getVertices(), index));
 	}
 	
@@ -59,10 +72,19 @@ public class RoundedPolygon {
 	 * @inspects | point
 	 * @mutates | this
 	 * 
+	 * @throws IllegalArgumentException if {@code point} is null.
+     *    | point == null
+     *    
+	 * @throws IllegalArgumentException if {@code index} is not within the vertices array length.
+     *    | 0 > index || index >= getVertices().length
 	 * @param index
 	 * @param point
 	 */
 	public void update​(int index,IntPoint point) {
+		if (point == null)
+			throw new IllegalArgumentException("The new point is null.");
+		if (0 > index || index >= getVertices().length)
+			throw new IllegalArgumentException("This index doesnot exist.");
 		setVertices(PointArrays.update​(getVertices(), index, point));
 	}
 			
@@ -129,6 +151,8 @@ public class RoundedPolygon {
 
 			if (j2 < getVertices().length - 2)  {
 				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith​(getVertices()[j2+1].minus(getVertices()[j2+2]))){
+					drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+getVertices()[j2+1].getX())/2)  +" "+ ((getVertices()[j2].getY()+getVertices()[j2+1].getY())/2)  +" "+ getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() + "\r\n";				
+					drawingCommands = drawingCommands + "line " + getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() +" "+ ((getVertices()[j2+2].getX()+getVertices()[j2+1].getX())/2)  +" "+ ((getVertices()[j2+2].getY()+getVertices()[j2+1].getY())/2) + "\r\n";				
 					continue;
 				}
 					next = j2 + 1;
@@ -176,6 +200,8 @@ public class RoundedPolygon {
 
 				} else if (j2 == getVertices().length - 2){
 					if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith​(getVertices()[j2+1].minus(getVertices()[0]))){
+						drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+getVertices()[j2+1].getX())/2) +" "+ ((getVertices()[j2].getY()+getVertices()[j2+1].getY())/2)  +" "+ getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() + "\r\n";				
+						drawingCommands = drawingCommands + "line " + getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY()  +" "+ ((getVertices()[0].getX()+getVertices()[j2+1].getX())/2) +" "+ ((getVertices()[0].getY()+getVertices()[j2+1].getY())/2) + "\r\n";
 						continue;
 					}
 					next = j2 + 1; 
@@ -189,7 +215,7 @@ public class RoundedPolygon {
 					DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
 
 					// calculate unit radius 
-					double unitRadius = BAU.crossProduct(BSU); 
+					double unitRadius = BAU.crossProduct(BSU);
 
 					// make scale factor to apply - to scale unit radius to equal this.getRadius()
 					double scaleFactor = getRadius() / unitRadius; 
@@ -217,6 +243,8 @@ public class RoundedPolygon {
 					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";
 				}else {
 					if (getVertices()[j2].minus(getVertices()[next]).isCollinearWith​(getVertices()[next].minus(getVertices()[next+1]))){
+						drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+ getVertices()[next].getX())/2)  +" "+ ((getVertices()[j2].getY()+ getVertices()[next].getY())/2)   +" "+ getVertices()[next].getX() +" "+ getVertices()[next].getY() + "\r\n";				
+						drawingCommands = drawingCommands + "line " + getVertices()[next].getX()  +" "+ getVertices()[next].getY()  +" "+ ((getVertices()[next].getX()+ getVertices()[next+1].getX())/2) +" "+ ((getVertices()[next].getY()+ getVertices()[next+1].getY())/2) + "\r\n";				
 						continue;
 					}
 					IntVector bau = getVertices()[next].minus(getVertices()[j2]);
