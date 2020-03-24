@@ -131,7 +131,7 @@ public class RoundedPolygon {
 				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith​(getVertices()[j2+1].minus(getVertices()[j2+2]))){
 					continue;
 				}
-					next = j2 + 1; 
+					next = j2 + 1;
 
 					//make vector bau to calculate the length cutoff - it is the vector between b and a divided by its length to make it a unit vector
 					// make it a double vector to use getsize method
