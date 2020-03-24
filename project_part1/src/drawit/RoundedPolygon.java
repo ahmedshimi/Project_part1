@@ -119,123 +119,144 @@ public class RoundedPolygon {
 			return empty; 
 
 		String drawingCommands = ""; 
-		
+
 		for (int j2 = 0; j2 < getVertices().length ; j2++) {
-			
+
 			int next = 0;
 			DoubleVector BCU;
 			DoubleVector BAU;
-			
-	
+
+
 			if (j2 < getVertices().length - 2)  {
-				
-				next = j2 + 1; 
-								
-				//make vector bau to calculate the length cutoff - it is the vector between b and a divided by its length to make it a unit vector
-				// make it a double vector to use getsize method
-				IntVector bau = getVertices()[next].minus(getVertices()[j2]);
-				BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
-				
-				IntVector bcu = getVertices()[next].minus(getVertices()[next+1]);
-				BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
-				// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
-				DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
-				
-				// calculate unit radius 
-				double unitRadius = BAU.crossProduct(BSU); 
-				
-				// make scale factor to apply - to scale unit radius to equal this.getRadius()
-				double scaleFactor = getRadius() / unitRadius; 
-				
-				// find the center of the corner which is b + bsu
-				double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
-				double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
-			
-				DoublePoint c = new DoublePoint(centerX, centerY);
-				bau.asDoubleVector().dotProduct(BSU);
-				// compute the start angle from the cutoff on line BA to the center of the corner radius
-				DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
-				DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
+				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith​(getVertices()[j2+1].minus(getVertices()[j2+2]))){
+					continue;
+				}
+					next = j2 + 1; 
 
-				double startAngle =  v2.minus(c).asAngle();
-				
-				// compute the start angle from the cutoff on line BC to the center of the corner radius
-				double angleExtent = v2.minus(c).asAngle()-v3.minus(c).asAngle()+ Math.PI; 
-					
-				// embed the variables into strings to append
-				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
-				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";			
-				
-			} else if (j2 == getVertices().length - 2){
-				next = j2 + 1; 
+					//make vector bau to calculate the length cutoff - it is the vector between b and a divided by its length to make it a unit vector
+					// make it a double vector to use getsize method
+					IntVector bau = getVertices()[next].minus(getVertices()[j2]);
+					BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
 
-				IntVector bau = getVertices()[next].minus(getVertices()[j2]);
-				BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
-				
-				IntVector bcu = getVertices()[next].minus(getVertices()[0]);
-				BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
-				// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
-				DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
-				
-				// calculate unit radius 
-				double unitRadius = BAU.crossProduct(BSU); 
-				
-				// make scale factor to apply - to scale unit radius to equal this.getRadius()
-				double scaleFactor = getRadius() / unitRadius; 
-				
-				// find the center of the corner which is b + bsu
-				double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
-				double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
-				DoublePoint c = new DoublePoint(centerX, centerY);
-				bau.asDoubleVector().dotProduct(BSU);
-				// compute the start angle from the cutoff on line BA to the center of the corner radius
-				DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
-				DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
+					IntVector bcu = getVertices()[next].minus(getVertices()[next+1]);
+					BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
+					// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
+					DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
 
-				double startAngle =  v2.minus(c).asAngle();
-				
-				// compute the start angle from the cutoff on line BC to the center of the corner radius
-				double angleExtent = v2.minus(c).asAngle()-v3.minus(c).asAngle()+ Math.PI; 
-					
-				// embed the variables into strings to append
-				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
-				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";
-				
-			}else {
-				IntVector bau = getVertices()[next].minus(getVertices()[j2]);
-				BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
-				
-				IntVector bcu = getVertices()[next].minus(getVertices()[next+1]);
-				BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
-				// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
-				DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
-				
-				// calculate unit radius 
-				double unitRadius = BAU.crossProduct(BSU); 
-				
-				// make scale factor to apply - to scale unit radius to equal this.getRadius()
-				double scaleFactor = getRadius() / unitRadius; 
-				
-				// find the center of the corner which is b + bsu
-				double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
-				double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
-				DoublePoint c = new DoublePoint(centerX, centerY);
-				bau.asDoubleVector().dotProduct(BSU);
-				// compute the start angle from the cutoff on line BA to the center of the corner radius
-				DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
-				DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
+					// calculate unit radius 
+					double unitRadius = BAU.crossProduct(BSU); 
 
-				double startAngle =  v2.minus(c).asAngle();
+					// make scale factor to apply - to scale unit radius to equal this.getRadius()
+					double scaleFactor = getRadius() / unitRadius; 
+
+					// find the center of the corner which is b + bsu
+					double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
+					double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
+
+					DoublePoint c = new DoublePoint(centerX, centerY);
+					bau.asDoubleVector().dotProduct(BSU);
+					// compute the start angle from the cutoff on line BA to the center of the corner radius
+					DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
+					DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
+
+					double startAngle =  v2.minus(c).asAngle();
+
+					// compute the start angle from the cutoff on line BC to the center of the corner radius
+					double angleExtent= v3.minus(c).asAngle()-v2.minus(c).asAngle();
+					if(angleExtent < (-Math.PI))
+						angleExtent = angleExtent + 2 * Math.PI;
+					if(angleExtent > Math.PI)
+						angleExtent = angleExtent - 2 * Math.PI;
+
+
+					// embed the variables into strings to append
+					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";	
 				
-				// compute the start angle from the cutoff on line BC to the center of the corner radius
-				double angleExtent = v2.minus(c).asAngle()-v3.minus(c).asAngle()+ Math.PI; 
-					
-				// embed the variables into strings to append
-				drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
-				drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";	
+
+				} else if (j2 == getVertices().length - 2){
+					if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith​(getVertices()[j2+1].minus(getVertices()[0]))){
+						continue;
+					}
+					next = j2 + 1; 
+
+					IntVector bau = getVertices()[next].minus(getVertices()[j2]);
+					BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
+
+					IntVector bcu = getVertices()[next].minus(getVertices()[0]);
+					BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
+					// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
+					DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
+
+					// calculate unit radius 
+					double unitRadius = BAU.crossProduct(BSU); 
+
+					// make scale factor to apply - to scale unit radius to equal this.getRadius()
+					double scaleFactor = getRadius() / unitRadius; 
+
+					// find the center of the corner which is b + bsu
+					double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
+					double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
+					DoublePoint c = new DoublePoint(centerX, centerY);
+					bau.asDoubleVector().dotProduct(BSU);
+					// compute the start angle from the cutoff on line BA to the center of the corner radius
+					DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
+					DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
+
+					double startAngle =  v2.minus(c).asAngle();
+
+					// compute the start angle from the cutoff on line BC to the center of the corner radius
+					double angleExtent= v3.minus(c).asAngle()-v2.minus(c).asAngle();
+					if(angleExtent < (-Math.PI))
+						angleExtent = angleExtent + 2 * Math.PI;
+					if(angleExtent > Math.PI)
+						angleExtent = angleExtent - 2 * Math.PI;
+
+					// embed the variables into strings to append
+					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";
+				}else {
+					if (getVertices()[j2].minus(getVertices()[next]).isCollinearWith​(getVertices()[next].minus(getVertices()[next+1]))){
+						continue;
+					}
+					IntVector bau = getVertices()[next].minus(getVertices()[j2]);
+					BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
+
+					IntVector bcu = getVertices()[next].minus(getVertices()[next+1]);
+					BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
+					// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
+					DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
+
+					// calculate unit radius 
+					double unitRadius = BAU.crossProduct(BSU); 
+
+					// make scale factor to apply - to scale unit radius to equal this.getRadius()
+					double scaleFactor = getRadius() / unitRadius; 
+
+					// find the center of the corner which is b + bsu
+					double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
+					double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
+					DoublePoint c = new DoublePoint(centerX, centerY);
+					bau.asDoubleVector().dotProduct(BSU);
+					// compute the start angle from the cutoff on line BA to the center of the corner radius
+					DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
+					DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
+
+					double startAngle =  v2.minus(c).asAngle();
+
+					// compute the start angle from the cutoff on line BC to the center of the corner radius
+					double angleExtent= v3.minus(c).asAngle()-v2.minus(c).asAngle();
+					if(angleExtent < (-Math.PI))
+						angleExtent = angleExtent + 2 * Math.PI;
+					if(angleExtent > Math.PI)
+						angleExtent = angleExtent - 2 * Math.PI;
+
+					// embed the variables into strings to append
+					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";	
+				}
 			}
-			}
-		
+
 		return drawingCommands.toString(); 
 	}
 
@@ -261,8 +282,9 @@ public class RoundedPolygon {
      *    | Arrays.stream(vertices).anyMatch(e -> e == null)
 	 */
 	public void setVertices(IntPoint[] vertices) {
-		if (vertices != null && !(Arrays.stream(vertices).anyMatch(e -> e == null)) && PointArrays.checkDefinesProperPolygon​(vertices) == null)
-		this.vertices = vertices;
+		if (vertices != null && !(Arrays.stream(vertices).anyMatch(e -> e == null)) )
+			if(PointArrays.checkDefinesProperPolygon​(vertices) == null)
+				this.vertices = vertices;
 		else
 			throw new IllegalArgumentException();
 	}
@@ -281,6 +303,12 @@ public class RoundedPolygon {
 	 */
 	public void setRadius(int radius) {
 		if (!(radius < 0))
-		this.radius = radius;
+			for (int j2 = 0; j2 < getVertices().length - 1 ; j2++)
+				if (radius <= (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2))
+					if(radius <= (getVertices()[getVertices().length-1].minus(getVertices()[0]).asDoubleVector().getSize() / 2))
+						this.radius = radius;
+					else this.radius = 0;
+		else
+		throw new IllegalArgumentException("Radius is negative");
 	}
 }
