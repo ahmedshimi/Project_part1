@@ -75,9 +75,19 @@ class RoundedPolygonTest {
 		
 		RP2.setVertices(ver2);
 		
-		RP2.setRadius(6);
+		RP2.setRadius(10);
 		
 		System.out.print(RP2.getDrawingCommands());
+		
+		String expectedString = "line 110.0 100.0 190.0 100.0\r\n" + 
+				"arc 190.0 110.0 10 -1.5707963267948966 1.5707963267948966\r\n" + 
+				"line 200.0 110.0 200.0 190.0\r\n" + 
+				"arc 190.0 190.0 10 0.0 1.5707963267948966\r\n" + 
+				"line 190.0 200.0 110.0 200.0\r\n" + 
+				"arc 110.0 190.0 10 1.5707963267948966 1.5707963267948966\r\n" + 
+				"line 100.0 190.0 100.0 110.0\r\n" + 
+				"arc 110.0 110.0 10 3.141592653589793 1.5707963267948966\r\n";
+		assertEquals(expectedString, RP2.getDrawingCommands());
 	}
 
 }

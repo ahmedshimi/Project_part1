@@ -1,5 +1,6 @@
 package drawit;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -50,7 +51,7 @@ public class RoundedPolygon {
 			throw new IllegalArgumentException("Point to be inserted is null.");
 		if (0 > index || index > getVertices().length)
 			throw new IllegalArgumentException("This index doesnot exist.");
-		setVertices(PointArrays.insert​(getVertices(), index, point));	
+		setVertices(PointArrays.insert​(getVertices(), index, point));
 	}
 	
 	/**
@@ -189,8 +190,9 @@ public class RoundedPolygon {
 					double angleExtent= v3.minus(c).asAngle()-v2.minus(c).asAngle();
 					if(angleExtent < (-Math.PI))
 						angleExtent = angleExtent + 2 * Math.PI;
-					if(angleExtent > Math.PI)
+					if(angleExtent > Math.PI) {
 						angleExtent = angleExtent - 2 * Math.PI;
+					}
 
 
 					// embed the variables into strings to append
@@ -210,47 +212,6 @@ public class RoundedPolygon {
 					BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
 
 					IntVector bcu = getVertices()[next].minus(getVertices()[0]);
-					BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
-					// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
-					DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
-
-					// calculate unit radius 
-					double unitRadius = BAU.crossProduct(BSU);
-
-					// make scale factor to apply - to scale unit radius to equal this.getRadius()
-					double scaleFactor = getRadius() / unitRadius; 
-
-					// find the center of the corner which is b + bsu
-					double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
-					double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
-					DoublePoint c = new DoublePoint(centerX, centerY);
-					bau.asDoubleVector().dotProduct(BSU);
-					// compute the start angle from the cutoff on line BA to the center of the corner radius
-					DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
-					DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
-
-					double startAngle =  v2.minus(c).asAngle();
-
-					// compute the start angle from the cutoff on line BC to the center of the corner radius
-					double angleExtent= v3.minus(c).asAngle()-v2.minus(c).asAngle();
-					if(angleExtent < (-Math.PI))
-						angleExtent = angleExtent + 2 * Math.PI;
-					if(angleExtent > Math.PI)
-						angleExtent = angleExtent - 2 * Math.PI;
-
-					// embed the variables into strings to append
-					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
-					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";
-				}else {
-					if (getVertices()[j2].minus(getVertices()[next]).isCollinearWith​(getVertices()[next].minus(getVertices()[next+1]))){
-						drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+ getVertices()[next].getX())/2)  +" "+ ((getVertices()[j2].getY()+ getVertices()[next].getY())/2)   +" "+ getVertices()[next].getX() +" "+ getVertices()[next].getY() + "\r\n";				
-						drawingCommands = drawingCommands + "line " + getVertices()[next].getX()  +" "+ getVertices()[next].getY()  +" "+ ((getVertices()[next].getX()+ getVertices()[next+1].getX())/2) +" "+ ((getVertices()[next].getY()+ getVertices()[next+1].getY())/2) + "\r\n";				
-						continue;
-					}
-					IntVector bau = getVertices()[next].minus(getVertices()[j2]);
-					BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
-
-					IntVector bcu = getVertices()[next].minus(getVertices()[next+1]);
 					BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
 					// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
 					DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
@@ -276,9 +237,51 @@ public class RoundedPolygon {
 					double angleExtent= v3.minus(c).asAngle()-v2.minus(c).asAngle();
 					if(angleExtent < (-Math.PI))
 						angleExtent = angleExtent + 2 * Math.PI;
-					if(angleExtent > Math.PI)
+					if(angleExtent > Math.PI) {
 						angleExtent = angleExtent - 2 * Math.PI;
+					}
 
+					// embed the variables into strings to append
+					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";
+				}else {
+					if (getVertices()[j2].minus(getVertices()[next]).isCollinearWith​(getVertices()[next].minus(getVertices()[next+1]))){
+						drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+ getVertices()[next].getX())/2)  +" "+ ((getVertices()[j2].getY()+ getVertices()[next].getY())/2)   +" "+ getVertices()[next].getX() +" "+ getVertices()[next].getY() + "\r\n";				
+						drawingCommands = drawingCommands + "line " + getVertices()[next].getX()  +" "+ getVertices()[next].getY()  +" "+ ((getVertices()[next].getX()+ getVertices()[next+1].getX())/2) +" "+ ((getVertices()[next].getY()+ getVertices()[next+1].getY())/2) + "\r\n";				
+						continue;
+					}
+					IntVector bau = getVertices()[next].minus(getVertices()[j2]);
+					BAU = new DoubleVector(bau.asDoubleVector().getX()/bau.asDoubleVector().getSize(), bau.asDoubleVector().getY()/bau.asDoubleVector().getSize()); 
+
+					IntVector bcu = getVertices()[next].minus(getVertices()[next+1]);
+					BCU = new DoubleVector(bcu.asDoubleVector().getX()/bcu.asDoubleVector().getSize(), bcu.asDoubleVector().getY()/bcu.asDoubleVector().getSize());
+					// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
+					DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
+
+					// calculate unit radius 
+					double unitRadius = BAU.crossProduct(BSU);
+					
+					// make scale factor to apply - to scale unit radius to equal this.getRadius()
+					double scaleFactor = getRadius() / unitRadius; 
+
+					// find the center of the corner which is b + bsu
+					double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
+					double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
+					DoublePoint c = new DoublePoint(centerX, centerY);
+					bau.asDoubleVector().dotProduct(BSU);
+					// compute the start angle from the cutoff on line BA to the center of the corner radius
+					DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
+					DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
+
+					double startAngle =  v2.minus(c).asAngle();
+
+					// compute the start angle from the cutoff on line BC to the center of the corner radius
+					double angleExtent= v3.minus(c).asAngle()-v2.minus(c).asAngle();
+					if(angleExtent < (-Math.PI) )
+						angleExtent = angleExtent + 2 * Math.PI;
+					if(angleExtent > Math.PI) {
+						angleExtent = angleExtent - 2 * Math.PI;
+					}
 					// embed the variables into strings to append
 					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
 					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";	
@@ -330,13 +333,20 @@ public class RoundedPolygon {
 	 * | radius < 0
 	 */
 	public void setRadius(int radius) {
-		if (!(radius < 0))
-			for (int j2 = 0; j2 < getVertices().length - 1 ; j2++)
-				if (radius <= (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2))
-					if(radius <= (getVertices()[getVertices().length-1].minus(getVertices()[0]).asDoubleVector().getSize() / 2))
-						this.radius = radius;
-					else this.radius = 0;
-		else
-		throw new IllegalArgumentException("Radius is negative");
+		ArrayList<Double> edges = new ArrayList<Double>();
+		if (!(radius >= 0))
+			throw new IllegalArgumentException("Radius is negative");
+		for (int j2 = 0; j2 < getVertices().length - 1 ; j2++)
+			edges.add(getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2);
+		edges.add(getVertices()[getVertices().length-1].minus(getVertices()[0]).asDoubleVector().getSize() / 2);
+		int counter = 0;
+		for (int i = 0; i < edges.size(); i++){
+			if(radius <= edges.get(i)) {
+				counter++;
+			}		
+		}
+		if (counter == edges.size())
+			this.radius = radius;
+		else this.radius = 0;
 	}
 }
