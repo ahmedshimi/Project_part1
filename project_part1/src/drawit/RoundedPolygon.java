@@ -309,6 +309,9 @@ public class RoundedPolygon {
 	 */
 
 	public IntPoint[] getVertices() {
+		if (this.vertices == null) {
+			throw new IllegalArgumentException("Vertices do not exist.");
+		}
 		IntPoint[] result = PointArrays.copy(this.vertices);
 		return result;
 	}

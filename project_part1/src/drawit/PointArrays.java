@@ -118,7 +118,7 @@ public class PointArrays extends Object{
 	 * @pre Argument {@code points} is not {@code null}.
      *    	|points != null
 	 * @pre The provided index must be within the IntPoints array provided
-	 * 		|0 <= index && index <= points.length
+	 * 		|0 <= index && index < points.length
 	 * @post The result is a new array whose length is the length of the provided array minus 1.
 	 * 	|result.length == points.length - 1
 	 * @post The result is a new array with provided array existing elements before the 
@@ -131,9 +131,6 @@ public class PointArrays extends Object{
 	 */
 	
 	public static IntPoint[] remove(IntPoint[] points, int index) {
-		if(0 > index || index > points.length) {
-			return points;
-		}
 		IntPoint[] result  = new IntPoint[points.length - 1];
 		for (int z = 0, k = 0; z < points.length; z++) { 
 			
