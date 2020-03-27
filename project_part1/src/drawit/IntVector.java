@@ -59,12 +59,12 @@ public final class IntVector {
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
 	 * @post The result is {@code true} if this vector has crossProduct equal zero with the other vector; false otherwise.
-	 * 		|result == (this.crossProduct​(other) == 0)
+	 * 		|result == (this.crossProduct(other) == 0)
 	 * @return whether this vector is collinear with the given vector.
 	 */
 	
 	public boolean isCollinearWith (IntVector other) {
-		if (this.crossProduct​(other) == 0)
+		if (this.crossProduct(other) == 0)
 			return true;
 		return false;
 	}
@@ -79,7 +79,7 @@ public final class IntVector {
 	 * @return the dot product of this vector and the given vector.
 	 */
 	
-	public long dotProduct(Intvector other) {
+	public long dotProduct(IntVector other) {
 		long result = (long)getX() * (long)other.getX() + (long)getY() * (long)other.getY();
 		return result;
 		}

@@ -42,7 +42,7 @@ public final class DoubleVector extends Object{
 	 */
 	
 	
-	public double crossProduct(DouvleVector other) {
+	public double crossProduct(DoubleVector other) {
 		double result = this.getX() * other.getY() - this.getY() * other.getX();
 		return result;
 	}
@@ -54,7 +54,7 @@ public final class DoubleVector extends Object{
 	 */
 	
 	
-	public double dotProduct(DouvleVector other) {
+	public double dotProduct(DoubleVector other) {
 		double result = this.getX() * other.getX() + this.getY() * other.getY();
 		return result;
 		}

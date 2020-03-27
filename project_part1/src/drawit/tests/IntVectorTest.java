@@ -16,9 +16,9 @@ class IntVectorTest {
 
 		assertEquals(-1, myIntVector1.getX());
 		assertEquals(-2,myIntVector1.getY());
-		assertEquals(5, myIntVector1.crossProduct​(myIntVector2));
-		assertEquals(true, myIntVector3.isCollinearWith​(myIntVector1));
-		assertEquals(myIntVector3.dotProduct​(myIntVector3), myIntVector1.dotProduct​(myIntVector1));
+		assertEquals(5, myIntVector1.crossProduct(myIntVector2));
+		assertEquals(true, myIntVector3.isCollinearWith(myIntVector1));
+		assertEquals(myIntVector3.dotProduct(myIntVector3), myIntVector1.dotProduct(myIntVector1));
 	
 	
 	}

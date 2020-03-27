@@ -54,9 +54,8 @@ public final class IntPoint extends Object {
 	public boolean equals(IntPoint other) {
 		if (this.getX() == other.getX() && this.getY() == other.getY())
 			return true;
-		
 		return false;
-	}	
+	}
 	
 	/**
 	 * @inspects | vector
@@ -89,7 +88,7 @@ public final class IntPoint extends Object {
 	 */
 	
 	
-	public Intvector minus (IntPoint other) {
+	public IntVector minus (IntPoint other) {
 		IntVector result = new IntVector(this.getX() - other.getX(),this.getY() - other.getY());
 		return result;}
 	
@@ -101,16 +100,16 @@ public final class IntPoint extends Object {
      * @post
      *      The result is {@code true} iff this point is on line segment bc excluding its end points.
      *      | result == (
-     *      | b.minus(this).isCollinearWith​(b.minus(c)) 
-     *      | && b.minus(this).dotProduct​(b.minus(c))> 0 
-     *      | && b.minus(this).dotProduct​(b.minus(c)) < b.minus(c).dotProduct​(b.minus(c))
+     *      | b.minus(this).isCollinearWith(b.minus(c)) 
+     *      | && b.minus(this).dotProduct(b.minus(c))> 0 
+     *      | && b.minus(this).dotProduct(b.minus(c)) < b.minus(c).dotProduct(b.minus(c))
      *      |)
 	 */
 	
 	
 	public boolean isOnLineSegment(IntPoint b, IntPoint c) {
-		if(b.minus(this).isCollinearWith​(b.minus(c)))
-			if(b.minus(this).dotProduct​(b.minus(c))> 0 && b.minus(this).dotProduct​(b.minus(c)) < b.minus(c).dotProduct​(b.minus(c)))
+		if(b.minus(this).isCollinearWith(b.minus(c)))
+			if(b.minus(this).dotProduct(b.minus(c))> 0 && b.minus(this).dotProduct(b.minus(c)) < b.minus(c).dotProduct(b.minus(c)))
 				return true;
 		return false;
 		}
@@ -126,8 +125,8 @@ public final class IntPoint extends Object {
 	 */
 	
 	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
-		if(Math.signum(a.minus(c).crossProduct​(a.minus(b))) * Math.signum(a.minus(d).crossProduct​(a.minus(b))) < 0)
-			if(Math.signum(c.minus(a).crossProduct​(c.minus(d))) * Math.signum(c.minus(b).crossProduct​(c.minus(d))) < 0)
+		if(Math.signum(a.minus(c).crossProduct(a.minus(b))) * Math.signum(a.minus(d).crossProduct(a.minus(b))) < 0)
+			if(Math.signum(c.minus(a).crossProduct(c.minus(d))) * Math.signum(c.minus(b).crossProduct(c.minus(d))) < 0)
 				return true;
 		return false;
 	}

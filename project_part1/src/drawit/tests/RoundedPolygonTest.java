@@ -23,11 +23,11 @@ class RoundedPolygonTest {
 
 		IntPoint[] ver = new IntPoint[5];
 		
-		ver = PointArrays.update​(ver, 0, p1);
-		ver = PointArrays.update​(ver, 1, p2);
-		ver = PointArrays.update​(ver, 2, p3);
-		ver = PointArrays.update​(ver, 3, p5);
-		ver = PointArrays.update​(ver, 4, p4);
+		ver = PointArrays.update(ver, 0, p1);
+		ver = PointArrays.update(ver, 1, p2);
+		ver = PointArrays.update(ver, 2, p3);
+		ver = PointArrays.update(ver, 3, p5);
+		ver = PointArrays.update(ver, 4, p4);
 		
 		RP1.setVertices(ver);
 		
@@ -68,10 +68,10 @@ class RoundedPolygonTest {
 		
 		IntPoint[] ver2 = new IntPoint[4];
 		
-		ver2 = PointArrays.update​(ver2, 0, p101);
-		ver2 = PointArrays.update​(ver2, 1, p102);
-		ver2 = PointArrays.update​(ver2, 2, p103);
-		ver2 = PointArrays.update​(ver2, 3, p104);
+		ver2 = PointArrays.update(ver2, 0, p101);
+		ver2 = PointArrays.update(ver2, 1, p102);
+		ver2 = PointArrays.update(ver2, 2, p103);
+		ver2 = PointArrays.update(ver2, 3, p104);
 		
 		RP2.setVertices(ver2);
 		

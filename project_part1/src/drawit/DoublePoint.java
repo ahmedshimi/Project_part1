@@ -22,7 +22,7 @@ public final class DoublePoint extends Object{
 	
 	
 	
-	public DOublePoint plus(DoubleVector other) {
+	public DoublePoint plus(DoubleVector other) {
 		double x = this.getX() + other.getX();
 		double y = this.getY() + other.getY();
 		DoublePoint result = new DoublePoint(x,y);
