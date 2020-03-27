@@ -24,7 +24,7 @@ public class RoundedPolygon {
 	 * @invar | radius >= 0
 	 */
 
-	private String drawingCommands;
+	private String drawingCommands = "";
 
 	private IntPoint[] vertices;
 
@@ -136,11 +136,10 @@ public class RoundedPolygon {
 	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
 	public String getDrawingCommands() {
-		String empty = new String ("");
 		if (getVertices().length < 3) 
-			return empty; 
+			return this.drawingCommands; 
 
-		String drawingCommands = ""; 
+		String drawingCommands = this.drawingCommands; 
 
 		for (int j2 = 0; j2 < getVertices().length ; j2++) {
 
@@ -177,7 +176,6 @@ public class RoundedPolygon {
 					double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
 					double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
 
-					DoubleVector cutOffVector = new DoubleVector(BAU.getX()/Math.sqrt(2), BAU.getY()/Math.sqrt(2)); 
 					DoublePoint c = new DoublePoint(centerX, centerY);
 					bau.asDoubleVector().dotProduct(BSU);
 					// compute the start angle from the cutoff on line BA to the center of the corner radius
@@ -187,18 +185,16 @@ public class RoundedPolygon {
 					double startAngle =  v2.minus(c).asAngle();
 
 					// compute the start angle from the cutoff on line BC to the center of the corner radius
-					double angleExtent= v3.minus(c).asAngle()-v2.minus(c).asAngle();
+					double angleExtent= v3.minus(c).asAngle()-startAngle;
 
 					if(angleExtent < (-Math.PI)) {
 						angleExtent = angleExtent + 2 * Math.PI;
 					} else if(angleExtent > Math.PI) {
 						angleExtent = angleExtent - 2 * Math.PI;
-					} else {
-						angleExtent = Math.PI/2; 
 					}
 
 					// embed the variables into strings to append
-					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ (v2.getX() - cutOffVector.getX()) +" "+ (v2.getY() - cutOffVector.getY()) + "\r\n";				
+					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + getRadius() * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + getRadius() * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
 					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";	
 				}
 
@@ -236,14 +232,12 @@ public class RoundedPolygon {
 					double startAngle =  v2.minus(c).asAngle();
 
 					// compute the start angle from the cutoff on line BC to the center of the corner radius
-					double angleExtent= v3.minus(c).asAngle()-v2.minus(c).asAngle();
+					double angleExtent= v3.minus(c).asAngle()-startAngle;
 
 					if(angleExtent < (-Math.PI)) {
 						angleExtent = angleExtent + 2 * Math.PI;
 					} else if(angleExtent > Math.PI) {
 						angleExtent = angleExtent - 2 * Math.PI;
-					} else {
-						angleExtent = Math.PI/2; 
 					}
 
 					// embed the variables into strings to append
@@ -274,7 +268,6 @@ public class RoundedPolygon {
 					double centerX = (getVertices()[next].getX() + BSU.getX() * scaleFactor); 
 					double centerY = (getVertices()[next].getY() + BSU.getY() * scaleFactor); 
 					DoublePoint c = new DoublePoint(centerX, centerY);
-					double cutOff = bau.asDoubleVector().dotProduct(BSU);
 					// compute the start angle from the cutoff on line BA to the center of the corner radius
 					DoublePoint v2 = new DoublePoint(centerX + getRadius() * Math.cos(BCU.asAngle()), centerY + getRadius() * Math.sin(BCU.asAngle()));
 					DoublePoint v3 = new DoublePoint(centerX + getRadius() * Math.cos(BAU.asAngle()), centerY + getRadius() * Math.sin(BAU.asAngle()));
@@ -282,15 +275,12 @@ public class RoundedPolygon {
 					double startAngle =  v2.minus(c).asAngle();
 
 					// compute the start angle from the cutoff on line BC to the center of the corner radius
-					double angleExtent= v3.minus(c).asAngle()-v2.minus(c).asAngle();
+					double angleExtent= v3.minus(c).asAngle()-startAngle;
 
 					if(angleExtent < (-Math.PI)) {
 						angleExtent = angleExtent + 2 * Math.PI;
 					} else if(angleExtent > Math.PI) {
 						angleExtent = angleExtent - 2 * Math.PI;
-					} else {
-
-						angleExtent = Math.PI/2; 
 					}
 
 					// embed the variables into strings to append
