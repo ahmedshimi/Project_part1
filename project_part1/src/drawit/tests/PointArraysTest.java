@@ -19,21 +19,21 @@ class PointArraysTest {
 		IntPoint myPoint3 = new IntPoint(9,8);
 		
 		
-		myArray = PointArrays.insert​(myArray, 0, myPoint);
-		myArray = PointArrays.insert​(myArray, 1, myPoint2);
-		myArray = PointArrays.insert​(myArray, 2, myPoint3);
-		myArray = PointArrays.insert​(myArray, 1, myPoint3);
+		myArray = PointArrays.insert(myArray, 0, myPoint);
+		myArray = PointArrays.insert(myArray, 1, myPoint2);
+		myArray = PointArrays.insert(myArray, 2, myPoint3);
+		myArray = PointArrays.insert(myArray, 1, myPoint3);
 		
 		
 		assertEquals(104, myArray.length); 
 		
-		myArray = PointArrays.remove​(myArray, 1);
+		myArray = PointArrays.remove(myArray, 1);
 				
 		assertEquals(103, myArray.length);
 				
-		IntPoint[] newArray = PointArrays.copy​(myArray); 
+		IntPoint[] newArray = PointArrays.copy(myArray); 
 			
-		myArray = PointArrays.update​(myArray, 0, myPoint2);
+		myArray = PointArrays.update(myArray, 0, myPoint2);
 		
 		assertEquals(103, newArray.length);
 		
@@ -45,11 +45,11 @@ class PointArraysTest {
 
 		IntPoint[] ver = new IntPoint[5];
 		
-		ver = PointArrays.update​(ver, 0, p1);
-		ver = PointArrays.update​(ver, 1, p2);
-		ver = PointArrays.update​(ver, 2, p3);
-		ver = PointArrays.update​(ver, 3, p5);
-		ver = PointArrays.update​(ver, 4, p4);
+		ver = PointArrays.update(ver, 0, p1);
+		ver = PointArrays.update(ver, 1, p2);
+		ver = PointArrays.update(ver, 2, p3);
+		ver = PointArrays.update(ver, 3, p5);
+		ver = PointArrays.update(ver, 4, p4);
 		
 		System.out.print(ver[0].getX());
 		System.out.print(ver[0].getY());
@@ -63,7 +63,7 @@ class PointArraysTest {
 		System.out.print(ver[4].getY());
 		
 		System.out.print(Arrays.deepToString(ver));
-		assertEquals(null,PointArrays.checkDefinesProperPolygon​(ver));
+		assertEquals(null,PointArrays.checkDefinesProperPolygon(ver));
 			
 	}
 

@@ -45,13 +45,13 @@ public class RoundedPolygon {
 	 * @param point
 	 */
 
-	
+
 	public void insert(int index, IntPoint point) {
 		if (point == null)
 			throw new IllegalArgumentException("Point to be inserted is null.");
 		if (0 > index || index >= getVertices().length)
 			throw new IllegalArgumentException("This index doesnot exist.");
-		setVertices(PointArrays.insert​(getVertices(), index, point));	
+		setVertices(PointArrays.insert(getVertices(), index, point));	
 	}
 
 	/**
@@ -62,11 +62,11 @@ public class RoundedPolygon {
 	 * @param index
 	 */
 
-	
+
 	public void remove (int index) {
 		if (0 > index || index >= getVertices().length)
 			throw new IllegalArgumentException("This index does not exist.");
-		setVertices(PointArrays.remove​(getVertices(), index));
+		setVertices(PointArrays.remove(getVertices(), index));
 	}
 
 
@@ -82,13 +82,13 @@ public class RoundedPolygon {
 	 * @param index
 	 * @param point
 	 */
-	
+
 	public void update(int index, IntPoint point) {
 		if (point == null)
 			throw new IllegalArgumentException("The new point is null.");
 		if (0 > index || index >= getVertices().length)
 			throw new IllegalArgumentException("This index doesnot exist.");
-		setVertices(PointArrays.update​(getVertices(), index, point));
+		setVertices(PointArrays.update(getVertices(), index, point));
 	}
 
 	/**
@@ -98,36 +98,36 @@ public class RoundedPolygon {
 	 * by this rounded polygon's vertices.
 	 * 
 	 */
-	
+
 	public boolean contains(IntPoint point) {
 		for (int j=0; j<getVertices().length; j++)
-			if (point.equals​(getVertices()[j]))
+			if (point.equals(getVertices()[j]))
 				return true;
 		for (int j=0; j<getVertices().length - 1; j++)
-			if (point.isOnLineSegment​(getVertices()[j], getVertices()[j+1]))
+			if (point.isOnLineSegment(getVertices()[j], getVertices()[j+1]))
 				return true;
-		if (point.isOnLineSegment​(getVertices()[0], getVertices()[getVertices().length -1]))
+		if (point.isOnLineSegment(getVertices()[0], getVertices()[getVertices().length -1]))
 			return true;
 		final int INF = 10000; 
 		IntPoint extreme = new IntPoint(INF, point.getY());
 		for (int j=0; j<getVertices().length; j++)
-			if (getVertices()[j].isOnLineSegment​(point, extreme)) {
+			if (getVertices()[j].isOnLineSegment(point, extreme)) {
 				final int NINF = -10000;
 				IntPoint extreme2 = new IntPoint(NINF, point.getY());
 				for (int j1=0; j1<getVertices().length - 1; j1++) 
-					if (IntPoint.lineSegmentsIntersect​(point, extreme2, getVertices()[j1], getVertices()[j1+1]))
+					if (IntPoint.lineSegmentsIntersect(point, extreme2, getVertices()[j1], getVertices()[j1+1]))
 						return true;
-				if (IntPoint.lineSegmentsIntersect​(point, extreme2, getVertices()[0], getVertices()[getVertices().length-1]))
+				if (IntPoint.lineSegmentsIntersect(point, extreme2, getVertices()[0], getVertices()[getVertices().length-1]))
 					return true;
 				for (int j1=0; j1<getVertices().length; j1++)
-					if (getVertices()[j1].isOnLineSegment​(point, extreme2))
+					if (getVertices()[j1].isOnLineSegment(point, extreme2))
 						return true;
 			}
 		int count = 0;		
 		for (int j1=0; j1<getVertices().length - 1; j1++)
-			if (IntPoint.lineSegmentsIntersect​(point, extreme, getVertices()[j1], getVertices()[j1+1]))
+			if (IntPoint.lineSegmentsIntersect(point, extreme, getVertices()[j1], getVertices()[j1+1]))
 				count++;
-		if(IntPoint.lineSegmentsIntersect​(point, extreme, getVertices()[0], getVertices()[getVertices().length-1]))
+		if(IntPoint.lineSegmentsIntersect(point, extreme, getVertices()[0], getVertices()[getVertices().length-1]))
 			count++;
 		if (count % 2 != 0)
 			return true;
@@ -139,7 +139,7 @@ public class RoundedPolygon {
 	/**
 	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
-	
+
 	public String getDrawingCommands() {
 		if (getVertices().length < 3) 
 			return this.drawingCommands; 
@@ -154,7 +154,7 @@ public class RoundedPolygon {
 
 
 			if (j2 < getVertices().length - 2)  {
-				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith​(getVertices()[j2+1].minus(getVertices()[j2+2]))){
+				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith(getVertices()[j2+1].minus(getVertices()[j2+2]))){
 					drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+getVertices()[j2+1].getX())/2)  +" "+ ((getVertices()[j2].getY()+getVertices()[j2+1].getY())/2)  +" "+ getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() + "\r\n";				
 					drawingCommands = drawingCommands + "line " + getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() +" "+ ((getVertices()[j2+2].getX()+getVertices()[j2+1].getX())/2)  +" "+ ((getVertices()[j2+2].getY()+getVertices()[j2+1].getY())/2) + "\r\n";				
 					continue;
@@ -204,7 +204,7 @@ public class RoundedPolygon {
 				}
 
 			} else if (j2 == getVertices().length - 2){
-				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith​(getVertices()[j2+1].minus(getVertices()[0]))){
+				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith(getVertices()[j2+1].minus(getVertices()[0]))){
 					drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+getVertices()[j2+1].getX())/2) +" "+ ((getVertices()[j2].getY()+getVertices()[j2+1].getY())/2)  +" "+ getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() + "\r\n";				
 					drawingCommands = drawingCommands + "line " + getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY()  +" "+ ((getVertices()[0].getX()+getVertices()[j2+1].getX())/2) +" "+ ((getVertices()[0].getY()+getVertices()[j2+1].getY())/2) + "\r\n";
 					continue;
@@ -250,7 +250,7 @@ public class RoundedPolygon {
 					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ getRadius() +" "+ startAngle +" "+ angleExtent +"\r\n";
 				}
 			}else {
-				if (getVertices()[j2].minus(getVertices()[next]).isCollinearWith​(getVertices()[next].minus(getVertices()[next+1]))){
+				if (getVertices()[j2].minus(getVertices()[next]).isCollinearWith(getVertices()[next].minus(getVertices()[next+1]))){
 					drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+ getVertices()[next].getX())/2)  +" "+ ((getVertices()[j2].getY()+ getVertices()[next].getY())/2)   +" "+ getVertices()[next].getX() +" "+ getVertices()[next].getY() + "\r\n";				
 					drawingCommands = drawingCommands + "line " + getVertices()[next].getX()  +" "+ getVertices()[next].getY()  +" "+ ((getVertices()[next].getX()+ getVertices()[next+1].getX())/2) +" "+ ((getVertices()[next].getY()+ getVertices()[next+1].getY())/2) + "\r\n";				
 					continue;
@@ -306,7 +306,7 @@ public class RoundedPolygon {
 	 * @inspects | this
 	 * 
 	 */
-	
+
 	public IntPoint[] getVertices() {
 		IntPoint[] result = this.vertices.clone();
 		return result;
@@ -320,21 +320,21 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if any of the elements of the given array is {@code null}.
 	 *    | Arrays.stream(vertices).anyMatch(e -> e == null)
 	 */
-	
+
 	public void setVertices(IntPoint[] vertices) {
 		if (vertices != null && !(Arrays.stream(vertices).anyMatch(e -> e == null)) )
-			if(PointArrays.checkDefinesProperPolygon​(vertices) == null)
+			if(PointArrays.checkDefinesProperPolygon(vertices) == null)
 				this.vertices = vertices;
 			else
 				throw new IllegalArgumentException();
 		else 
-			throw new IllegalArgumentEception(); 
+			throw new IllegalArgumentException(); 
 	}
 
 	/**
 	 * @return the radius of the corners of this rounded polygon.
 	 */
-	
+
 	public int getRadius() {
 		return radius;
 	}
@@ -344,7 +344,7 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException - if the given radius is negative.
 	 * | radius < 0
 	 */
-	
+
 	public void setRadius(int radius) {
 		if (!(radius < 0))
 			for (int j2 = 0; j2 < getVertices().length - 1 ; j2++)
