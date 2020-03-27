@@ -2,6 +2,8 @@ package drawit.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import drawit.IntPoint;
@@ -76,13 +78,23 @@ class RoundedPolygonTest {
 		ver2 = PointArrays.update(ver2, 3, p104);
 	
 		RP2.setVertices(ver2);
-
+		
+		// make a new array that is the copy of ver2 to test copy function
+		IntPoint[] ver3 = PointArrays.copy(ver2); 
+		RoundedPolygon RP3 = new RoundedPolygon(); 
+		
+		// make new rounded polygon with the same vertices as rp2
+		RP3.setVertices(ver3); 
+	
+		// test that their vertices are the same- can we use deep to string to test this?
+		assertEquals(Arrays.deepToString(RP3.getVertices()), Arrays.deepToString(RP2.getVertices())); 
+		
 		RP2.setRadius(10);
 		
 		// test the getter method for radius, did not include in the first submission
 		assertEquals(10, RP2.getRadius()); 
 		
-		// test to insert a remove an index within the array length, will not affect the final string output
+		// test to insert and remove an index within the array length, will not affect the final string output
 		RP2.insert(3, p105); 
 		RP2.remove(3); 
 		

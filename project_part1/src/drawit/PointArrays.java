@@ -55,11 +55,10 @@ public class PointArrays extends Object{
 	 * 		|result.length == points.length
 	 */
 
-	
 	public static IntPoint[] copy (IntPoint[] points) {
 		IntPoint[] result = new IntPoint[points.length]; 
 			for (int i=0; i < points.length; i++) {
-			     result[i] = points[i]; }
+			     result[i] = points[i];  }
 			 
 			return result; 
 			     
