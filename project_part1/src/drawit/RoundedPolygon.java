@@ -49,7 +49,7 @@ public class RoundedPolygon {
 	public void insert(int index, IntPoint point) {
 		if (point == null)
 			throw new IllegalArgumentException("Point to be inserted is null.");
-		if (0 > index || index >= getVertices().length)
+		if (0 > index || index > getVertices().length)
 			throw new IllegalArgumentException("This index doesnot exist.");
 		setVertices(PointArrays.insert(getVertices(), index, point));	
 	}
@@ -66,7 +66,7 @@ public class RoundedPolygon {
 	public void remove (int index) {
 		if (0 > index || index >= getVertices().length)
 			throw new IllegalArgumentException("This index does not exist.");
-		setVertices(PointArrays.remove(getVertices(), index));
+		else setVertices(PointArrays.remove(getVertices(), index));
 	}
 
 
@@ -156,8 +156,9 @@ public class RoundedPolygon {
 			if (j2 < getVertices().length - 2)  {
 				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith(getVertices()[j2+1].minus(getVertices()[j2+2]))){
 					drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+getVertices()[j2+1].getX())/2)  +" "+ ((getVertices()[j2].getY()+getVertices()[j2+1].getY())/2)  +" "+ getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() + "\r\n";				
-					drawingCommands = drawingCommands + "line " + getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() +" "+ ((getVertices()[j2+2].getX()+getVertices()[j2+1].getX())/2)  +" "+ ((getVertices()[j2+2].getY()+getVertices()[j2+1].getY())/2) + "\r\n";				
+					drawingCommands = drawingCommands + "line " + getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() +" "+ ((getVertices()[j2+2].getX()+getVertices()[j2+1].getX())/2)  +" "+ ((getVertices()[j2+2].getY()+getVertices()[j2+1].getY())/2) + "\r\n";
 					continue;
+
 				} else {
 					next = j2 + 1;
 
@@ -326,7 +327,7 @@ public class RoundedPolygon {
 			if(PointArrays.checkDefinesProperPolygon(vertices) == null)
 				this.vertices = vertices;
 			else
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException("Not proper Polygon");
 		else 
 			throw new IllegalArgumentException();
 	}
@@ -342,7 +343,7 @@ public class RoundedPolygon {
 	/**
 	 * Sets this rounded polygon's corner radius to the given value.
 	 * @throws IllegalArgumentException - if the given radius is negative.
-	 * | radius < 0
+	 * 		| radius < 0
 	 */
 
 	public void setRadius(int radius) {

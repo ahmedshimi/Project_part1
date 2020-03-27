@@ -59,7 +59,7 @@ public class PointArrays extends Object{
 		IntPoint[] result = new IntPoint[points.length]; 
 			for (int i=0; i < points.length; i++) {
 			     result[i] = points[i];  }
-			 
+			
 			return result; 
 			     
 		}
@@ -72,7 +72,7 @@ public class PointArrays extends Object{
      * @pre Argument {@code point} is not {@code null}.
      *    	|point != null
 	 * @pre The provided index must be within the IntPoints array provided
-	 * 		|0 <= index && index < points.length
+	 * 		|0 <= index && index <= points.length
 	 * @post The result is a new array whose length is the length of the provided array plus 1.
 	 * 		|result.length == points.length + 1
 	 * @post The result is a new array with provided array existing elements before the 
@@ -91,13 +91,23 @@ public class PointArrays extends Object{
 			return points;
 		}
 		IntPoint[] result = new IntPoint[points.length + 1];
-		for (int i = 0, j = 0; i < points.length; i++, j++) {
-			if (i == index) {
-				result[j] = point;
-				j++;
-			}
-		result[j] = points[i];
+		if(index != points.length) {
+			for (int i = 0, j = 0; i < points.length; i++, j++) {
+				if (i == index) {
+					result[j] = point;
+					j++;
+				}
+				result[j] = points[i];
 		}
+		}
+		
+		if(index == points.length) {
+			for (int i = 0, j = 0; i < points.length; i++, j++) {
+				result[j] = points[i];
+			}
+		result[result.length-1] = point;
+		}
+			
 		return result;
 	}
 	

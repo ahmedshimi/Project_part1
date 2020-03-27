@@ -68,7 +68,7 @@ class RoundedPolygonTest {
 		IntPoint p103 = new IntPoint(200,200);
 		IntPoint p104 = new IntPoint(100,200);
 		
-		IntPoint p105 = new IntPoint(400, 400);
+		IntPoint p105 = new IntPoint(80, 150);
 
 		IntPoint[] ver2 = new IntPoint[4];
 		
@@ -95,15 +95,16 @@ class RoundedPolygonTest {
 		assertEquals(10, RP2.getRadius()); 
 		
 		// test to insert and remove an index within the array length, will not affect the final string output
-		RP2.insert(3, p105);
-		assertEquals(RP2.getVertices()[3].getX(), 400);
-		assertEquals(RP2.getVertices()[3].getY(), 400);
+		RP2.insert(4, p105);
+		assertEquals(RP2.getVertices()[4].getX(), 80);
+		assertEquals(RP2.getVertices()[4].getY(), 150);
 		
-		RP2.remove(3);
+		RP2.remove(4);
 		assertEquals(RP2.getVertices()[3].getX(), 100);
 		assertEquals(RP2.getVertices()[3].getY(), 200);
 		
 		System.out.print(RP2.getDrawingCommands());
+
 		
 		String expectedString = "line 110.0 100.0 190.0 100.0\r\n" + 
 				"arc 190.0 110.0 10 -1.5707963267948966 1.5707963267948966\r\n" + 
