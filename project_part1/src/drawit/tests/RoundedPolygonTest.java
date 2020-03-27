@@ -2,6 +2,8 @@ package drawit.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import drawit.IntPoint;
@@ -66,16 +68,40 @@ class RoundedPolygonTest {
 		IntPoint p103 = new IntPoint(200,200);
 		IntPoint p104 = new IntPoint(100,200);
 		
+		IntPoint p105 = new IntPoint(400, 400); 
+		
+		ver2 = PointArrays.update(ver2, 0, p101);
+		ver2 = PointArrays.update(ver2, 1, p102);
+		ver2 = PointArrays.update(ver2, 2, p103);
+		ver2 = PointArrays.update(ver2, 3, p104);
+
 		IntPoint[] ver2 = new IntPoint[4];
 		
 		ver2 = PointArrays.update(ver2, 0, p101);
 		ver2 = PointArrays.update(ver2, 1, p102);
 		ver2 = PointArrays.update(ver2, 2, p103);
 		ver2 = PointArrays.update(ver2, 3, p104);
-		
+	
 		RP2.setVertices(ver2);
 		
+		// make a new array that is the copy of ver2 to test copy function
+		IntPoint[] ver3 = PointArrays.copy(ver2); 
+		RoundedPolygon RP3 = new RoundedPolygon(); 
+		
+		// make new rounded polygon with the same vertices as rp2
+		RP3.setVertices(ver3); 
+	
+		// test that their vertices are the same- can we use deep to string to test this?
+		assertEquals(Arrays.deepToString(RP3.getVertices()), Arrays.deepToString(RP2.getVertices())); 
+		
 		RP2.setRadius(10);
+		
+		// test the getter method for radius, did not include in the first submission
+		assertEquals(10, RP2.getRadius()); 
+		
+		// test to insert and remove an index within the array length, will not affect the final string output
+		RP2.insert(3, p105); 
+		RP2.remove(3); 
 		
 		System.out.print(RP2.getDrawingCommands());
 		
@@ -87,7 +113,9 @@ class RoundedPolygonTest {
 				"arc 110.0 190.0 10 1.5707963267948966 1.5707963267948966\r\n" + 
 				"line 100.0 190.0 100.0 110.0\r\n" + 
 				"arc 110.0 110.0 10 3.141592653589793 1.5707963267948966\r\n";
-		assertEquals(expectedString, RP2.getDrawingCommands());
+		assertEquals(expectedString, RP2.getDrawingCommands());	
+		
+		
 	}
 
 }
