@@ -141,11 +141,10 @@ public class RoundedPolygon {
 	 */
 
 	public String getDrawingCommands() {
-		if (getVertices().length < 3) 
+		if (getVertices().length < 3) {
 			return this.drawingCommands; 
-
+		}
 		String drawingCommands = this.drawingCommands; 
-
 		for (int j2 = 0; j2 < getVertices().length ; j2++) {
 
 			int next = 0;
