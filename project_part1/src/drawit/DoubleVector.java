@@ -29,6 +29,7 @@ public final class DoubleVector extends Object{
 	 * The angle from positive X to positive Y is Math.PI / 2; 
 	 * the angle from positive X to negative Y is -Math.PI / 2.
 	 */
+	
 	public double asAngle() {
 		double angle = Math.atan2(y,x);
 		return angle;
@@ -40,7 +41,8 @@ public final class DoubleVector extends Object{
 	 * @return the cross product of this vector and the given vector.
 	 */
 	
-	public double crossProduct(DoubleVector other) {
+	
+	public double crossProduct(DouvleVector other) {
 		double result = this.getX() * other.getY() - this.getY() * other.getX();
 		return result;
 	}
@@ -51,12 +53,14 @@ public final class DoubleVector extends Object{
 	 * @return the dot product of this vector and the given vector.
 	 */
 	
-	public double dotProduct(DoubleVector other) {
+	
+	public double dotProduct(DouvleVector other) {
 		double result = this.getX() * other.getX() + this.getY() * other.getY();
 		return result;
 		}
 	
-	public DoubleVector plus​(DoubleVector other) {
+	
+	public DoubleVector plus(DoubleVector other) {
 		DoubleVector result = new DoubleVector(this.getX() + other.getX(),this.getY() + other.getY());
 		return result;
 		}
@@ -67,6 +71,7 @@ public final class DoubleVector extends Object{
 	 * this vector's coordinates by the given scale factor.
 	 */
 	
+	
 	public DoubleVector scale(double d) {
 		DoubleVector result = new DoubleVector(this.getX() * d,this.getY() * d);
 		return result;
@@ -74,6 +79,7 @@ public final class DoubleVector extends Object{
 	/**
 	 * @return Returns this vector's X coordinate.
 	 */
+	
 	public double getX() {
 		return x;
 	}
@@ -81,6 +87,7 @@ public final class DoubleVector extends Object{
 	/**
 	 * @return Returns this vector's Y coordinate.
 	 */
+	
 	public double getY() {
 		return y;
 	}
@@ -88,6 +95,7 @@ public final class DoubleVector extends Object{
 	/**
 	 * @return Returns this vector's size.
 	 */
+	
 	public double getSize() {
 		return size;
 	}

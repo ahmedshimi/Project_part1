@@ -36,6 +36,7 @@ public final class IntVector {
 	 * 		 | result.getX() == this.getX() && result.getY() == this.getY()
 	 * @return a DoubleVector object that represents the same vector represented by this IntVector object.
 	 */
+	
 	public DoubleVector asDoubleVector() {
 		DoubleVector result = new DoubleVector(Double.valueOf(this.getX()),Double.valueOf(this.getY()));
 		return result;}
@@ -48,7 +49,8 @@ public final class IntVector {
 	 * 			the y coordinate of this vector times the x coordinate of the other vector.
      *    			|result == ((long)getX() * other.getY() - (long)getY() * other.getX())
 	 */
-	public long crossProduct​(IntVector other) {
+	
+	public long crossProduct(IntVector other) {
 		long result = (long)getX() * (long)other.getY() - (long)getY() * (long)other.getX();
 		return result;}
 	
@@ -60,7 +62,8 @@ public final class IntVector {
 	 * 		|result == (this.crossProduct​(other) == 0)
 	 * @return whether this vector is collinear with the given vector.
 	 */
-	public boolean isCollinearWith​(IntVector other) {
+	
+	public boolean isCollinearWith (IntVector other) {
 		if (this.crossProduct​(other) == 0)
 			return true;
 		return false;
@@ -75,7 +78,8 @@ public final class IntVector {
      *    			|result == (long)getX() * other.getX() + (long)getY() * other.getY() 
 	 * @return the dot product of this vector and the given vector.
 	 */
-	public long dotProduct​(IntVector other) {
+	
+	public long dotProduct(Intvector other) {
 		long result = (long)getX() * (long)other.getX() + (long)getY() * (long)other.getY();
 		return result;
 		}
@@ -83,6 +87,7 @@ public final class IntVector {
 	/**
 	 * @return Returns this vector's X coordinate.
 	 */
+	
 	public int getX() {
 		return x;
 	}
@@ -90,6 +95,7 @@ public final class IntVector {
 	/**
 	 * @return Returns this vector's Y coordinate.
 	 */
+	
 	public int getY() {
 		return y;
 	}

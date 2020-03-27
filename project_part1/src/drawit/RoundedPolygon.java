@@ -45,10 +45,11 @@ public class RoundedPolygon {
 	 * @param point
 	 */
 
+	
 	public void insert(int index, IntPoint point) {
 		if (point == null)
 			throw new IllegalArgumentException("Point to be inserted is null.");
-		if (0 > index || index > getVertices().length)
+		if (0 > index || index >= getVertices().length)
 			throw new IllegalArgumentException("This index doesnot exist.");
 		setVertices(PointArrays.insert​(getVertices(), index, point));	
 	}
@@ -61,7 +62,8 @@ public class RoundedPolygon {
 	 * @param index
 	 */
 
-	public void remove(int index) {
+	
+	public void remove (int index) {
 		if (0 > index || index >= getVertices().length)
 			throw new IllegalArgumentException("This index does not exist.");
 		setVertices(PointArrays.remove​(getVertices(), index));
@@ -80,7 +82,8 @@ public class RoundedPolygon {
 	 * @param index
 	 * @param point
 	 */
-	public void update​(int index,IntPoint point) {
+	
+	public void update(int index, IntPoint point) {
 		if (point == null)
 			throw new IllegalArgumentException("The new point is null.");
 		if (0 > index || index >= getVertices().length)
@@ -95,6 +98,7 @@ public class RoundedPolygon {
 	 * by this rounded polygon's vertices.
 	 * 
 	 */
+	
 	public boolean contains(IntPoint point) {
 		for (int j=0; j<getVertices().length; j++)
 			if (point.equals​(getVertices()[j]))
@@ -135,6 +139,7 @@ public class RoundedPolygon {
 	/**
 	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
+	
 	public String getDrawingCommands() {
 		if (getVertices().length < 3) 
 			return this.drawingCommands; 
@@ -301,6 +306,7 @@ public class RoundedPolygon {
 	 * @inspects | this
 	 * 
 	 */
+	
 	public IntPoint[] getVertices() {
 		IntPoint[] result = this.vertices.clone();
 		return result;
@@ -314,17 +320,21 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException if any of the elements of the given array is {@code null}.
 	 *    | Arrays.stream(vertices).anyMatch(e -> e == null)
 	 */
+	
 	public void setVertices(IntPoint[] vertices) {
 		if (vertices != null && !(Arrays.stream(vertices).anyMatch(e -> e == null)) )
 			if(PointArrays.checkDefinesProperPolygon​(vertices) == null)
 				this.vertices = vertices;
 			else
 				throw new IllegalArgumentException();
+		else 
+			throw new IllegalArgumentEception(); 
 	}
 
 	/**
 	 * @return the radius of the corners of this rounded polygon.
 	 */
+	
 	public int getRadius() {
 		return radius;
 	}
@@ -334,6 +344,7 @@ public class RoundedPolygon {
 	 * @throws IllegalArgumentException - if the given radius is negative.
 	 * | radius < 0
 	 */
+	
 	public void setRadius(int radius) {
 		if (!(radius < 0))
 			for (int j2 = 0; j2 < getVertices().length - 1 ; j2++)

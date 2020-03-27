@@ -36,7 +36,8 @@ public final class IntPoint extends Object {
 	 * 		 | result.getX() == this.getX() && result.getY() == this.getY()
 	 * @return a DoublePoint object that represents the same 2D point represented by this IntPoint object.
 	 */
-	public DoublePoint asDoublePoint(){
+	
+	public DoublePoint asDoublePoint() {
 		DoublePoint result = new DoublePoint(Double.valueOf(this.getX()),Double.valueOf(this.getY()));
 		return result;}
 	
@@ -49,7 +50,8 @@ public final class IntPoint extends Object {
      *    | result == (this.getX() == other.getX() && this.getY() == other.getY())
 	 * 
 	 */
-	public boolean equals​(IntPoint other){
+	
+	public boolean equals(IntPoint other) {
 		if (this.getX() == other.getX() && this.getY() == other.getY())
 			return true;
 		
@@ -67,6 +69,7 @@ public final class IntPoint extends Object {
 	 * | Long.valueOf(this.getX()) + Long.valueOf(vector.getX()) > Long.valueOf(Integer.MAX_VALUE)
 	 * 	 Long.valueOf(this.getY()) + Long.valueOf(vector.getY()) > Long.valueOf(Integer.MAX_VALUE)
 	 */
+	
 	public IntPoint plus(IntVector vector) throws ArithmeticException {
 	
 		if (Long.valueOf(this.getX()) + Long.valueOf(vector.getX()) > Long.valueOf(Integer.MAX_VALUE)|| Long.valueOf(this.getY()) + Long.valueOf(vector.getY()) > Long.valueOf(Integer.MAX_VALUE)) {
@@ -85,7 +88,8 @@ public final class IntPoint extends Object {
 	 * @return an IntVector object representing the displacement from other to this.
 	 */
 	
-	public IntVector minus (IntPoint other) {
+	
+	public Intvector minus (IntPoint other) {
 		IntVector result = new IntVector(this.getX() - other.getX(),this.getY() - other.getY());
 		return result;}
 	
@@ -103,7 +107,8 @@ public final class IntPoint extends Object {
      *      |)
 	 */
 	
-	public boolean isOnLineSegment​(IntPoint b,IntPoint c) {
+	
+	public boolean isOnLineSegment(IntPoint b, IntPoint c) {
 		if(b.minus(this).isCollinearWith​(b.minus(c)))
 			if(b.minus(this).dotProduct​(b.minus(c))> 0 && b.minus(this).dotProduct​(b.minus(c)) < b.minus(c).dotProduct​(b.minus(c)))
 				return true;
@@ -119,7 +124,8 @@ public final class IntPoint extends Object {
 	 * @pre The line segments have at most one point in common.
 	 * @return true if the open line segment ab intersects the open line segment cd.
 	 */
-	public static boolean lineSegmentsIntersect​(IntPoint a,IntPoint b,IntPoint c,IntPoint d) {
+	
+	public static boolean lineSegmentsIntersect(IntPoint a, IntPoint b, IntPoint c, IntPoint d) {
 		if(Math.signum(a.minus(c).crossProduct​(a.minus(b))) * Math.signum(a.minus(d).crossProduct​(a.minus(b))) < 0)
 			if(Math.signum(c.minus(a).crossProduct​(c.minus(d))) * Math.signum(c.minus(b).crossProduct​(c.minus(d))) < 0)
 				return true;
@@ -130,6 +136,7 @@ public final class IntPoint extends Object {
 	/**
 	 * @return this point's X coordinate.
 	 */
+	
 	public int getX() {
 		return x;
 	}
@@ -137,6 +144,7 @@ public final class IntPoint extends Object {
 	/**
 	 * @return this point's Y coordinate.
 	 */
+	
 	public int getY() {
 		return y;
 	}

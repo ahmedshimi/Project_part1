@@ -18,7 +18,8 @@ public class PointArrays extends Object{
 	 * otherwise, the result is {@code NotNull} a string describing why it does not.
 	 */
 
-	public static String checkDefinesProperPolygon​(IntPoint[] points) {
+	
+	public static String checkDefinesProperPolygon(IntPoint[] points) {
 		if (points.length < 2)
 			return "Not proper- Exactly two points";
 		for (int j=0; j<points.length; j++)
@@ -54,7 +55,8 @@ public class PointArrays extends Object{
 	 * 		|result.length == points.length
 	 */
 
-	public static IntPoint[] copy​(IntPoint[] points) {
+	
+	public static IntPoint[] copy (IntPoint[] points) {
 		IntPoint[] result = new IntPoint[points.length]; 
 			for (int i=0; i < points.length; i++) {
 			     result[i] = points[i]; }
@@ -85,7 +87,7 @@ public class PointArrays extends Object{
 	 * @param points, index, point
 	 */
 		
-	public static IntPoint[] insert​(IntPoint[] points,int index, IntPoint point) {
+	public static IntPoint[] insert(IntPoint[] points, int index, IntPoint point) {
 		if(0 > index || index > points.length) {
 			return points;
 		}
@@ -119,7 +121,7 @@ public class PointArrays extends Object{
 	 * @param points, index
 	 */
 	
-	public static IntPoint[] remove​(IntPoint[] points, int index) {
+	public static IntPoint[] remove(IntPoint[] points, int index) {
 		if(0 > index || index > points.length) {
 			return points;
 		}
@@ -152,7 +154,8 @@ public class PointArrays extends Object{
 	 * | Arrays.equals(result, index + 1, result.length, points, index + 1, points.length)
 	 * @param points, index, value
 	 */
-	public static IntPoint[] update​(IntPoint[] points,int index,IntPoint value) {
+	
+	public static IntPoint[] update(IntPoint [] points, int index, IntPoint value) {
 		IntPoint[] result = new IntPoint[points.length]; 
 		for (int i=0; i < points.length; i++) {
 			if (i == index) {
