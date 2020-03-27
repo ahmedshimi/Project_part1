@@ -323,8 +323,6 @@ public class RoundedPolygon {
 
 	public void setVertices(IntPoint[] vertices) {
 		if (vertices != null || !(Arrays.stream(vertices).anyMatch(e -> e == null)) || getVertices().length<2)
-
-		if (vertices != null && !(Arrays.stream(vertices).anyMatch(e -> e == null)) )
 			if(PointArrays.checkDefinesProperPolygon(vertices) == null)
 				this.vertices = vertices;
 			else

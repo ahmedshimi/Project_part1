@@ -68,12 +68,7 @@ class RoundedPolygonTest {
 		IntPoint p103 = new IntPoint(200,200);
 		IntPoint p104 = new IntPoint(100,200);
 		
-		IntPoint p105 = new IntPoint(400, 400); 
-		
-		ver2 = PointArrays.update(ver2, 0, p101);
-		ver2 = PointArrays.update(ver2, 1, p102);
-		ver2 = PointArrays.update(ver2, 2, p103);
-		ver2 = PointArrays.update(ver2, 3, p104);
+		IntPoint p105 = new IntPoint(400, 400);
 
 		IntPoint[] ver2 = new IntPoint[4];
 		
@@ -89,7 +84,7 @@ class RoundedPolygonTest {
 		RoundedPolygon RP3 = new RoundedPolygon(); 
 		
 		// make new rounded polygon with the same vertices as rp2
-		RP3.setVertices(ver3); 
+		RP3.setVertices(ver3);
 	
 		// test that their vertices are the same- can we use deep to string to test this?
 		assertEquals(Arrays.deepToString(RP3.getVertices()), Arrays.deepToString(RP2.getVertices())); 
@@ -100,8 +95,13 @@ class RoundedPolygonTest {
 		assertEquals(10, RP2.getRadius()); 
 		
 		// test to insert and remove an index within the array length, will not affect the final string output
-		RP2.insert(3, p105); 
-		RP2.remove(3); 
+		RP2.insert(3, p105);
+		assertEquals(RP2.getVertices()[3].getX(), 400);
+		assertEquals(RP2.getVertices()[3].getY(), 400);
+		
+		RP2.remove(3);
+		assertEquals(RP2.getVertices()[3].getX(), 100);
+		assertEquals(RP2.getVertices()[3].getY(), 200);
 		
 		System.out.print(RP2.getDrawingCommands());
 		
