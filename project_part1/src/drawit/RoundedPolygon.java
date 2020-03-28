@@ -308,6 +308,8 @@ public class RoundedPolygon {
 	 * 
 	 *Returns a new array whose elements are the vertices of this rounded polygon.
 	 * @inspects | this
+	 * @throws IllegalArgumentException if the vertices of the polygon do not exist
+	 * 			|this.getVertices() == null
 	 * 
 	 */
 
