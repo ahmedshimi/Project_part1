@@ -93,8 +93,7 @@ public final class IntPoint extends Object {
 		return result;}
 	
 	/**
-	 * @inspects | b
-	 * @inspects | c
+	 * 
 	 * @pre Argument {@code b, c} is not {@code null}.
      *    | b != null && c != null
      * @post

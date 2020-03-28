@@ -95,7 +95,6 @@ public class RoundedPolygon {
 
 	/**
 	 * 
-	 *
 	 * @post The result is true if the given point is contained by the non-rounded polygon defined
 	 * by this rounded polygon's vertices.
 	 * 
