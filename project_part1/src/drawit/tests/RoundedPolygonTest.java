@@ -77,13 +77,44 @@ class RoundedPolygonTest {
 		ver2 = PointArrays.update(ver2, 2, p103);
 		ver2 = PointArrays.update(ver2, 3, p104);
 	
-		RP2.setVertices(ver2);
+		
 	
 		// make a new array that is the copy of ver2 to test copy function
 		IntPoint[] ver3 = PointArrays.copy(ver2); 
 		RoundedPolygon RP3 = new RoundedPolygon(); 
 		
+		assertThrows(IllegalArgumentException.class,() -> {
+			RP2.getVertices();
+	    });
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			RP3.getVertices();
+	    });
+		
+		RoundedPolygon RP99 = new RoundedPolygon();
+
+		assertThrows(IllegalArgumentException.class, () -> {
+	        RP99.setVertices(new IntPoint[]{p101, p102});
+	    });
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+	        RP99.setVertices(new IntPoint[]{p101, p102, p103, null});
+	    });
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+	        RP99.setVertices(new IntPoint[]{});
+	    });
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+	        RP99.setRadius(1);
+	    });
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+	        RP99.getDrawingCommands();
+	    });
+		
 		// make new rounded polygon with the same vertices as rp2
+		RP2.setVertices(ver2);
 		RP3.setVertices(ver3);
 	
 		// test that their vertices are the same- can we use deep to string to test this?

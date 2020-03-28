@@ -305,7 +305,7 @@ public class RoundedPolygon {
 	/**
 	 * 
 	 * 
-	 *Returns a new array whose elements are the vertices of this rounded polygon.
+	 * Returns a new array whose elements are the vertices of this rounded polygon.
 	 * @inspects | this
 	 * @throws IllegalArgumentException if the vertices of the polygon do not exist
 	 * 		|this.vertices == null
@@ -331,13 +331,13 @@ public class RoundedPolygon {
 	 */
 
 	public void setVertices(IntPoint[] vertices) {
-		if (vertices != null || !(Arrays.stream(vertices).anyMatch(e -> e == null)) || getVertices().length<2)
-			if(PointArrays.checkDefinesProperPolygon(vertices) == null)
-				this.vertices = vertices;
-			else
-				throw new IllegalArgumentException("Not proper Polygon");
-		else 
+		if (vertices == null || Arrays.stream(vertices).anyMatch(e -> e == null) || vertices.length<2) {
 			throw new IllegalArgumentException();
+		}else {
+				if(PointArrays.checkDefinesProperPolygon(vertices) == null) {
+					this.vertices = vertices;
+				}else {throw new IllegalArgumentException("Not proper Polygon");}
+		}
 	}
 
 	/**
