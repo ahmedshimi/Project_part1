@@ -1,6 +1,8 @@
 package drawit;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * An instance of this class is a mutable abstraction storing a rounded polygon defined by a set of 
@@ -64,9 +66,9 @@ public class RoundedPolygon {
 
 
 	public void remove (int index) {
-		if (0 > index || index >= getVertices().length)
+		if (0 > index || index >= getVertices().length) {
 			throw new IllegalArgumentException("This index does not exist.");
-		else setVertices(PointArrays.remove(getVertices(), index));
+		}else setVertices(PointArrays.remove(getVertices(), index));
 	}
 
 
@@ -157,7 +159,7 @@ public class RoundedPolygon {
 					drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+getVertices()[j2+1].getX())/2)  +" "+ ((getVertices()[j2].getY()+getVertices()[j2+1].getY())/2)  +" "+ getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() + "\r\n";				
 					drawingCommands = drawingCommands + "line " + getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() +" "+ ((getVertices()[j2+2].getX()+getVertices()[j2+1].getX())/2)  +" "+ ((getVertices()[j2+2].getY()+getVertices()[j2+1].getY())/2) + "\r\n";
 					continue;
-
+					
 				} else {
 					next = j2 + 1;
 
@@ -310,9 +312,8 @@ public class RoundedPolygon {
 	public IntPoint[] getVertices() {
 		if (this.vertices == null) {
 			throw new IllegalArgumentException("Vertices do not exist.");
-		}
-		IntPoint[] result = PointArrays.copy(this.vertices);
-		return result;
+		}else {
+		return PointArrays.copy(this.vertices);}
 	}
 
 	/**
@@ -349,13 +350,19 @@ public class RoundedPolygon {
 	 */
 
 	public void setRadius(int radius) {
-		if (!(radius < 0))
+		if (!(radius < 0)) {
+			ArrayList <Float> sides = new ArrayList<Float>();
 			for (int j2 = 0; j2 < getVertices().length - 1 ; j2++)
-				if (radius <= (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2))
-					if(radius <= (getVertices()[getVertices().length-1].minus(getVertices()[0]).asDoubleVector().getSize() / 2))
-						this.radius = radius;
-					else this.radius = 0;
-				else
-					throw new IllegalArgumentException("Radius is negative");
+				if (radius <= (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2)) {
+					if(radius <= (getVertices()[getVertices().length-1].minus(getVertices()[0]).asDoubleVector().getSize() / 2)) {
+						this.radius = radius;}
+				}else {
+					for (int j = 0; j < getVertices().length - 1 ; j++){
+						sides.add((float) (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2));
+					}
+					sides.add((float) (getVertices()[getVertices().length-1].minus(getVertices()[0]).asDoubleVector().getSize() / 2));
+					this.radius = (int) (Collections.min(sides) / 2);}
+		}else {
+			throw new IllegalArgumentException("Radius is negative");}
 	}
 }
