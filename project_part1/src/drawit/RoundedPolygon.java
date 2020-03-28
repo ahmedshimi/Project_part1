@@ -89,7 +89,7 @@ public class RoundedPolygon {
 		if (point == null)
 			throw new IllegalArgumentException("The new point is null.");
 		if (0 > index || index >= getVertices().length)
-			throw new IllegalArgumentException("This index doesnot exist.");
+			throw new IllegalArgumentException("This index does not exist.");
 		setVertices(PointArrays.update(getVertices(), index, point));
 	}
 
@@ -139,6 +139,8 @@ public class RoundedPolygon {
 
 	/**
 	 * @mutates | this
+	 * @throws IllegalArgumentException if the vertices of the polygon are null.
+	 *    | getVertices() == null
 	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
 
@@ -302,9 +304,9 @@ public class RoundedPolygon {
 
 
 	/**
-	 * Returns a new array whose elements are the vertices of this rounded polygon.
 	 * 
-	 * @creates | result
+	 * 
+	 *Returns a new array whose elements are the vertices of this rounded polygon.
 	 * @inspects | this
 	 * 
 	 */
@@ -338,11 +340,12 @@ public class RoundedPolygon {
 	}
 
 	/**
+	 * @inspects | this
 	 * @return the radius of the corners of this rounded polygon.
 	 */
 
 	public int getRadius() {
-		return radius;
+		return this.radius;
 	}
 
 	/**
