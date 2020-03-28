@@ -59,9 +59,7 @@ public class PointArrays extends Object{
 		IntPoint[] result = new IntPoint[points.length]; 
 			for (int i=0; i < points.length; i++) {
 			     result[i] = points[i];  }
-			
-			return result; 
-			     
+		return result;     
 		}
 
 	/**
