@@ -83,13 +83,10 @@ class RoundedPolygonTest {
 		IntPoint[] ver3 = PointArrays.copy(ver2); 
 		RoundedPolygon RP3 = new RoundedPolygon(); 
 		
-		assertThrows(IllegalArgumentException.class,() -> {
-			RP2.getVertices();
-	    });
+		assertEquals(Arrays.deepToString(new IntPoint[] {}), Arrays.deepToString(RP2.getVertices()));
 		
-		assertThrows(IllegalArgumentException.class, () -> {
-			RP3.getVertices();
-	    });
+		assertEquals(Arrays.deepToString(new IntPoint[] {}), Arrays.deepToString(RP3.getVertices()));
+
 		
 		RoundedPolygon RP99 = new RoundedPolygon();
 
@@ -103,15 +100,7 @@ class RoundedPolygonTest {
 		
 		assertThrows(IllegalArgumentException.class, () -> {
 	        RP99.setVertices(new IntPoint[]{});
-	    });
-		
-		assertThrows(IllegalArgumentException.class, () -> {
-	        RP99.setRadius(1);
-	    });
-		
-		assertThrows(IllegalArgumentException.class, () -> {
-	        RP99.getDrawingCommands();
-	    });
+	    });	
 		
 		// make new rounded polygon with the same vertices as rp2
 		RP2.setVertices(ver2);
@@ -135,9 +124,6 @@ class RoundedPolygonTest {
 
 		assertEquals(RP2.getVertices()[3].getX(), 100);
 		assertEquals(RP2.getVertices()[3].getY(), 200);
-		
-		System.out.print(RP2.getDrawingCommands());
-
 		
 		String expectedString = "line 110.0 100.0 190.0 100.0\r\n" + 
 				"arc 190.0 110.0 10 -1.5707963267948966 1.5707963267948966\r\n" + 

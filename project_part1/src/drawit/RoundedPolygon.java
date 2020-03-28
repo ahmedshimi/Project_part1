@@ -307,14 +307,12 @@ public class RoundedPolygon {
 	 * 
 	 * Returns a new array whose elements are the vertices of this rounded polygon.
 	 * @inspects | this
-	 * @throws IllegalArgumentException if the vertices of the polygon do not exist
-	 * 		|this.vertices == null
 	 * 
 	 */
 
 	public IntPoint[] getVertices() {
 		if (this.vertices == null) {
-			throw new IllegalArgumentException("Vertices do not exist.");
+			return new IntPoint[]{};
 		}else {
 		return PointArrays.copy(this.vertices);}
 	}

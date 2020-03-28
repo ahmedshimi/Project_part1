@@ -20,27 +20,34 @@ public class PointArrays extends Object{
 
 	
 	public static String checkDefinesProperPolygon(IntPoint[] points) {
-		if (points.length == 2)
-			return "Not proper- Exactly two points";
-		for (int j=0; j<points.length; j++)
-			  for (int k=j+1; k <points.length; k++)
-			    if (k!=j && points[j].equals(points[k]))
-			      return "Not proper- Identical vertices";
-		for(int j=0; j<points.length; j++) 
-			for(int k=0; k<=points.length-2; k++) 
-				if(points[j].isOnLineSegment(points[k], points[k+1]))
-					return "Not proper- Vertex on edge";
-		for(int j=0; j<points.length; j++)
-			if(points[j].isOnLineSegment(points[points.length - 1], points[0]))
-				return "Not proper- Vertex on edge";
-		for (int j=0; j<points.length-1; j++)
-			for (int k=0; k<points.length-1; k++)
-				if(IntPoint.lineSegmentsIntersect(points[j], points[j+1], points[k], points[k+1]))
-					return "Not proper- Intersecting edges";
-		for (int k=0; k<points.length-1; k++)
-			if(IntPoint.lineSegmentsIntersect(points[points.length - 1], points[0], points[k], points[k+1]))
-				return "Not proper- Intersecting edges";
-		
+		if (points.length == 2) {
+			return "Not proper- Exactly two points";}
+		for (int j=0; j<points.length; j++) {
+			  for (int k=j+1; k <points.length; k++) {
+			    if (k!=j && points[j].equals(points[k])) {
+			      return "Not proper- Identical vertices";}
+			  }
+		}
+		for(int j=0; j<points.length; j++) {
+			for(int k=0; k<=points.length-2; k++) {
+				if(points[j].isOnLineSegment(points[k], points[k+1])) {
+					return "Not proper- Vertex on edge";}
+			}
+		}
+		for(int j=0; j<points.length; j++) {
+			if(points[j].isOnLineSegment(points[points.length - 1], points[0])) {
+				return "Not proper- Vertex on edge";}
+		}
+		for (int j=0; j<points.length-1; j++) {
+			for (int k=0; k<points.length-1; k++) {
+				if(IntPoint.lineSegmentsIntersect(points[j], points[j+1], points[k], points[k+1])) {
+					return "Not proper- Intersecting edges";}
+			}
+		}
+		for (int k=0; k<points.length-1; k++) {
+			if(IntPoint.lineSegmentsIntersect(points[points.length - 1], points[0], points[k], points[k+1])) {
+				return "Not proper- Intersecting edges";}
+		}
 		return null;
 		}
 
