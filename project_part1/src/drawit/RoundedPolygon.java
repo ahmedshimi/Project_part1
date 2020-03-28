@@ -358,7 +358,7 @@ public class RoundedPolygon {
 						this.radius = radius;}
 				}else {
 					for (int j = 0; j < getVertices().length - 1 ; j++){
-						sides.add((float) (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2));
+						sides.add((float) (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize()));
 					}
 					sides.add((float) (getVertices()[getVertices().length-1].minus(getVertices()[0]).asDoubleVector().getSize() / 2));
 					this.radius = (int) (Collections.min(sides) / 2);}
