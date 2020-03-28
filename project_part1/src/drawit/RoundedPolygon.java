@@ -139,8 +139,7 @@ public class RoundedPolygon {
 
 	/**
 	 * @mutates | this
-	 * @throws IllegalArgumentException if the vertices of the polygon are null.
-	 *    | getVertices() == null
+	 * 
 	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
 
@@ -309,7 +308,7 @@ public class RoundedPolygon {
 	 *Returns a new array whose elements are the vertices of this rounded polygon.
 	 * @inspects | this
 	 * @throws IllegalArgumentException if the vertices of the polygon do not exist
-	 * 			|this.getVertices() == null
+	 * 		|this.vertices == null
 	 * 
 	 */
 
