@@ -35,7 +35,7 @@ public class RoundedPolygon {
 	public RoundedPolygon() {}
 
 	/**
-	 * @inspects | point
+	 * 
 	 * @mutates | this
 	 * 
 	 * @throws IllegalArgumentException if {@code point} is null.
@@ -52,7 +52,7 @@ public class RoundedPolygon {
 		if (point == null)
 			throw new IllegalArgumentException("Point to be inserted is null.");
 		if (0 > index || index > getVertices().length)
-			throw new IllegalArgumentException("This index doesnot exist.");
+			throw new IllegalArgumentException("This index does not exist.");
 		setVertices(PointArrays.insert(getVertices(), index, point));	
 	}
 
@@ -73,7 +73,7 @@ public class RoundedPolygon {
 
 
 	/**
-	 * @inspects | point
+	 * 
 	 * @mutates | this
 	 * 
 	 * @throws IllegalArgumentException if {@code point} is null.
@@ -94,7 +94,6 @@ public class RoundedPolygon {
 	}
 
 	/**
-	 * @inspects | point
 	 * 
 	 * @post The result is true if the given point is contained by the non-rounded polygon defined
 	 * by this rounded polygon's vertices.
@@ -139,6 +138,7 @@ public class RoundedPolygon {
 
 
 	/**
+	 * @mutates | this
 	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
 
@@ -317,6 +317,8 @@ public class RoundedPolygon {
 	}
 
 	/**
+	 * 
+	 * @mutates | this
 	 * Sets the vertices of this rounded polygon to be equal to the elements of the given array.
 	 * 
 	 * @throws IllegalArgumentException if argument {@code vertices} is {@code null}.
@@ -344,6 +346,8 @@ public class RoundedPolygon {
 	}
 
 	/**
+	 * @inspects | radius
+	 * @mutates | this
 	 * Sets this rounded polygon's corner radius to the given value.
 	 * @throws IllegalArgumentException - if the given radius is negative.
 	 * 		| radius < 0

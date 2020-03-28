@@ -42,7 +42,7 @@ public final class IntPoint extends Object {
 		return result;}
 	
 	/**
-	 * @inspects | other
+	 * 
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
 	 * @post
@@ -58,7 +58,7 @@ public final class IntPoint extends Object {
 	}
 	
 	/**
-	 * @inspects | vector
+	 * 
 	 * @pre Argument {@code vector} is not {@code null}.
      *    	|vector != null
 	 * @post
@@ -79,7 +79,7 @@ public final class IntPoint extends Object {
 		}
 	
 	/**
-	 * @inspects | other
+	 * 
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
 	 * @post The resulting IntVector is the original vector minus the input other
@@ -93,8 +93,7 @@ public final class IntPoint extends Object {
 		return result;}
 	
 	/**
-	 * @inspects | b
-	 * @inspects | c
+	 * 
 	 * @pre Argument {@code b, c} is not {@code null}.
      *    | b != null && c != null
      * @post
@@ -116,10 +115,7 @@ public final class IntPoint extends Object {
 	
 	
 	/**
-	 * @inspects | a
-	 * @inspects | b
-	 * @inspects | c
-	 * @inspects | d
+	 * 
 	 * @pre The line segments have at most one point in common.
 	 * @return true if the open line segment ab intersects the open line segment cd.
 	 */

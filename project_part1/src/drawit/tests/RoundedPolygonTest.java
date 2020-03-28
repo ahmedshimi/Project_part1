@@ -78,7 +78,7 @@ class RoundedPolygonTest {
 		ver2 = PointArrays.update(ver2, 3, p104);
 	
 		RP2.setVertices(ver2);
-		
+	
 		// make a new array that is the copy of ver2 to test copy function
 		IntPoint[] ver3 = PointArrays.copy(ver2); 
 		RoundedPolygon RP3 = new RoundedPolygon(); 
@@ -96,6 +96,7 @@ class RoundedPolygonTest {
 		
 		// test to insert and remove an index within the array length, will not affect the final string output
 		RP2.insert(4, p105);
+		
 		assertEquals(RP2.getVertices()[4].getX(), 80);
 		assertEquals(RP2.getVertices()[4].getY(), 150);
 		

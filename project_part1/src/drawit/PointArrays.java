@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class PointArrays extends Object{
 
 	/**
-	 * @inspects | points
+	 * 
 	 * @pre Argument {@code points} is not {@code null}.
      *    | points != null
 	 * @post The result is {@code null} if the given array of points defines a proper polygon; 
@@ -46,7 +46,7 @@ public class PointArrays extends Object{
 
 	/**
 	 * @creates | result
-	 * @inspects | points
+	 * 
 	 * @pre Argument {@code points} is not {@code null}.
      *    	|points != null
 	 * @post The result is a new array with the same contents as the given array.
@@ -64,7 +64,7 @@ public class PointArrays extends Object{
 
 	/**
 	 * @creates | result
-	 * @inspects | points
+	 * 
 	 * @pre Argument {@code points} is not {@code null}.
      *    	|points != null
      * @pre Argument {@code point} is not {@code null}.
@@ -112,7 +112,7 @@ public class PointArrays extends Object{
 	
 	/**
 	 * @creates | result
-	 * @inspects | points
+	 * 
 	 * @pre Argument {@code points} is not {@code null}.
      *    	|points != null
 	 * @pre The provided index must be within the IntPoints array provided
@@ -143,7 +143,7 @@ public class PointArrays extends Object{
 	
 	/**
 	 * @creates | result
-	 * @inspects | points
+	 * 
 	 * @pre Argument {@code points} is not {@code null}.
      *    	|points != null
      * @pre Argument {@code value} is not {@code null}.
