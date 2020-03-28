@@ -51,6 +51,9 @@ class PointArraysTest {
 		ver = PointArrays.update(ver, 3, p5);
 		ver = PointArrays.update(ver, 4, p4);
 		
+		IntPoint[] ver2 = PointArrays.copy(ver); 
+		assertEquals(Arrays.deepToString(ver2), Arrays.deepToString(ver)); 
+		
 		System.out.print(ver[0].getX());
 		System.out.print(ver[0].getY());
 		System.out.print(ver[1].getX());

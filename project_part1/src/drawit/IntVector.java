@@ -42,7 +42,7 @@ public final class IntVector {
 		return result;}
 	
 	/**
-	 * @inspects other
+	 * 
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
 	 * @post The result is the x coordinate of this vector times the y coordinate of the other vector minus 
@@ -55,7 +55,7 @@ public final class IntVector {
 		return result;}
 	
 	/**
-	 * @inspects | other
+	 * 
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
 	 * @post The result is {@code true} if this vector has crossProduct equal zero with the other vector; false otherwise.
@@ -70,7 +70,7 @@ public final class IntVector {
 	}
 
 	/**
-	 * @inspects | other
+	 * 
 	 * @pre Argument {@code other} is not {@code null}.
      *    	|other != null
 	 * @post The result is the x coordinate of this vector times the x coordinate of the other vector plus 
