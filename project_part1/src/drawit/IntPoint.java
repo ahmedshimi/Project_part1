@@ -117,6 +117,9 @@ public final class IntPoint extends Object {
 	/**
 	 * 
 	 * @pre The line segments have at most one point in common.
+	 * Either the minimum or the maximum of one line can be within the minimum and maximum of the other line, but not both
+	 * 		|(min(a.getX(), b.getX()) <= max(c.getX(), d.getX()) && max(a.getX(), b.getX()) <= max(c.getX(), d.getX())) || ((min(c.getX(), d.getX()) <= max(a.getX(), b.getX()) && max(c.getX(), d.getX()) <= max(a.getX(), b.getX()))
+	 * 
 	 * @return true if the open line segment ab intersects the open line segment cd.
 	 */
 	
