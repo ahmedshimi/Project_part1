@@ -1,8 +1,6 @@
 package drawit;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * An instance of this class is a mutable abstraction storing a rounded polygon defined by a set of 
