@@ -116,9 +116,8 @@ public final class IntPoint extends Object {
 	
 	/**
 	 * 
-	 * @pre The line segments have at most one point in common.
-	 * Either the minimum or the maximum of one line can be within the minimum and maximum of the other line, but not both
-	 * 		|(Math.min(a.getX(), b.getX()) <= Math.max(c.getX(), d.getX()) && Math.max(a.getX(), b.getX()) <= Math.max(c.getX(), d.getX())) || ((Math.min(c.getX(), d.getX()) <= Math.max(a.getX(), b.getX()) && Math.max(c.getX(), d.getX()) <= Math.max(a.getX(), b.getX()))
+	 * @pre The line segments have at most one point in common. Assumes only straight lines exist between open line segments. If the lines are not collinear, then the precondition always holds
+	 * 		|(a.minus(b).isCollinearwith(c.minus(d)) && (Math.max(a.getX(), b.getX()) <= Math.min(c.getX(), d.getX()))) || (a.minus(b).isCollinearwith(c.minus(d)) && Math.max(c.getX(), d.getX()) <= min(a.getX(), b.getX()))
 	 * 
 	 * @return true if the open line segment ab intersects the open line segment cd.
 	 */
@@ -129,7 +128,6 @@ public final class IntPoint extends Object {
 				return true;
 		return false;
 	}
-	
 	
 	/**
 	 * @return this point's X coordinate.
