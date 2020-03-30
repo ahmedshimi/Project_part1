@@ -115,13 +115,14 @@ public final class IntPoint extends Object {
 	
 	
 
+
 	/**
 	 * 
 	 * @pre The line segments have at most one point in common. Assumes only straight lines exist between open line segments. 
-	 * 		If the lines are not collinear, then the precondition always holds
-	 * 		|((b.minus(a).isCollinearWith(d.minus(c))) && ((Math.max(a.getX(), b.getX()) >= Math.min(c.getX(), d.getX()))) ||
-	 * 		|((b.minus(a).isCollinearWith(d.minus(c))) && ((Math.max(c.getX(), d.getX()) >= Math.min(a.getX(), b.getX()))))) ||
-	 * 		| !(b.minus(a).isCollinearWith(d.minus(c)))
+	 * 		If the lines are not collinear, then the precondition always holds. if they are co linear, they must satisfy the conditions
+	 * 		|((b.minus(a).isCollinearWith(d.minus(c))) && ((Math.max(a.getX(), b.getX()) <= Math.min(c.getX(), d.getX())))) ||
+	 * 		|((b.minus(a).isCollinearWith(d.minus(c))) && ((Math.max(c.getX(), d.getX()) <= Math.min(a.getX(), b.getX())))) ||
+	 * 		|!(b.minus(a).isCollinearWith(d.minus(c)))
 	 * 		
 	 * 
 	 * @return true if the open line segment ab intersects the open line segment cd.
