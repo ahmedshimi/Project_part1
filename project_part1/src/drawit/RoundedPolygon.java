@@ -151,7 +151,7 @@ public class RoundedPolygon {
 			int next = 0;
 			DoubleVector BCU;
 			DoubleVector BAU;
-			int radius;
+			double radius;
 
 
 			if (j2 < getVertices().length - 2)  {
@@ -170,7 +170,7 @@ public class RoundedPolygon {
 				if (getRadius() < (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2)) {
 					radius = getRadius();
 				}else {
-					radius = (int) (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2);
+					radius = getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2;
 				}
 				
 				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith(getVertices()[j2+1].minus(getVertices()[j2+2]))){
@@ -210,7 +210,7 @@ public class RoundedPolygon {
 
 					// embed the variables into strings to append
 					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + radius * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + radius * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
-					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ radius +" "+ startAngle +" "+ angleExtent +"\r\n";	
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ (int)radius +" "+ startAngle +" "+ angleExtent +"\r\n";	
 				}
 
 			} else if (j2 == getVertices().length - 2){
@@ -228,8 +228,9 @@ public class RoundedPolygon {
 				if (getRadius() < (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2)) {
 					radius = getRadius();
 				}else {
-					radius = (int) (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2);
+					radius =  getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2;
 				}
+				
 				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith(getVertices()[j2+1].minus(getVertices()[0]))){
 					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + radius * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + radius * Math.sin(BAU.asAngle()))+" "+((getVertices()[j2].getX()+getVertices()[j2+1].getX())/2) +" "+ ((getVertices()[j2].getY()+getVertices()[j2+1].getY())/2) + "\r\n";
 					drawingCommands = drawingCommands + "line " + ((getVertices()[j2].getX()+getVertices()[j2+1].getX())/2) +" "+ ((getVertices()[j2].getY()+getVertices()[j2+1].getY())/2)  +" "+ getVertices()[j2+1].getX() +" "+ getVertices()[j2+1].getY() + "\r\n";				
@@ -265,7 +266,7 @@ public class RoundedPolygon {
 
 					// embed the variables into strings to append
 					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + radius * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + radius * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
-					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ radius +" "+ startAngle +" "+ angleExtent +"\r\n";
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ (int)radius +" "+ startAngle +" "+ angleExtent +"\r\n";
 				}
 			}else {
 				
@@ -280,7 +281,7 @@ public class RoundedPolygon {
 				if (getRadius() < (getVertices()[j2].minus(getVertices()[next]).asDoubleVector().getSize() / 2)) {
 					radius = getRadius();
 				}else {
-					radius = (int) (getVertices()[j2].minus(getVertices()[next]).asDoubleVector().getSize() / 2);
+					radius = getVertices()[j2].minus(getVertices()[next]).asDoubleVector().getSize() / 2;
 				}
 				
 				if (getVertices()[j2].minus(getVertices()[next]).isCollinearWith(getVertices()[next].minus(getVertices()[next+1]))){
@@ -317,7 +318,7 @@ public class RoundedPolygon {
 
 					// embed the variables into strings to append
 					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + radius * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + radius * Math.sin(BAU.asAngle())) +" "+ v2.getX() +" "+ v2.getY() + "\r\n";				
-					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ radius +" "+ startAngle +" "+ angleExtent +"\r\n";	
+					drawingCommands = drawingCommands + "arc " + c.getX() +" "+ c.getY() +" "+ (int)radius +" "+ startAngle +" "+ angleExtent +"\r\n";	
 				}
 			}
 		}
