@@ -133,6 +133,7 @@ class RoundedPolygonTest {
 				"arc 110.0 190.0 10 1.5707963267948966 1.5707963267948966\r\n" + 
 				"line 100.0 190.0 100.0 110.0\r\n" + 
 				"arc 110.0 110.0 10 3.141592653589793 1.5707963267948966\r\n";
+		
 		assertEquals(expectedString, RP2.getDrawingCommands());	
 	}
 
