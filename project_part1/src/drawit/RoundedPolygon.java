@@ -167,11 +167,12 @@ public class RoundedPolygon {
 				// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
 				DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY());
 				
-				if (getRadius() < (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2)) {
-					radius = getRadius();
+				if ((getRadius() < (bau.asDoubleVector().getSize() / 2))
+						&& (getRadius() < (bcu.asDoubleVector().getSize() / 2))) {
+							radius = getRadius();
 				}else {
-					radius = getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2;
-				}
+						radius = Math.min(bau.asDoubleVector().getSize() / 2, bcu.asDoubleVector().getSize() / 2);
+					}
 				
 				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith(getVertices()[j2+1].minus(getVertices()[j2+2]))){
 					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + radius * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + radius * Math.sin(BAU.asAngle())) +" "+((getVertices()[j2].getX()+getVertices()[j2+1].getX())/2) +" "+ ((getVertices()[j2].getY()+getVertices()[j2+1].getY())/2) + "\r\n";
@@ -225,11 +226,13 @@ public class RoundedPolygon {
 				// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
 				DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY());
 				
-				if (getRadius() < (getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2)) {
-					radius = getRadius();
+				
+				if ((getRadius() < (bau.asDoubleVector().getSize() / 2))
+						&& (getRadius() < (bcu.asDoubleVector().getSize() / 2))) {
+							radius = getRadius();
 				}else {
-					radius =  getVertices()[j2].minus(getVertices()[j2+1]).asDoubleVector().getSize() / 2;
-				}
+						radius = Math.min(bau.asDoubleVector().getSize() / 2, bcu.asDoubleVector().getSize() / 2);
+					}
 				
 				if (getVertices()[j2].minus(getVertices()[j2+1]).isCollinearWith(getVertices()[j2+1].minus(getVertices()[0]))){
 					drawingCommands = drawingCommands + "line " + (getVertices()[j2].getX() + radius * Math.cos(BAU.asAngle()))  +" "+ (getVertices()[j2].getY() + radius * Math.sin(BAU.asAngle()))+" "+((getVertices()[j2].getX()+getVertices()[j2+1].getX())/2) +" "+ ((getVertices()[j2].getY()+getVertices()[j2+1].getY())/2) + "\r\n";
@@ -278,11 +281,12 @@ public class RoundedPolygon {
 				// create vector bsu from demo - unit vector pointing to bisector, which is equal to bau + bcu
 				DoubleVector BSU = new DoubleVector (BCU.getX() + BAU.getX(),BCU.getY() + BAU.getY()); 
 				
-				if (getRadius() < (getVertices()[j2].minus(getVertices()[next]).asDoubleVector().getSize() / 2)) {
-					radius = getRadius();
+				if ((getRadius() < (bau.asDoubleVector().getSize() / 2))
+						&& (getRadius() < (bcu.asDoubleVector().getSize() / 2))) {
+							radius = getRadius();
 				}else {
-					radius = getVertices()[j2].minus(getVertices()[next]).asDoubleVector().getSize() / 2;
-				}
+						radius = Math.min(bau.asDoubleVector().getSize() / 2, bcu.asDoubleVector().getSize() / 2);
+					}
 				
 				if (getVertices()[j2].minus(getVertices()[next]).isCollinearWith(getVertices()[next].minus(getVertices()[next+1]))){
 					drawingCommands = drawingCommands + "line " + getVertices()[j2].getX() +" "+ getVertices()[j2].getY() +" "+((getVertices()[j2].getX()+ getVertices()[next].getX())/2)  +" "+ ((getVertices()[j2].getY()+ getVertices()[next].getY())/2) + "\r\n";
