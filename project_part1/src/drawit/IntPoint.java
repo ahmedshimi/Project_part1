@@ -122,7 +122,7 @@ public final class IntPoint extends Object {
 	 * 		|(b.minus(a).isCollinearWith(d.minus(c)) ||
 	 * 		|!(b.minus(a).isCollinearWith(d.minus(c)) && (a.isOnLineSegment(c,d) || b.isOnLineSegment(c,d) || c.isOnLineSegment(a,b) ||
 	 * 		| d.isOnLineSegment(a,b))))
-	 * 
+	 *
 	 * @return true if the open line segment ab intersects the open line segment cd.
 	 */
 	

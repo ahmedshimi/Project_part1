@@ -17,19 +17,19 @@ class RoundedPolygonTest {
 
 		RoundedPolygon RP1 = new RoundedPolygon();
 		
-		IntPoint p1 = new IntPoint(0,0);
-		IntPoint p2 = new IntPoint(3,0);
-		IntPoint p3 = new IntPoint(3,3);
+		IntPoint p1 = new IntPoint(-6,0);
+		IntPoint p2 = new IntPoint(-2,0);
+		IntPoint p3 = new IntPoint(3,0);
 		IntPoint p4 = new IntPoint(0,3);
-		IntPoint p5 = new IntPoint(1,4);
+		IntPoint p5 = new IntPoint(-4,3);
 
 		IntPoint[] ver = new IntPoint[5];
 		
 		ver = PointArrays.update(ver, 0, p1);
 		ver = PointArrays.update(ver, 1, p2);
 		ver = PointArrays.update(ver, 2, p3);
-		ver = PointArrays.update(ver, 3, p5);
-		ver = PointArrays.update(ver, 4, p4);
+		ver = PointArrays.update(ver, 3, p4);
+		ver = PointArrays.update(ver, 4, p5);
 		
 		RP1.setVertices(ver);
 		
@@ -47,16 +47,15 @@ class RoundedPolygonTest {
 
 		IntPoint p16 = new IntPoint(-169,4);
 
-		
 		assertEquals(true, RP1.contains(p6));
-		assertEquals(true, RP1.contains(p7));
+		assertEquals(false, RP1.contains(p7));
 		assertEquals(true, RP1.contains(p8));
 		assertEquals(true, RP1.contains(p9));
-		assertEquals(false, RP1.contains(p10));
+		assertEquals(true, RP1.contains(p10));
 		assertEquals(false, RP1.contains(p11));
-		assertEquals(false, RP1.contains(p12));
+		assertEquals(true, RP1.contains(p12));
 		assertEquals(false, RP1.contains(p13));
-		assertEquals(true, RP1.contains(p14));
+		assertEquals(false, RP1.contains(p14));
 		assertEquals(false, RP1.contains(p15));
 		assertEquals(false, RP1.contains(p16));
 
@@ -77,7 +76,6 @@ class RoundedPolygonTest {
 		ver2 = PointArrays.update(ver2, 2, p103);
 		ver2 = PointArrays.update(ver2, 3, p104);
 	
-		
 	
 		// make a new array that is the copy of ver2 to test copy function
 		IntPoint[] ver3 = PointArrays.copy(ver2); 
