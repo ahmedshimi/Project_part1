@@ -1,6 +1,5 @@
 package drawit;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -142,7 +141,7 @@ public class RoundedPolygon {
 	 * @mutates | this
 	 * 
 	 * @throws IllegalArgumentException if the radius to be adjusted is more than half of any edge in the polygon.
-	 *    | Arrays.stream(getSides()).anyMatch(e -> (e/2) < getRadius())
+	 *    | Arrays.stream(getSides()).anyMatch(e -> (e/ < getRadius())
 	 * 
 	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
@@ -151,15 +150,17 @@ public class RoundedPolygon {
 		if (getVertices().length < 3) {
 			return this.drawingCommands; 
 		}
-		String drawingCommands = this.drawingCommands; 
-		ArrayList <Float> sides = new ArrayList<Float>();
+		String drawingCommands = this.drawingCommands;
+		Float[] sides2 = new Float[getVertices().length];
+		
 		for (int j = 0; j < getVertices().length - 1 ; j++){
-			sides.add((float) (getVertices()[j].minus(getVertices()[j+1]).asDoubleVector().getSize()) / 2);
+			sides2[j] = ((float) (getVertices()[j].minus(getVertices()[j+1]).asDoubleVector().getSize()) / 2);
 		}
-		sides.add((float) (getVertices()[getVertices().length-1].minus(getVertices()[0]).asDoubleVector().getSize() / 2));
+		sides2[getVertices().length - 1] = ((float) (getVertices()[getVertices().length-1].minus(getVertices()[0]).asDoubleVector().getSize() / 2));
+		setSides(sides2);
 		
 		for (int j = 0; j < getVertices().length ; j++) {
-			if (getRadius() > sides.get(j)) {
+			if (getRadius() > getSides()[j]) {
 				throw new IllegalArgumentException("radius can not be more than half of adjacent edges");
 			}}
 		
