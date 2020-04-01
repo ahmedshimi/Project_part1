@@ -30,6 +30,8 @@ public class RoundedPolygon {
 	private IntPoint[] vertices;
 
 	private int radius;
+	
+	private Float[] sides; 
 
 	public RoundedPolygon() {}
 
@@ -140,14 +142,14 @@ public class RoundedPolygon {
 	 * @mutates | this
 	 * 
 	 * @throws IllegalArgumentException if the radius to be adjusted is more than half of any edge in the polygon.
-	 *    | Arrays.stream(sides).anyMatch(e -> (e/2) < getRadius())
+	 *    | Arrays.stream(getSides()).anyMatch(e -> (e/2) < getRadius())
 	 * 
 	 * @post The result is a string representation of a set of drawing commands for drawing this rounded polygon.
 	 */
 
 	public String getDrawingCommands() {
 		if (getVertices().length < 3) {
-			return this.drawingCommands;
+			return this.drawingCommands; 
 		}
 		String drawingCommands = this.drawingCommands; 
 		ArrayList <Float> sides = new ArrayList<Float>();
@@ -381,5 +383,13 @@ public class RoundedPolygon {
 			this.radius = radius;
 		}else {
 			throw new IllegalArgumentException("Radius is negative");}
+	}
+
+	public Float[] getSides() {
+		return sides;
+	}
+
+	public void setSides(Float[] sides) {
+		this.sides = sides;
 	}
 }
