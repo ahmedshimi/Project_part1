@@ -136,7 +136,6 @@ public class RoundedPolygon {
 		return false;
 	}
 
-
 	/**
 	 * @mutates | this
 	 * 
